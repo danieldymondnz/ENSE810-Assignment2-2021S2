@@ -1,13 +1,14 @@
-window_sizes 1920 1027 450 1465 875 104
+window_sizes 1920 1027 450 1465 877 104
 
 diagrams
   active  classdiagram_ref 128002 // MonitoringSystem
-    1453 840 100 A3-Landscape 97 0
+    1453 840 90 A3-Landscape 93 3
 end
 show_stereotypes
-selected deploymentview_ref 128002 // MonitoringSystemDeployView
+selected operation_ref 137730 // terminate
 open
-  classview_ref 128002 // MonitoringSystem
+  class_ref 128386 // WiFiAgent
+  class_ref 128514 // DBAgent
   deploymentview_ref 128002 // MonitoringSystemDeployView
 end
 end
