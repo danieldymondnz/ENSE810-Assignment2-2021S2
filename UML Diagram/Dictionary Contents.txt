@@ -1,0 +1,12 @@
+Dictionary {
+    "timestamp": Time
+    "temperature": float
+    "relHumidity": float
+    "acceleration": float
+    "speed": float
+    "tempHigh": boolean
+    "tempLow": boolean
+    "rHHigh": boolean
+    "rHLow": boolean
+    "speedHigh": boolean
+}

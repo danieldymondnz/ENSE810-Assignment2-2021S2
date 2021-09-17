@@ -1,0 +1,761 @@
+format 224
+"MonitoringSystem" // MonitoringSystem
+  revision 1
+  modified_by 2 "danie"
+  // class settings
+  
+  classdiagramsettings member_max_width 0 end
+  
+  classcompositediagramsettings end
+  
+  usecasediagramsettings end
+  
+  sequencediagramsettings end
+  
+  collaborationdiagramsettings end
+  
+  objectdiagramsettings end
+  
+  objectcompositediagramsettings end
+  
+  componentdiagramsettings
+   end
+  
+  deploymentdiagramsettings
+   end
+  
+  statediagramsettings
+   end
+  
+  activitydiagramsettings
+   end
+  
+  classview 128002 "MonitoringSystem"
+    
+    classdiagramsettings member_max_width 0 end
+    
+    classcompositediagramsettings end
+    
+    collaborationdiagramsettings end
+    
+    objectdiagramsettings end
+    
+    objectcompositediagramsettings end
+    
+    sequencediagramsettings end
+    
+    statediagramsettings
+     end
+    
+    
+    activitydiagramsettings
+     end
+    associated_deployment_view deploymentview_ref 128002 // MonitoringSystemDeployView
+    classdiagram 128002 "MonitoringSystem"
+      classdiagramsettings show_members_full_definition yes show_members_visibility yes show_members_stereotype yes show_members_multiplicity yes show_members_initialization yes show_attribute_modifiers yes member_max_width 0 end
+      size A3-Landscape
+    end
+
+    class 128002 "MatrixDriver"
+      visibility package 
+      cpp_decl ""
+      java_decl ""
+      php_decl ""
+      python_2_2 python_decl "class ${name}${inherit}:
+${docstring}${members}
+"
+      idl_decl ""
+      explicit_switch_type ""
+      mysql_decl ""
+      
+      attribute 128002 "_senseHAT"
+	protected explicit_type "SenseHat"
+	multiplicity "1"
+	cpp_decl ""
+	java_decl ""
+	php_decl ""
+	python_decl "${comment}${self}${name} = ${value}
+"
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+      end
+
+      operation 128002 "__init__"
+	public explicit_return_type ""
+	nparams 2
+	  param inout name "self" type class_ref 128002 // MatrixDriver
+	multiplicity "1"
+	  param in name "senseHAT" explicit_type "SenseHat"
+	multiplicity "1"
+	
+	
+	
+	python_def "${@}${static}${abstract}def ${name}${(}${p0}${v0}, ${p1}${v1}${)}:
+${docstring}${body}
+"
+	
+      end
+
+      operation 128130 "run"
+	public explicit_return_type ""
+	nparams 1
+	  param in name "self" type class_ref 128002 // MatrixDriver
+	multiplicity "1"
+	
+	
+	
+	python_def "${@}${static}${abstract}def ${name}${(}${p0}${v0}${)}:
+${docstring}${body}
+"
+	
+      end
+
+      operation 128258 "terminate"
+	public explicit_return_type ""
+	nparams 1
+	  param in name "self" type class_ref 128002 // MatrixDriver
+	multiplicity "1"
+	
+	
+	
+	python_def "${@}${static}${abstract}def ${name}${(}${p0}${v0}${)}:
+${docstring}${body}
+"
+	
+      end
+
+      operation 128386 "updateData"
+	public explicit_return_type ""
+	nparams 1
+	  param in name "newData" explicit_type "Dictionary"
+	multiplicity "1"
+	
+	
+	
+	python_def "${@}${static}${abstract}def ${name}${(}${p0}${v0}${)}:
+${docstring}${body}
+"
+	
+      end
+
+      attribute 128386 "_currentData"
+	protected explicit_type "Dictionary"
+	multiplicity "1"
+	cpp_decl ""
+	java_decl ""
+	php_decl ""
+	python_decl "${comment}${self}${name} = ${value}
+"
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+      end
+
+      operation 128514 "_displayGraph"
+	protected explicit_return_type ""
+	nparams 4
+	  param inout name "self" type class_ref 128002 // MatrixDriver
+	multiplicity "1"
+	  param in name "senseHAT" explicit_type "SenseHat"
+	multiplicity "1"
+	  param in name "temp" explicit_type "float"
+	multiplicity "1"
+	  param in name "relHumidity" explicit_type "float"
+	multiplicity "1"
+	
+	
+	
+	python_def "${@}${static}${abstract}def ${name}${(}${p0}${v0}, ${p1}${v1}, ${p2}${v2}, ${p3}${v3}${)}:
+${docstring}${body}
+"
+	
+      end
+
+      operation 128642 "_displayTempWarning"
+	protected explicit_return_type ""
+	nparams 3
+	  param inout name "self" type class_ref 128002 // MatrixDriver
+	multiplicity "1"
+	  param in name "senseHAT" explicit_type "SenseHat"
+	multiplicity "1"
+	  param in name "temp" explicit_type "float"
+	multiplicity "1"
+	
+	
+	
+	python_def "${@}${static}${abstract}def ${name}${(}${p0}${v0}, ${p1}${v1}, ${p2}${v2}${)}:
+${docstring}${body}
+"
+	
+      end
+
+      operation 128770 "_displayRHWarning"
+	protected explicit_return_type ""
+	nparams 3
+	  param inout name "self" type class_ref 128002 // MatrixDriver
+	multiplicity "1"
+	  param in name "senseHAT" explicit_type "SenseHat"
+	multiplicity "1"
+	  param in name "relHumidity" explicit_type "float"
+	multiplicity "1"
+	
+	
+	
+	python_def "${@}${static}${abstract}def ${name}${(}${p0}${v0}, ${p1}${v1}, ${p2}${v2}${)}:
+${docstring}${body}
+"
+	
+      end
+
+      operation 128898 "_displaySpeedWarning"
+	protected explicit_return_type ""
+	nparams 3
+	  param inout name "self" type class_ref 128002 // MatrixDriver
+	multiplicity "1"
+	  param in name "senseHAT" explicit_type "SenseHat"
+	multiplicity "1"
+	  param in name "speed" explicit_type "float"
+	multiplicity "1"
+	
+	
+	
+	python_def "${@}${static}${abstract}def ${name}${(}${p0}${v0}, ${p1}${v1}, ${p2}${v2}${)}:
+${docstring}${body}
+"
+	
+      end
+
+      operation 129026 "_displayAccelerationWarning"
+	protected explicit_return_type ""
+	nparams 3
+	  param inout name "self" type class_ref 128002 // MatrixDriver
+	multiplicity "1"
+	  param in name "senseHAT" explicit_type "SenseHat"
+	multiplicity "1"
+	  param in name "acceleration" explicit_type "float"
+	multiplicity "1"
+	
+	
+	
+	python_def "${@}${static}${abstract}def ${name}${(}${p0}${v0}, ${p1}${v1}, ${p2}${v2}${)}:
+${docstring}${body}
+"
+	
+      end
+
+      classrelation 128386 // <association>
+	relation_ref 128130 // <association>
+      end
+    end
+
+    class 128130 "Controller"
+      visibility package 
+      cpp_decl ""
+      java_decl ""
+      php_decl ""
+      python_2_2 python_decl "class ${name}${inherit}:
+${docstring}${members}
+"
+      idl_decl ""
+      explicit_switch_type ""
+      mysql_decl ""
+      
+      attribute 128514 "_senseHAT"
+	protected explicit_type "SenseHat"
+	multiplicity "1"
+	cpp_decl ""
+	java_decl ""
+	php_decl ""
+	python_decl "${comment}${self}${name} = ${value}
+"
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+      end
+
+      attribute 130434 "_matrixDriver"
+	protected type class_ref 128002 // MatrixDriver
+	multiplicity "1"
+	cpp_decl ""
+	java_decl ""
+	php_decl ""
+	python_decl "${comment}${self}${name} = ${value}
+"
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+      end
+
+      attribute 130306 "_dataCollection"
+	protected type class_ref 128258 // DataCollection
+	multiplicity "1"
+	cpp_decl ""
+	java_decl ""
+	php_decl ""
+	python_decl "${comment}${self}${name} = ${value}
+"
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+      end
+
+      attribute 128770 "dataQueue"
+	public explicit_type "Queue<Dictionary>"
+	multiplicity "1"
+	cpp_decl ""
+	java_decl ""
+	php_decl ""
+	python_decl "${comment}${self}${name} = ${value}
+"
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+      end
+
+      classrelation 128130 // <association>
+	relation_ref 128002 // <association>
+      end
+
+      classrelation 128258 // <association>
+	relation 128130 ----
+	  a role_name "" private
+	    python "${comment}${self}${name} = ${value}
+"
+	    classrelation_ref 128258 // <association>
+	  b role_name "" private
+	    python "${comment}${self}${name} = ${value}
+"
+	    classrelation_ref 128386 // <association>
+      end
+
+      classrelation 128514 // <association>
+	relation 128258 ----
+	  a role_name "" private
+	    python "${comment}${self}${name} = ${value}
+"
+	    classrelation_ref 128514 // <association>
+	  b role_name "" private
+	    python "${comment}${self}${name} = ${value}
+"
+	    classrelation_ref 128642 // <association>
+      end
+
+      classrelation 128770 // <association>
+	relation 128386 ----
+	  a role_name "" private
+	    python "${comment}${self}${name} = ${value}
+"
+	    classrelation_ref 128770 // <association>
+	  b role_name "" private
+	    python "${comment}${self}${name} = ${value}
+"
+	    classrelation_ref 128898 // <association>
+      end
+
+      operation 130178 "__init__"
+	public explicit_return_type ""
+	nparams 1
+	  param inout name "self" type class_ref 128130 // Controller
+	multiplicity "1"
+	
+	
+	
+	python_def "${@}${static}${abstract}def ${name}${(}${p0}${v0}${)}:
+${docstring}${body}
+"
+	
+      end
+
+      operation 130306 "run"
+	public explicit_return_type ""
+	nparams 1
+	  param inout name "self" type class_ref 128130 // Controller
+	multiplicity "1"
+	
+	
+	
+	python_def "${@}${static}${abstract}def ${name}${(}${p0}${v0}${)}:
+${docstring}${body}
+"
+	
+      end
+
+      operation 130434 "terminate"
+	public explicit_return_type ""
+	nparams 1
+	  param inout name "self" type class_ref 128130 // Controller
+	multiplicity "1"
+	
+	
+	
+	python_def "${@}${static}${abstract}def ${name}${(}${p0}${v0}${)}:
+${docstring}${body}
+"
+	
+      end
+
+      attribute 130562 "dbDataQueue"
+	public explicit_type "Queue<Dictionary>"
+	multiplicity "1"
+	cpp_decl ""
+	java_decl ""
+	php_decl ""
+	python_decl "${comment}${self}${name} = ${value}
+"
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+      end
+
+      operation 130562 "_flushQueue"
+	protected explicit_return_type ""
+	nparams 1
+	  param inout name "self" type class_ref 128130 // Controller
+	multiplicity "1"
+	
+	
+	
+	python_def "${@}${static}${abstract}def ${name}${(}${p0}${v0}${)}:
+${docstring}${body}
+"
+	
+      end
+    end
+
+    class 128258 "DataCollection"
+      visibility package 
+      cpp_decl ""
+      java_decl ""
+      php_decl ""
+      python_2_2 python_decl "class ${name}${inherit}:
+${docstring}${members}
+"
+      idl_decl ""
+      explicit_switch_type ""
+      mysql_decl ""
+      
+      attribute 128642 "_senseHAT"
+	private explicit_type "SenseHAT"
+	multiplicity "1"
+	cpp_decl ""
+	java_decl ""
+	php_decl ""
+	python_decl "${comment}${self}${name} = ${value}
+"
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+      end
+
+      attribute 128898 "__dataQueue"
+	private explicit_type "Queue<Dictionary>"
+	multiplicity "1"
+	cpp_decl ""
+	java_decl ""
+	php_decl ""
+	python_decl "${comment}${self}${name} = ${value}
+"
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+      end
+
+      attribute 129154 "__maxTemp"
+	class_attribute private explicit_type "float"
+	multiplicity "1"
+	cpp_decl ""
+	java_decl ""
+	php_decl ""
+	python_decl "${comment}${self}${name} = ${value}
+"
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+      end
+
+      attribute 129282 "__minTemp"
+	class_attribute private explicit_type "float"
+	multiplicity "1"
+	cpp_decl ""
+	java_decl ""
+	php_decl ""
+	python_decl "${comment}${self}${name} = ${value}
+"
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+      end
+
+      attribute 129410 "__maxRH"
+	class_attribute private explicit_type "float"
+	multiplicity "1"
+	cpp_decl ""
+	java_decl ""
+	php_decl ""
+	python_decl "${comment}${self}${name} = ${value}
+"
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+      end
+
+      attribute 129538 "__minRH"
+	class_attribute private explicit_type "float"
+	multiplicity "1"
+	cpp_decl ""
+	java_decl ""
+	php_decl ""
+	python_decl "${comment}${self}${name} = ${value}
+"
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+      end
+
+      attribute 129922 "__maxSpeed"
+	class_attribute private explicit_type "float"
+	multiplicity "1"
+	cpp_decl ""
+	java_decl ""
+	php_decl ""
+	python_decl "${comment}${self}${name} = ${value}
+"
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+      end
+
+      operation 129282 "__init__"
+	public explicit_return_type ""
+	nparams 3
+	  param inout name "self" type class_ref 128258 // DataCollection
+	multiplicity "1"
+	  param in name "senseHAT" explicit_type "SenseHat"
+	multiplicity "1"
+	  param in name "dataQueue" explicit_type "Queue"
+	multiplicity "1"
+	
+	
+	
+	python_def "${@}${static}${abstract}def ${name}${(}${p0}${v0}, ${p1}${v1}, ${p2}${v2}${)}:
+${docstring}${body}
+"
+	
+      end
+
+      operation 129410 "run"
+	public explicit_return_type ""
+	nparams 1
+	  param inout name "self" type class_ref 128258 // DataCollection
+	multiplicity "1"
+	
+	
+	
+	python_def "${@}${static}${abstract}def ${name}${(}${p0}${v0}${)}:
+${docstring}${body}
+"
+	
+      end
+
+      operation 129538 "terminate"
+	public explicit_return_type ""
+	nparams 1
+	  param inout name "self" type class_ref 128258 // DataCollection
+	multiplicity "1"
+	
+	
+	
+	python_def "${@}${static}${abstract}def ${name}${(}${p0}${v0}${)}:
+${docstring}${body}
+"
+	
+      end
+
+      operation 129794 "__generateFlags"
+	class_operation private explicit_return_type "bool[5]"
+	nparams 3
+	  param in name "temp" explicit_type "float"
+	multiplicity "1"
+	  param in name "relHumidity" explicit_type "float"
+	multiplicity "1"
+	  param in name "speed" explicit_type "float"
+	multiplicity "1"
+	
+	
+	
+	python_def "${@}${static}${abstract}def ${name}${(}${p0}${v0}, ${p1}${v1}, ${p2}${v2}${)}:
+${docstring}${body}
+"
+	
+      end
+
+      attribute 129666 "__temps"
+	private explicit_type "float"
+	multiplicity "1..*"
+	cpp_decl ""
+	java_decl ""
+	php_decl ""
+	python_decl "${comment}${self}${name} = ${stereotype}()
+"
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+      end
+
+      attribute 129794 "__RHs"
+	private explicit_type "float"
+	multiplicity "1..*"
+	cpp_decl ""
+	java_decl ""
+	php_decl ""
+	python_decl "${comment}${self}${name} = ${stereotype}()
+"
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+      end
+
+      attribute 130050 "__speeds"
+	private explicit_type "float"
+	multiplicity "1..*"
+	cpp_decl ""
+	java_decl ""
+	php_decl ""
+	python_decl "${comment}${self}${name} = ${stereotype}()
+"
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+      end
+
+      attribute 130178 "__accels"
+	private explicit_type "float"
+	multiplicity "1..*"
+	cpp_decl ""
+	java_decl ""
+	php_decl ""
+	python_decl "${comment}${self}${name} = ${stereotype}()
+"
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+      end
+
+      operation 130050 "__calculateAverage"
+	class_operation private explicit_return_type "float"
+	nparams 1
+	  param in name "values" explicit_type "float"
+	multiplicity "1..*"
+	
+	
+	
+	python_def "${@}${static}${abstract}def ${name}${(}${p0}${v0}${)}:
+${docstring}${body}
+"
+	
+      end
+
+      classrelation 128002 // <association>
+	relation 128002 ----
+	  a role_name "" private
+	    python "${comment}${self}${name} = ${value}
+"
+	    classrelation_ref 128002 // <association>
+	  b role_name "" private
+	    python "${comment}${self}${name} = ${value}
+"
+	    classrelation_ref 128130 // <association>
+      end
+    end
+
+    class 128386 "WiFiAgent"
+      visibility package 
+      cpp_decl ""
+      java_decl ""
+      php_decl ""
+      python_2_2 python_decl "class ${name}${inherit}:
+${docstring}${members}
+"
+      idl_decl ""
+      explicit_switch_type ""
+      mysql_decl ""
+      
+      classrelation 128898 // <association>
+	relation_ref 128386 // <association>
+      end
+    end
+
+    class 128514 "DBAgent"
+      visibility package 
+      cpp_decl ""
+      java_decl ""
+      php_decl ""
+      python_2_2 python_decl "class ${name}${inherit}:
+${docstring}${members}
+"
+      idl_decl ""
+      explicit_switch_type ""
+      mysql_decl ""
+      
+      classrelation 128642 // <association>
+	relation_ref 128258 // <association>
+      end
+    end
+  end
+
+  deploymentview 128002 "MonitoringSystemDeployView"
+    //deployment diagram settings
+    deploymentdiagramsettings
+     end
+    artifact 128002 "DBAgent"
+      stereotype "source"
+      python_src "${comment}
+${import}
+${definition}"
+      associated_elems
+	class_ref 128514 // DBAgent
+      end
+    end
+
+    artifact 128130 "WiFiAgent"
+      stereotype "source"
+      python_src "${comment}
+${import}
+${definition}"
+      associated_elems
+	class_ref 128386 // WiFiAgent
+      end
+    end
+
+    artifact 128258 "DataCollection"
+      stereotype "source"
+      python_src "${comment}
+${import}
+${definition}"
+      associated_elems
+	class_ref 128258 // DataCollection
+      end
+    end
+
+    artifact 128386 "Controller"
+      stereotype "source"
+      python_src "${comment}
+${import}
+${definition}"
+      associated_elems
+	class_ref 128130 // Controller
+      end
+    end
+
+    artifact 128514 "MatrixDriver"
+      stereotype "source"
+      python_src "${comment}
+${import}
+${definition}"
+      associated_elems
+	class_ref 128002 // MatrixDriver
+      end
+    end
+  end
+end

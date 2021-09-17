@@ -1,0 +1,13 @@
+window_sizes 1920 1027 450 1465 875 104
+
+diagrams
+  active  classdiagram_ref 128002 // MonitoringSystem
+    1453 840 100 A3-Landscape 97 0
+end
+show_stereotypes
+selected deploymentview_ref 128002 // MonitoringSystemDeployView
+open
+  classview_ref 128002 // MonitoringSystem
+  deploymentview_ref 128002 // MonitoringSystemDeployView
+end
+end
