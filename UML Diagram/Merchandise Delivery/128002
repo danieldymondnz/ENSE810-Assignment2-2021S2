@@ -1,6 +1,6 @@
 format 224
 "MonitoringSystem" // MonitoringSystem
-  revision 2
+  revision 3
   modified_by 2 "danie"
   // class settings
   
@@ -814,6 +814,130 @@ ${docstring}${body}
 ${docstring}${body}
 "
 	
+      end
+    end
+
+    state 128002 "MatrixDriverStateDiagram"
+      stereotype "machine"
+      statediagram 134530 "MatrixDriverStateDiagram"
+	statediagramsettings show_trans_definition yes draw_all_relations no
+	 end
+	size A3-Landscape
+      end
+
+      state 128130 "GraphDisplay"
+	  uml_do_activity "Execute _displayGraph()
+Check flags and speed"
+	comment "Displays the graphs of both Temperature and Humidity on the HAT Display."
+	transition 128002 "<transition>"
+	  on state_ref 128258 // TemperatureAlertDisplay
+	    uml_trigger "_tempWarning == 1"
+	  external 
+	end
+
+	transition 128642 "<transition>"
+	  on state_ref 128386 // HumidityAlertDisplay
+	    uml_trigger "_RHWarning == 1"
+	  external 
+	end
+
+	transition 128898 "<transition>"
+	  on state_ref 128514 // SpeedAlertDisplay
+	    uml_trigger "_speedWarning == 1"
+	  external 
+	end
+
+	transition 129026 "<transition>"
+	  on state_ref 128642 // AccelerationAlertDisplay
+	    uml_trigger "_accelerationWarning == 1"
+	  external 
+	end
+
+	transition 129282 "<transition>"
+	  on pseudostate_ref 128258 // exit_point Exit
+	    uml_trigger "_terminate()
+method
+called"
+	  external 
+	end
+
+	transition 129410 "<transition>"
+	  on state_ref 128130 // GraphDisplay
+	  external 
+	end
+      end
+
+      state 128258 "TemperatureAlertDisplay"
+	  uml_do_activity "Execute _displayTempWarning()"
+	transition 128130 "<transition>"
+	  on state_ref 128130 // GraphDisplay
+	    uml_trigger "after
+_displayTempWarning()
+finished execution"
+	  external 
+	end
+      end
+
+      pseudostate 128002 entry_point "Entry"
+	transition 128258 "<transition>"
+	  on state_ref 128130 // GraphDisplay
+	    uml_trigger "thread
+initalised"
+	  external 
+	end
+      end
+
+      state 128386 "HumidityAlertDisplay"
+	  uml_do_activity "Execute _displayRHWarning()"
+	transition 128386 "<transition>"
+	  on state_ref 128130 // GraphDisplay
+	  external 
+	end
+
+	transition 128514 "<transition>"
+	  on state_ref 128130 // GraphDisplay
+	    uml_trigger "after
+_displayRHWarning()
+finished execution"
+	  external 
+	end
+      end
+
+      state 128514 "SpeedAlertDisplay"
+	  uml_do_activity "Execute _displaySpeedWarning()"
+	transition 128770 "<transition>"
+	  on state_ref 128130 // GraphDisplay
+	    uml_trigger "after
+_displaySpeedWarning()
+finished execution"
+	  external 
+	end
+      end
+
+      state 128642 "AccelerationAlertDisplay"
+	  uml_do_activity "Execute _displayAccelerationWarning()"
+	transition 129154 "<transition>"
+	  on state_ref 128130 // GraphDisplay
+	    uml_trigger "after
+_displayAccelerationWarning()
+finished execution"
+	  external 
+	end
+      end
+
+      pseudostate 128130 initial ""
+      end
+
+      pseudostate 128258 exit_point "Exit"
+      end
+    end
+
+    state 128770 "DatabaseStateMachine"
+      stereotype "machine"
+      statediagram 134658 "DatabaseStateMachine"
+	statediagramsettings
+	 end
+	size A4
       end
     end
   end

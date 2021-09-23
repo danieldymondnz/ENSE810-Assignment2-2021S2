@@ -1,14 +1,15 @@
-window_sizes 1920 1027 450 1465 877 104
-
+window_sizes 1920 1027 387 1527 871 104
+cleanlooks_style
 diagrams
-  active  classdiagram_ref 128002 // MonitoringSystem
-    1453 840 90 A3-Landscape 93 3
+  classdiagram_ref 128002 // MonitoringSystem
+    1453 847 90 A3-Landscape 93 3
+  active  statediagram_ref 134530 // MatrixDriverStateDiagram
+    1529 872 150 A3-Landscape 15 78
 end
 show_stereotypes
-selected operation_ref 137730 // terminate
+selected statediagram_ref 134658 // DatabaseStateMachine
 open
-  class_ref 128386 // WiFiAgent
-  class_ref 128514 // DBAgent
+  state_ref 128770 // DatabaseStateMachine
   deploymentview_ref 128002 // MonitoringSystemDeployView
 end
 end
