@@ -3,8 +3,10 @@ cleanlooks_style
 diagrams
   classdiagram_ref 128002 // MonitoringSystem
     1453 847 90 A3-Landscape 93 3
-  active  statediagram_ref 134530 // MatrixDriverStateDiagram
+  statediagram_ref 134530 // MatrixDriverStateDiagram
     1529 872 150 A3-Landscape 15 78
+  active  statediagram_ref 134658 // DatabaseStateMachine
+    1221 696 160 A4 141 123
 end
 show_stereotypes
 selected statediagram_ref 134658 // DatabaseStateMachine

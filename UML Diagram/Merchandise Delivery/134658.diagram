@@ -1,0 +1,46 @@
+format 224
+
+statecanvas 128002 state_ref 135298 // OnlineState
+  
+  xyzwh 159.3 231.8 2000 227 89
+end
+statecanvas 128130 state_ref 135426 // OfflineState
+  
+  xyzwh 542.6 241.7 2000 173 61
+end
+pseudostatecanvas 128386 pseudostate_ref 134914 // entry_point Entry
+   xyz 580.3 171 3005 label_xy 552 171
+end
+pseudostatecanvas 128514 pseudostate_ref 135042 // exit_point Exit
+   xyz 647.2 171 3005 label_xy 673 173
+end
+transitioncanvas 128642 transition_ref 135938 // <transition>
+  decenter_begin 670
+  
+  from ref 128130 z 3006 label "terminate()
+method
+called" xyz 664 192 3000 to ref 128514
+  write_horizontally default show_definition default drawing_language default
+end
+transitioncanvas 128770 transition_ref 136066 // <transition>
+  decenter_end 293
+  
+  from ref 128386 z 3006 label "thread
+initalised" xyz 547 198 3000 to ref 128130
+  write_horizontally default show_definition default drawing_language default
+end
+transitioncanvas 129154 transition_ref 136194 // <transition>
+  decenter_begin 266
+  decenter_end 237
+  
+  from ref 128002 z 2001 label "wireless disconnect" xyz 421.5 238 3000 to ref 128130
+  write_horizontally default show_definition default drawing_language default
+end
+transitioncanvas 129282 transition_ref 136322 // <transition>
+  decenter_begin 762
+  decenter_end 647
+  
+  from ref 128130 z 2001 label "wireless connect" xyz 428.5 291 3000 to ref 128002
+  write_horizontally default show_definition default drawing_language default
+end
+end

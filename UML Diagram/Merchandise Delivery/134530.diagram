@@ -2,35 +2,35 @@ format 224
 
 statecanvas 128002 state_ref 128130 // GraphDisplay
    show_activities yes
-  xyzwh 454.7 194.3 2000 191 77
+  xyzwh 454.2 194.3 2000 191 77
 end
 statecanvas 128130 state_ref 128258 // TemperatureAlertDisplay
   
   xyzwh 775.5 204.6 2000 235 61
 end
 pseudostatecanvas 128642 pseudostate_ref 128002 // entry_point Entry
-   xyz 508.7 124.3 2000 label_xy 483 126
+   xyz 508.2 124.8 2000 label_xy 483 126
 end
 statecanvas 129026 state_ref 128386 // HumidityAlertDisplay
   
-  xyzwh 781.6 337.1 2000 231 61
+  xyzwh 781.6 337.6 2000 231 61
 end
 statecanvas 130050 state_ref 128514 // SpeedAlertDisplay
   
-  xyzwh 100.5 203.5 2000 239 61
+  xyzwh 100 203 2000 239 61
 end
 statecanvas 130178 state_ref 128642 // AccelerationAlertDisplay
   
-  xyzwh 67.5 340 2000 273 61
+  xyzwh 67 340 2000 273 61
 end
 pseudostatecanvas 131458 pseudostate_ref 128258 // exit_point Exit
-   xyz 561 124.5 3005 label_xy 585 125
+   xyz 561 124 3005 label_xy 585 125
 end
 transitioncanvas 128258 transition_ref 128002 // <transition>
   decenter_begin 333
   decenter_end 252
   
-  from ref 128002 z 2001 label "_tempWarning == 1" xyz 662.5 202 3000 to ref 128130
+  from ref 128002 z 2001 label "_tempWarning == 1" xyz 662 202 2001 to ref 128130
   write_horizontally default show_definition default drawing_language default
 end
 transitioncanvas 128386 transition_ref 128130 // <transition>
@@ -39,14 +39,14 @@ transitioncanvas 128386 transition_ref 128130 // <transition>
   
   from ref 128130 z 2001 label "after
 _displayTempWarning()
-finished execution" xyz 654 254 3000 to ref 128002
+finished execution" xyz 654 254 2001 to ref 128002
   write_horizontally default show_definition default drawing_language default
 end
 transitioncanvas 128770 transition_ref 128258 // <transition>
   decenter_end 342
   
   from ref 128642 z 2001 label "thread
-initalised" xyz 472 153 3000 to ref 128002
+initalised" xyz 472 153 2001 to ref 128002
   write_horizontally default show_definition default drawing_language default
 end
 transitioncanvas 129410 transition_ref 128514 // <transition>
@@ -55,7 +55,7 @@ transitioncanvas 129410 transition_ref 128514 // <transition>
   
   from ref 129026 z 2001 label "after
 _displayRHWarning()
-finished execution" xyz 651 319 3000 to point 610.8 357.7
+finished execution" xyz 651 319 2001 to point 610 357.5
   line 129538 z 2001 to ref 128002
   write_horizontally default show_definition default drawing_language default
 end
@@ -63,7 +63,7 @@ transitioncanvas 129666 transition_ref 128642 // <transition>
   decenter_begin 722
   decenter_end 662
   
-  from ref 128002 z 2001 label "_RHWarning == 1" xyz 663.5 382 3000 to point 589.9 374.4
+  from ref 128002 z 2001 label "_RHWarning == 1" xyz 663 382 2001 to point 589.5 374
   line 129794 z 2001 to ref 129026
   write_horizontally default show_definition default drawing_language default
 end
@@ -73,47 +73,47 @@ transitioncanvas 130306 transition_ref 128770 // <transition>
   
   from ref 130050 z 2001 label "after
 _displaySpeedWarning()
-finished execution" xyz 330 161 3000 to ref 128002
+finished execution" xyz 330 161 2001 to ref 128002
   write_horizontally default show_definition default drawing_language default
 end
 transitioncanvas 130434 transition_ref 128898 // <transition>
   decenter_begin 660
   decenter_end 698
   
-  from ref 128002 z 2001 label "_speedWarning == 1" xyz 344 254 3000 to ref 130050
+  from ref 128002 z 2001 label "_speedWarning == 1" xyz 344 254 2001 to ref 130050
   write_horizontally default show_definition default drawing_language default
 end
 transitioncanvas 130562 transition_ref 129026 // <transition>
   decenter_begin 136
   decenter_end 289
   
-  from ref 128002 z 2001 label "_accelerationWarning == 1" xyz 343 336 3000 to point 477 355
+  from ref 128002 z 2001 label "_accelerationWarning == 1" xyz 343 336 2001 to point 477.5 355.5
   line 130690 z 2001 to ref 130178
   write_horizontally default show_definition default drawing_language default
 end
 transitioncanvas 130818 transition_ref 129154 // <transition>
   decenter_begin 674
-  decenter_end 240
+  decenter_end 239
   
   from ref 130178 z 2001 label "after
 _displayAccelerationWarning()
-finished execution" xyz 341.5 390 3000 to point 496.5 375.5
+finished execution" xyz 341 390 2001 to point 496 375.5
   line 130946 z 2001 to ref 128002
   write_horizontally default show_definition default drawing_language default
 end
 transitioncanvas 131586 transition_ref 129282 // <transition>
-  decenter_begin 607
+  decenter_begin 606
   
   from ref 128002 z 3006 label "_terminate()
 method
-called" xyz 577 145 3000 to ref 131458
+called" xyz 577 145 3006 to ref 131458
   write_horizontally default show_definition default drawing_language default
 end
 transitioncanvas 131714 transition_ref 129410 // <transition>
   decenter_begin 559
   decenter_end 430
   
-  from ref 128002 z 2001 to point 557 292
+  from ref 128002 z 2001 to point 557.5 292
   line 131842 z 2001 to point 532 292
   line 131970 z 2001 to ref 128002
   write_horizontally default show_definition default drawing_language default

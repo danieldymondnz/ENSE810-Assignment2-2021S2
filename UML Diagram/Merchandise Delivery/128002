@@ -1,6 +1,6 @@
 format 224
 "MonitoringSystem" // MonitoringSystem
-  revision 3
+  revision 4
   modified_by 2 "danie"
   // class settings
   
@@ -935,9 +935,52 @@ finished execution"
     state 128770 "DatabaseStateMachine"
       stereotype "machine"
       statediagram 134658 "DatabaseStateMachine"
-	statediagramsettings
+	statediagramsettings show_trans_definition yes
 	 end
 	size A4
+      end
+
+      state 135298 "OnlineState"
+	  uml_on_entry "connect to online DB"
+	  uml_on_exit "disconnect from online DB"
+	  uml_do_activity "write local DB data to online DB"
+	transition 136194 "<transition>"
+	  on state_ref 135426 // OfflineState
+	    uml_trigger "wireless disconnect"
+	  external 
+	end
+      end
+
+      state 135426 "OfflineState"
+	  uml_do_activity "write data to local DB"
+	transition 135938 "<transition>"
+	  on pseudostate_ref 135042 // exit_point Exit
+	    uml_trigger "terminate()
+method
+called"
+	  external 
+	end
+
+	transition 136322 "<transition>"
+	  on state_ref 135298 // OnlineState
+	    uml_trigger "wireless connect"
+	  external 
+	end
+      end
+
+      pseudostate 134786 initial ""
+      end
+
+      pseudostate 134914 entry_point "Entry"
+	transition 136066 "<transition>"
+	  on state_ref 135426 // OfflineState
+	    uml_trigger "thread
+initalised"
+	  external 
+	end
+      end
+
+      pseudostate 135042 exit_point "Exit"
       end
     end
   end
