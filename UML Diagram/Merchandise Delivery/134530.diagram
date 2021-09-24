@@ -2,29 +2,29 @@ format 224
 
 statecanvas 128002 state_ref 128130 // GraphDisplay
    show_activities yes
-  xyzwh 454.2 194.3 2000 191 77
+  xyzwh 454.7 194.3 2000 191 77
 end
 statecanvas 128130 state_ref 128258 // TemperatureAlertDisplay
   
   xyzwh 775.5 204.6 2000 235 61
 end
 pseudostatecanvas 128642 pseudostate_ref 128002 // entry_point Entry
-   xyz 508.2 124.8 2000 label_xy 483 126
+   xyz 508.7 124.3 2000 label_xy 483 126
 end
 statecanvas 129026 state_ref 128386 // HumidityAlertDisplay
   
-  xyzwh 781.6 337.6 2000 231 61
+  xyzwh 781.6 337.1 2000 231 61
 end
 statecanvas 130050 state_ref 128514 // SpeedAlertDisplay
   
-  xyzwh 100 203 2000 239 61
+  xyzwh 100.5 203.5 2000 239 61
 end
 statecanvas 130178 state_ref 128642 // AccelerationAlertDisplay
   
-  xyzwh 67 340 2000 273 61
+  xyzwh 67.5 340 2000 273 61
 end
 pseudostatecanvas 131458 pseudostate_ref 128258 // exit_point Exit
-   xyz 561 124 3005 label_xy 585 125
+   xyz 561 124.5 3005 label_xy 585 125
 end
 transitioncanvas 128258 transition_ref 128002 // <transition>
   decenter_begin 333
@@ -93,7 +93,7 @@ transitioncanvas 130562 transition_ref 129026 // <transition>
 end
 transitioncanvas 130818 transition_ref 129154 // <transition>
   decenter_begin 674
-  decenter_end 239
+  decenter_end 238
   
   from ref 130178 z 2001 label "after
 _displayAccelerationWarning()
@@ -113,7 +113,8 @@ transitioncanvas 131714 transition_ref 129410 // <transition>
   decenter_begin 559
   decenter_end 430
   
-  from ref 128002 z 2001 to point 557.5 292
+  from ref 128002 z 2001 label "while
+loop" xyz 535 302 3000 to point 557.5 292
   line 131842 z 2001 to point 532 292
   line 131970 z 2001 to ref 128002
   write_horizontally default show_definition default drawing_language default
