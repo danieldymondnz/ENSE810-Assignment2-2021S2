@@ -1,5 +1,5 @@
 ﻿<!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <title> Data Console | SDMMS Console </title>
     <?php require('phpTemplates/header.php'); ?>

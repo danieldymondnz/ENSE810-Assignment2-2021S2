@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <title> SDMMS Console </title>
     <!-- Header Template -->
@@ -14,7 +14,7 @@
 
    <section class="floatingSessionContainer">
         <h1 class="header-title header-title-login">Kia Ora</h1>
-        <p>To access information on this system, you will need to login</p>
+        <p>Welcome back. To access information on this system, you will need to login</p>
         <p id="connectionAddress" style="font-style: italic;"><i>localhost</i></p>
         <br></br>
         <form method="post" action="login.php">

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en"><html>
 <head>
     <title> Login | SDMMS Console </title>
     <!-- Header Template -->
