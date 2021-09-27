@@ -1,0 +1,295 @@
+﻿@import url('https://fonts.googleapis.com/css?family=Oxygen:300,400,700');
+@import url('https://fonts.googleapis.com/icon?family=Material+Icons|Material+Icons+Outlined');
+
+
+html {
+    background-color: #000000;
+    color: #FFFFFF;
+    font-family: 'Oxygen', sans-serif;
+    font-weight: 100;
+}
+
+body {
+    margin: 64px 0 0 0;
+    padding: 0;
+}
+
+p {
+    margin: 8px 0;
+}
+
+h1 {
+    font-size: 36px;
+}
+
+input, button, select {
+    border: 1px solid #FFFFFF;
+    background-color: #202020;
+    color: #FFFFFF;
+    height: 36px;
+    font-family: 'Oxygen', sans-serif;
+    font-size: 15px;
+    margin: 0 2px;
+    padding: 0 12px;
+    transition: 0.2s ease-in-out;
+}
+
+input[type="submit"]:hover {
+    background-color: #808080;
+    transition: 0.2s ease-in-out;
+}
+
+.material-icons {
+    padding-bottom: 2px;
+    vertical-align: middle;
+}
+
+.back-green {
+    background-color: #006310;
+}
+
+.back-orange {
+    background-color: #BC8700;
+}
+
+.back-red {
+    background-color: #810000;
+}
+
+.back-grey {
+    background-color: #393939;
+}
+
+.nav {
+    background-color: #333333;
+    height: 64px;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 100vw;
+}
+
+.nav-logo {
+    display: inline-block;
+    font-size: 24px;
+    font-weight: 700;
+    margin: 0 30px;
+    text-transform: uppercase;
+    vertical-align: middle;
+}
+
+.nav-button {
+    display: inline-block;
+    padding: 20px 10px;
+    vertical-align: middle;
+}
+
+.nav-link {
+    color: #FFFFFF;
+    text-decoration: none;
+}
+
+.nav-user-session {
+    float: right;
+    height: 20px;
+    margin: 22px 30px;
+    vertical-align: middle;
+}
+
+.content {
+    margin: auto;
+    padding: 20px 0;
+    width: 80vw;
+}
+
+.header-title {
+    display: inline-block;
+}
+
+.header-title-login {
+    font-size: 48px;
+    margin: 2px 0;
+}
+
+.header-charms {
+    float: right;
+    padding-top: 34px;
+}
+
+.header-charms input, .header-charms button {
+    vertical-align: center;
+}
+
+.inventory-splash {
+    margin: auto;
+    opacity: 0.8;
+    padding-top: 40px;
+    text-align: center;
+    width: 400px;
+}
+
+.inventory-result-entry {
+    background-color: #1A1A1A;
+    font-size: 18px;
+    height: 28px;
+    margin: 3px 0;
+    padding: 10px;
+    width: calc(100% - 20px);
+}
+
+.inventory-result-entry-id {
+    display: inline-block;
+    width: 250px;
+}
+
+.inventory-result-entry-name {
+    display: inline-block;
+    font-weight: 700;
+}
+
+.inventory-result-entry-location {
+    display: inline-block;
+    float: right;
+    padding: 3px;
+    text-transform: uppercase;
+}
+
+.item-location {
+    border: 1px solid #FFFFFF;
+    padding: 6px;
+    text-transform: uppercase;
+}
+
+.data-console-table {
+    text-align: left;
+}
+
+.data-console-table th {
+    padding-right: 10px;
+}
+
+.hidden {
+    display: none;
+}
+
+/* LOADING ANIMATION */
+
+.loading-animation {
+    height: 64px;
+    left: 0;
+    margin: auto;
+    position: relative;
+    right: 0;
+    width: 64px;
+}
+
+.lds-ellipsis {
+    display: inline-block;
+    position: relative;
+    width: 64px;
+    height: 64px;
+}
+
+    .lds-ellipsis div {
+        position: absolute;
+        top: 27px;
+        width: 11px;
+        height: 11px;
+        border-radius: 50%;
+        background: #fff;
+        animation-timing-function: cubic-bezier(0, 1, 1, 0);
+    }
+
+        .lds-ellipsis div:nth-child(1) {
+            left: 6px;
+            animation: lds-ellipsis1 0.6s infinite;
+        }
+
+        .lds-ellipsis div:nth-child(2) {
+            left: 6px;
+            animation: lds-ellipsis2 0.6s infinite;
+        }
+
+        .lds-ellipsis div:nth-child(3) {
+            left: 26px;
+            animation: lds-ellipsis2 0.6s infinite;
+        }
+
+        .lds-ellipsis div:nth-child(4) {
+            left: 45px;
+            animation: lds-ellipsis3 0.6s infinite;
+        }
+
+@keyframes lds-ellipsis1 {
+    0% {
+        transform: scale(0);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+@keyframes lds-ellipsis3 {
+    0% {
+        transform: scale(1);
+    }
+
+    100% {
+        transform: scale(0);
+    }
+}
+
+@keyframes lds-ellipsis2 {
+    0% {
+        transform: translate(0, 0);
+    }
+
+    100% {
+        transform: translate(19px, 0);
+    }
+}
+
+
+/* Session Logo */
+
+.sessionBody {
+    background-image: url(img/sessionBackdrop.jpg);
+    background-color: #101010;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    height: 100vh;
+    margin: 0;
+    padding: 0 100px;
+    vertical-align: center;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+}
+
+.floatingSessionContainer {
+    padding-top: 30vh;
+}
+
+.floatingSessionLogo {
+    color: #DDDDDD;
+    position: absolute;
+    bottom: 64px;
+    width: 420px;
+}
+
+
+.floatingSessionLogoIcon {
+    float: left;
+}
+
+.floatingSessionLogoText {
+    float: left;
+    font-size: 14px;
+}
+
+.floatingSessionLogoText h4 {
+    font-size: 20px;
+    margin: 0;
+}
