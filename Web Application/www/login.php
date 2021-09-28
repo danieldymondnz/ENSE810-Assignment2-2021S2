@@ -18,8 +18,8 @@
             <input id= "password" name="password" type="password" placeholder="Password" autocomplete="off" arial-label="Inventory Search Box" />
             <br></br>
             <br></br>
-            <input type="submit" value="Log In"/>
-            <input id="button" type="button" value="Cancel" onclick="location.href = '/';"></input>
+            <input class="englargedButton" type="submit" value="Log In"/>
+            <input class="englargedButton" id="button" type="button" value="Cancel" onclick="location.href = '/';"></input>
         </form>
     </section>
 
@@ -54,9 +54,14 @@
 
         // Create new container for session
         session_start();
+        $_SESSION['servername'] = "localhost";
+        $_SESSION['database'] = "week8DatabaseTest";
+        $_SESSION['table'] = "initalTesting";
         $_SESSION["username"] = $username;
         $_SESSION["password"] = $password;
         $_SESSION["signOnSuccessful"] = true;
+        
+        $_SESSION["startIndex"] = 0;
 
         // Redirect to console
         header("Location: home.php");

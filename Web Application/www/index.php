@@ -18,7 +18,7 @@
         <p id="connectionAddress" style="font-style: italic;"><i>localhost</i></p>
         <br></br>
         <form method="post" action="login.php">
-            <input type="submit" value="Log In"/>
+            <input class="englargedButton" type="submit" value="Log In"/>
         </form>
     </section>
 

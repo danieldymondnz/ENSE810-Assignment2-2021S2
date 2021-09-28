@@ -1,6 +1,12 @@
-﻿@import url('https://fonts.googleapis.com/css?family=Oxygen:300,400,700');
+﻿/*
+    Styling Sheet for SDMMS
+    Daniel Dymond 2021
+*/
+
+@import url('https://fonts.googleapis.com/css?family=Oxygen:300,400,700');
 @import url('https://fonts.googleapis.com/icon?family=Material+Icons|Material+Icons+Outlined');
 
+/* Primary Element Styles & Transitions */
 
 html {
     background-color: #000000;
@@ -26,12 +32,16 @@ input, button, select {
     border: 1px solid #FFFFFF;
     background-color: #202020;
     color: #FFFFFF;
-    height: 36px;
+    height: 32px;
     font-family: 'Oxygen', sans-serif;
     font-size: 15px;
     margin: 0 2px;
     padding: 0 12px;
     transition: 0.2s ease-in-out;
+}
+
+.englargedButton {
+    height: 36px;
 }
 
 input[type="submit"]:hover, input[type="reset"]:hover, input[type="button"]:hover,
@@ -44,6 +54,8 @@ input[type="submit"]:focus, input[type="reset"]:focus, input[type="button"]:focu
     padding-bottom: 2px;
     vertical-align: middle;
 }
+
+/* Xenix Colours */
 
 .back-green {
     background-color: #006310;
@@ -60,6 +72,8 @@ input[type="submit"]:focus, input[type="reset"]:focus, input[type="button"]:focu
 .back-grey {
     background-color: #393939;
 }
+
+/* Navigation */
 
 .nav {
     background-color: #333333;
@@ -100,6 +114,8 @@ input[type="submit"]:focus, input[type="reset"]:focus, input[type="button"]:focu
     margin: 22px 30px;
     vertical-align: middle;
 }
+
+/* Content Area */
 
 .content {
     margin: auto;
@@ -165,19 +181,27 @@ input[type="submit"]:focus, input[type="reset"]:focus, input[type="button"]:focu
     text-transform: uppercase;
 }
 
-.data-console-table {
+/* Table Styling */
+
+table {
     border-collapse: collapse;
     text-align: left;
 }
 
-.data-console-table th {
-    padding-right: 12px;
+td, th {
+    padding: 8px;
+}
+
+th {
+    padding-right: 16px;
 }
 
 tr {
-    
     border: 1px solid #333333;
 }
+
+
+
 
 .hidden {
     display: none;

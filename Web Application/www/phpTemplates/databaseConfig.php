@@ -1,31 +1,31 @@
 <?php
 
     // Globals for Configuration Information
-    $GLOBALS['servername'] = "localhost";
-    $GLOBALS['database'] = "week8DatabaseTest";
-    $GLOBALS['table'] = "initalTesting";
+    $GLOBALS['recordsPerPage'] = 10;
     $GLOBALS['columnNames'] = getColumns();
-    $GLOBALS['startIndex'] = 1;
-    $GLOBALS['recordsPerPage'] = 5;
 
-    // Get Column Names
+    // Get Column Telemetry such as names and length
     function getColumns(){
         
         // Open Connection
         $username = $_SESSION["username"];
         $password = $_SESSION["password"];
-        $conn = new mysqli($GLOBALS['servername'], $_SESSION["username"], $_SESSION["password"], $GLOBALS['database']);
+        $conn = new mysqli($_SESSION['servername'], $_SESSION["username"], $_SESSION["password"], $_SESSION['database']);
 
         // If connection fails, throw error
         if ($conn->connect_error)
             triggerDatabaseError($conn->connect_error);
+
+        $SQLPreQuery = "SELECT COUNT(*) FROM " . $_SESSION['table'];
+        $result = $conn->query($SQLPreQuery);
+        $GLOBALS['numRecords'] = mysqli_fetch_array($result)[0];
 
         // Run query and aggregate results
         $sqlQuery = "SELECT COLUMN_NAME FROM information_schema.COLUMNS WHERE TABLE_SCHEMA = 'week8DatabaseTest' AND TABLE_NAME = 'initalTesting'";
         $result = $conn->query($sqlQuery);
         $conn->close();
 
-        // 
+        // Generate array of rows
         if ($result->num_rows > 0) {
 
             // Create new array
@@ -61,20 +61,55 @@
 
     }
 
+    // Populate a Select Input with all Filter options for data
+    function getFiltersForSelectInput(){
+
+        echo '<option value="ASC"';
+        // If part of a GET request, check and select the appropriate option to save user inputs between page loads
+        if (isset($_GET['filterOrderField']) && 'ASC' == $_GET['filterOrderField']) {
+            echo " selected";
+        }
+        echo '>Ascending</option>';
+
+        echo '<option value="DESC"';
+        // If part of a GET request, check and select the appropriate option to save user inputs between page loads
+        if (isset($_GET['filterOrderField']) && 'DESC' == $_GET['filterOrderField']) {
+            echo " selected";
+        }
+        echo '>Descending</option>';
+
+    }
+
+    // Determine the new start index for the tabulation when the increase button is selected
+    function increaseRange() {
+        return min(($_SESSION["startIndex"] + $GLOBALS['recordsPerPage']), $GLOBALS['numRecords'] - 1);
+    }
+
+    // Determine the new start index for the tabulation when the decrease button is selected
+    function decreaseRange() {
+        return max($_SESSION["startIndex"] - $GLOBALS['recordsPerPage'], 0);
+    }
+
+    // Insert text for the current range displayed by the table
+    function getCurrentRange() {
+        echo $_SESSION["startIndex"] + 1 . " - " . min(($_SESSION["startIndex"] + $GLOBALS['recordsPerPage']), $GLOBALS['numRecords']) . " of " . $GLOBALS['numRecords'];
+    }
+
     // Create a new query for the database to filter content by a particular filter and order
-    function queryByFilter($filterName, $filterOrder)
+    function queryByFilter($filterName, $filterOrder, $startVal)
     {
         // Craft the query
-        $sqlQuery = "SELECT * FROM " . $GLOBALS['table'] . " ORDER BY `" . $GLOBALS['table'] . "`.`" . $filterName . "` " . $filterOrder;
+        $sqlQuery = "SELECT * FROM " . $_SESSION['table'] . " ORDER BY `" . $_SESSION['table'] . "`.`" . $filterName . "` " . $filterOrder . " LIMIT " . $startVal . "," . $GLOBALS['recordsPerPage'];
 
         // Execute the query and generate the table data
         executeQueryAndTabulate($sqlQuery);
     }
 
+    // Execute the default query when no sorting filters have been selected.
     function executeDefaultQuery() 
     {
         // Craft the query
-        $sqlQuery = "SELECT * FROM " . $GLOBALS['table'] . " ORDER BY `" . $GLOBALS['table'] . "`.`uid` ASC LIMIT " . $GLOBALS['startIndex'] . "," . $GLOBALS['recordsPerPage'];
+        $sqlQuery = "SELECT * FROM " . $_SESSION['table'] . " ORDER BY `" . $_SESSION['table'] . "`.`uid` ASC LIMIT 1," . $GLOBALS['recordsPerPage'];
 
         // Execute the query and generate the table data
         executeQueryAndTabulate($sqlQuery);
@@ -89,15 +124,11 @@
         $password = $_SESSION["password"];
         
         // Open Connection
-        $conn = new mysqli($GLOBALS['servername'], $_SESSION["username"], $_SESSION["password"], $GLOBALS['database']);
+        $conn = new mysqli($_SESSION['servername'], $_SESSION["username"], $_SESSION["password"], $_SESSION['database']);
 
         // If connection fails, throw error
         if ($conn->connect_error)
             triggerDatabaseError($conn->connect_error);
-
-        $SQLPreQuery = "SELECT COUNT(*) FROM " . $GLOBALS['table'];
-        $result = $conn->query($SQLPreQuery);
-        $count = mysqli_fetch_array($result)[0];
 
         // Otherwise, run query
         $result = $conn->query($SQLQuery);
@@ -105,7 +136,7 @@
         if ($result->num_rows > 0) {
 
             // Display Head of Results
-            echo "<section class='inventory-results-head'>Showing records " . $GLOBALS['startIndex'] . " to " . ($GLOBALS['startIndex'] + $result->num_rows - 1) . " of " . $count . " result(s)</section>";
+            echo "<section class='inventory-results-head'>Showing records " . ($_SESSION["startIndex"] + 1) . " to " . ($_SESSION["startIndex"] + $result->num_rows) . " of " . $GLOBALS['numRecords'] . " result(s)</section>";
             echo "<i class='SQLQueryText'>". $SQLQuery ."</i><br><br/>";
 
             // Display start of div
@@ -122,19 +153,19 @@
             // output data of each row
             while($row = $result->fetch_assoc()) {
 
-                $stringToDisplay .= "<tr><th>" . $row["uid"].
-                                    "</th><th>" . $row["timestamp"].
-                                    "</th><th>" . $row["aPitch"].
-                                    "</th><th>" . $row["aRoll"].
-                                    "</th><th>" . $row["aYaw"].
-                                    "</th><th>" . $row["compass"].
-                                    "</th><th>" . $row["gPitch"].
-                                    "</th><th>" . $row["gRoll"].
-                                    "</th><th>" . $row["gYaw"].
-                                    "</th><th>" . $row["humidity"].
-                                    "</th><th>" . $row["pressure"].
-                                    "</th><th>" . $row["temperature"].
-                                    "</th></tr>";
+                $stringToDisplay .= "<tr><td>" . $row["uid"].
+                                    "</td><td>" . $row["timestamp"].
+                                    "</td><td>" . $row["aPitch"].
+                                    "</td><td>" . $row["aRoll"].
+                                    "</td><td>" . $row["aYaw"].
+                                    "</td><td>" . $row["compass"].
+                                    "</td><td>" . $row["gPitch"].
+                                    "</td><td>" . $row["gRoll"].
+                                    "</td><td>" . $row["gYaw"].
+                                    "</td><td>" . $row["humidity"].
+                                    "</td><td>" . $row["pressure"].
+                                    "</td><td>" . $row["temperature"].
+                                    "</td></tr>";
 
             }
 
@@ -150,8 +181,9 @@
         
     }
 
+    // Trigger a critical execution error
     function triggerDatabaseError($errorMessage)
     {
-        die("Connection failed: " . $errorMessage);
+        alert("A Critical execution error has occured. Please try to login again, by selecting \"Logout\". Error code: " . $errorMessage);
     }
 ?>

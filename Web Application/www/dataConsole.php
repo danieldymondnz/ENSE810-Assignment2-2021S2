@@ -13,6 +13,17 @@
             header("Location: logout.php");
         }
     ?>
+    <?php
+        
+        if (isset($_GET['startVal'])) 
+        {
+            if ($_GET['startVal'] == "<")
+                $_SESSION["startIndex"] = decreaseRange();
+            else
+                $_SESSION["startIndex"] = increaseRange();
+        }
+
+    ?>
 
 </head>
 <body>
@@ -25,16 +36,21 @@
 
             <!-- Filters for Data Console -->
             <form method="get" action="dataConsole.php">
-                <span class="material-icons-outlined">filter_alt</span> Filter & Sort Data: 
+                Sort by 
                 <select name="filterTypeField">
                     <?php getColumnNamesForSelectInput() ?>
                 </select>
+                 in 
                 <select name="filterOrderField">
-                    <option value="ASC">Ascending</option>
-                    <option value="DESC">Descending</option>
+                    <?php getFiltersForSelectInput() ?>
                 </select>
-                <input id="button" type="reset" value="Reset Filter"></input>
-                <input id="button" type="submit" value="Apply Filter"></input>
+                 order
+                <input id="button" type="submit" value="Apply"></input>
+                <input id="button" type="reset" value="Reset"></input>
+                <span style="display: inline-block; width: 20px;"></span>
+                <input name="startVal" type="submit" value="<"></input>
+                <span id="num"><?php getCurrentRange() ?></span>
+                <input name="startVal" type="submit" value=">"></input>
             </form>
 
         </div>
@@ -43,9 +59,9 @@
             Sorry, there's nothing to show. Try searching for something else.
         </section>
         <?php 
-        
+
             if (isset($_GET['filterTypeField']) && isset($_GET['filterOrderField'])) {
-                queryByFilter($_GET['filterTypeField'], $_GET['filterOrderField']);
+                queryByFilter($_GET['filterTypeField'], $_GET['filterOrderField'], $_SESSION["startIndex"]);
             } else {
                 executeDefaultQuery();
             }
@@ -56,10 +72,4 @@
         </section>
     </section>
 </body>
-<?php
-
-        
-            
-
-?>
 </html>
