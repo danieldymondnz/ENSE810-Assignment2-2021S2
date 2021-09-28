@@ -23,3 +23,4 @@ https://w3collective.com/get-domain-name-url-javascript/
 
 https://favicon.io/
 https://stackoverflow.com/questions/4165195/mysql-query-to-get-column-names
+https://www.pexels.com/photo/white-dump-truck-near-pine-tress-during-daytime-93398/

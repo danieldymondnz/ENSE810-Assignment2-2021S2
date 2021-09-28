@@ -13,7 +13,7 @@
 <body class="sessionBody" onLoad="updateView()">
 
    <section class="floatingSessionContainer">
-        <h1 class="header-title header-title-login">Kia Ora</h1>
+        <h1 class="header-title header-title-login">Kia ora</h1>
         <p>Welcome back. To access information on this system, you will need to login</p>
         <p id="connectionAddress" style="font-style: italic;"><i>localhost</i></p>
         <br></br>
