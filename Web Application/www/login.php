@@ -58,7 +58,7 @@
         $_SESSION["signOnSuccessful"] = true;
 
         // Redirect to console
-        header("Location: dataConsole.php");
+        header("Location: home.php");
 
     }
 

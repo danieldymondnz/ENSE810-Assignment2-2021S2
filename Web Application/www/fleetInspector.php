@@ -1,7 +1,7 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
 <head>
-    <title> Data Console | SDMMS Console </title>
+    <title> Fleet Inspector | SDMMS Console </title>
     <?php require('phpTemplates/header.php'); ?>
 
     <!-- PHP Verification - If no active session, return to login. -->

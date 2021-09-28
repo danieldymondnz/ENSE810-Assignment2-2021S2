@@ -1,11 +1,27 @@
 <section class="nav">
     <section class="nav-logo">
-        SDMMS
+        <a class="nav-link" href="home.php">
+            SDMMS
+        </a>
+    </section>
+    <section class="nav-button">
+        <a class="nav-link" href="">
+            <span class="material-icons material-icons-outlined">
+                monitor_heart
+            </span> Status - disabled
+        </a>
+    </section>
+    <section class="nav-button">
+        <a class="nav-link" href="">
+            <span class="material-icons material-icons-outlined">
+                policy
+            </span> Fleet Inspector - disabled
+        </a>
     </section>
     <section class="nav-button">
         <a class="nav-link" href="dataConsole.php">
             <span class="material-icons material-icons-outlined">
-                view_list
+                table_chart
             </span> Data Console
         </a>
     </section>

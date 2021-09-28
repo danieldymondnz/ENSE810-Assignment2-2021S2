@@ -22,3 +22,4 @@ https://www.w3schools.com/html/html_form_elements.asp
 https://w3collective.com/get-domain-name-url-javascript/
 
 https://favicon.io/
+https://stackoverflow.com/questions/4165195/mysql-query-to-get-column-names
