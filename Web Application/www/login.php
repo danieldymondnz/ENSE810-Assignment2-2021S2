@@ -8,7 +8,7 @@
 <body class="sessionBody">
 
     <section class="floatingSessionContainer">
-        <h1 class="header-title header-title-login">Kia Ora</h1>
+        <h1 class="header-title header-title-login">Kia ora</h1>
         <p>Welcome back to the SDMMS Console</p>
         <p id="submissionOutcome">Please enter your username and password to access the database</p>
         <br></br>
@@ -19,6 +19,7 @@
             <br></br>
             <br></br>
             <input type="submit" value="Log In"/>
+            <input id="button" type="button" value="Cancel" onclick="location.href = '/';"></input>
         </form>
     </section>
 

@@ -3,9 +3,57 @@
     // Globals for Configuration Information
     $GLOBALS['servername'] = "localhost";
     $GLOBALS['database'] = "week8DatabaseTest";
+    $GLOBALS['columnNames'] = getColumns();
+
+    // Get Column Names
+    function getColumns()
+    {
+        // Open Connection
+        $conn = new mysqli($GLOBALS['servername'], $_SESSION["username"], $_SESSION["password"], $GLOBALS['database']);
+
+        // If connection fails, throw error
+        if ($conn->connect_error)
+            triggerDatabaseError($conn->connect_error);
+
+        // Run query and aggregate results
+        $sqlQuery = "SELECT COLUMN_NAME FROM information_schema.COLUMNS WHERE TABLE_SCHEMA = 'week8DatabaseTest' AND TABLE_NAME = 'initalTesting'";
+        $result = $conn->query($sqlQuery);
+        $conn->close();
+
+        // 
+        if ($result->num_rows > 0) {
+
+            // Create new array
+            $returnArray = array();
+            $counter = 1;
+
+            // Extract each item from query and place into array
+            while($row = $result->fetch_assoc()) {
+                $returnArray[$counter] = $row["COLUMN_NAME"];
+                $counter += 1;
+            }
+
+            // Return array
+            return $returnArray;
+
+        } 
+        else
+            return null;
+
+    }
 
     // Populate a Select Input for a filter by column name
     function getColumnNamesForSelectInput() {
+
+        foreach($GLOBALS['columnNames'] as $column) {
+            echo '<option value="' . $column . '">' . $column . '</option>';
+        }
+
+        return;
+
+    }
+
+    function queryByFilter($filterName, $filterOrder) {
 
         // Create connection and execute query
         $sqlQuery = "SELECT COLUMN_NAME FROM information_schema.COLUMNS WHERE TABLE_SCHEMA = 'week8DatabaseTest' AND TABLE_NAME = 'initalTesting'";
@@ -13,7 +61,7 @@
 
         // Establish Connection
         if ($conn->connect_error) {
-            die("Connection failed: " . $conn->connect_error);
+            triggerDatabaseError($conn->connect_error);
         }
         $result = $conn->query($sqlQuery);
 
@@ -23,6 +71,8 @@
                 echo '<option value="' . $row["COLUMN_NAME"] . '">' . $row["COLUMN_NAME"] . '</option>';
             }
         } 
+
+        $conn->close();
 
     }
 
@@ -78,5 +128,10 @@
             
 
         
+    }
+
+    function triggerDatabaseError($errorMessage)
+    {
+        die("Connection failed: " . $errorMessage);
     }
 ?>

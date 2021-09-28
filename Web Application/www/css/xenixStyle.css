@@ -34,7 +34,8 @@ input, button, select {
     transition: 0.2s ease-in-out;
 }
 
-input[type="submit"]:hover {
+input[type="submit"]:hover, input[type="reset"]:hover, input[type="button"]:hover,
+input[type="submit"]:focus, input[type="reset"]:focus, input[type="button"]:focus  {
     background-color: #808080;
     transition: 0.2s ease-in-out;
 }
@@ -254,7 +255,7 @@ input[type="submit"]:hover {
 /* Session Logo */
 
 .sessionBody {
-    background-image: url(img/sessionBackdrop.jpg);
+    background-image: url(../img/sessionBackdrop.jpg);
     background-color: #101010;
     background-repeat: no-repeat;
     background-position: center;
@@ -262,6 +263,7 @@ input[type="submit"]:hover {
     height: 100vh;
     margin: 0;
     padding: 0 100px;
+    transition: 0.2s ease-in-out;
     vertical-align: center;
     -webkit-background-size: cover;
     -moz-background-size: cover;
@@ -269,7 +271,7 @@ input[type="submit"]:hover {
 }
 
 .floatingSessionContainer {
-    padding-top: 30vh;
+    padding-top: max(calc(50vh - 270px), 40px);
 }
 
 .floatingSessionLogo {
@@ -278,7 +280,6 @@ input[type="submit"]:hover {
     bottom: 64px;
     width: 420px;
 }
-
 
 .floatingSessionLogoIcon {
     float: left;
@@ -292,4 +293,16 @@ input[type="submit"]:hover {
 .floatingSessionLogoText h4 {
     font-size: 20px;
     margin: 0;
+}
+
+@media screen and (max-width: 1200px) {
+
+    .sessionBody {
+        padding: 0 30px;
+    }
+
+    .floatingSessionLogo {
+        width: calc(100vw - 64px);
+    }
+
 }
