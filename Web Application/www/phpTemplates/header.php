@@ -8,10 +8,8 @@
 <link rel="icon" type="image/png" sizes="16x16" href="/img/favicon/favicon-16x16.png">
 <link rel="manifest" href="/img/favicon/site.webmanifest">
 
-<div id="buildHeader" style="position: fixed; bottom: 4px; left: 4px;" onload="replaceConnectionAddress();">
+<div id="buildHeader" style="position: absolute; bottom: 4px; left: 4px;" onload="replaceConnectionAddress();">
     SDMMS dev build - <span id="buildHeaderDateTime"></span><br>
-    DB: localhost 
-
     <script>
         var dt = new Date().toDateString();
         document.getElementById('buildHeaderDateTime').innerHTML=dt;

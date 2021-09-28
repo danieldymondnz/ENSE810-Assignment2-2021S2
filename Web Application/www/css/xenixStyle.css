@@ -298,9 +298,10 @@ tr {
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
-    height: 100vh;
+    height: calc(100vh - 200px);
     margin: 0;
-    padding: 0 100px;
+    padding: 100px 100px;
+    position: relative;
     transition: 0.2s ease-in-out;
     vertical-align: center;
     -webkit-background-size: cover;
@@ -309,13 +310,16 @@ tr {
 }
 
 .floatingSessionContainer {
-    padding-top: max(calc(50vh - 270px), 40px);
+    background-color:rgba(10, 10, 10, 0.705);
+    height: calc(100% - 128px);
+    padding: 64px;
+    width: 430px;
 }
 
 .floatingSessionLogo {
     color: #DDDDDD;
     position: absolute;
-    bottom: 64px;
+    bottom: 148px;
     width: 420px;
 }
 
@@ -333,14 +337,21 @@ tr {
     margin: 0;
 }
 
-@media screen and (max-width: 1200px) {
+@media screen and (max-width: 750px) {
 
     .sessionBody {
-        padding: 0 30px;
+        height: 100vh;
+        padding: 0;
+    }
+
+    .floatingSessionContainer {
+        background-color: none;
+        width: calc(100%  - 128px);
     }
 
     .floatingSessionLogo {
-        width: calc(100vw - 64px);
+        bottom: 48px;
+        width: calc(100vw - 84px);
     }
 
 }

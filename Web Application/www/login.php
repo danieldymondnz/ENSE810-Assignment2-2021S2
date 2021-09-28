@@ -21,11 +21,11 @@
             <input class="englargedButton" type="submit" value="Log In"/>
             <input class="englargedButton" id="button" type="button" value="Cancel" onclick="location.href = '/';"></input>
         </form>
-    </section>
 
-    <!-- Floating Session Logo Template -->
-    <?php require('phpTemplates/floatingSessionLogo.php'); ?>
+        <!-- Floating Session Logo Template -->
+        <?php require('phpTemplates/floatingSessionLogo.php'); ?>
     
+    </section>
 
 </body>
 

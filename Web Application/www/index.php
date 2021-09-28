@@ -20,9 +20,11 @@
         <form method="post" action="login.php">
             <input class="englargedButton" type="submit" value="Log In"/>
         </form>
+
+        <!-- Floating Session Logo Template -->
+        <?php require('phpTemplates/floatingSessionLogo.php'); ?>
     </section>
 
-    <!-- Floating Session Logo Template -->
-    <?php require('phpTemplates/floatingSessionLogo.php'); ?>
+    
 
 </body>
