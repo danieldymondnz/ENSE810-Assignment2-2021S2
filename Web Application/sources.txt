@@ -24,3 +24,6 @@ https://w3collective.com/get-domain-name-url-javascript/
 https://favicon.io/
 https://stackoverflow.com/questions/4165195/mysql-query-to-get-column-names
 https://www.pexels.com/photo/white-dump-truck-near-pine-tress-during-daytime-93398/
+https://stackoverflow.com/questions/5198304/how-to-keep-form-values-after-post
+https://www.w3schools.com/sql/sql_top.asp
+https://stackoverflow.com/questions/16699734/mysql-query-for-table-row-range/16699850
