@@ -4,18 +4,18 @@
             SDMMS
         </a>
     </section>
-    <section class="nav-button">
+    <section class="nav-button nav-button-disabled">
         <a class="nav-link" href="">
             <span class="material-icons material-icons-outlined">
                 monitor_heart
-            </span> Status - disabled
+            </span> Status
         </a>
     </section>
-    <section class="nav-button">
+    <section class="nav-button nav-button-disabled">
         <a class="nav-link" href="">
             <span class="material-icons material-icons-outlined">
                 policy
-            </span> Fleet Inspector - disabled
+            </span> Fleet Inspector
         </a>
     </section>
     <section class="nav-button">

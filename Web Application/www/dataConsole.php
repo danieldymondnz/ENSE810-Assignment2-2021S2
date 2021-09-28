@@ -24,15 +24,14 @@
         <div class="header-charms">
 
             <!-- Filters for Data Console -->
-            <form method="post" action="dataConsole.php">
-            <span class="material-icons-outlined">filter_alt</span> Filter & Sort Data: 
-                <select id="filterTypeField">
-                    <option value="none" selected>Filter data by... </option>
+            <form method="get" action="dataConsole.php">
+                <span class="material-icons-outlined">filter_alt</span> Filter & Sort Data: 
+                <select name="filterTypeField">
                     <?php getColumnNamesForSelectInput() ?>
                 </select>
-                <select id="filterOrderField">
-                    <option value="asc" selected>Ascending</option>
-                    <option value="desc">Descending</option>
+                <select name="filterOrderField">
+                    <option value="ASC">Ascending</option>
+                    <option value="DESC">Descending</option>
                 </select>
                 <input id="button" type="reset" value="Reset Filter"></input>
                 <input id="button" type="submit" value="Apply Filter"></input>
@@ -43,10 +42,24 @@
             <img src="img/no-items.jpg" /><br /><br />
             Sorry, there's nothing to show. Try searching for something else.
         </section>
-        <?php executeQuery() ?>
+        <?php 
+        
+            if (isset($_GET['filterTypeField']) && isset($_GET['filterOrderField'])) {
+                queryByFilter($_GET['filterTypeField'], $_GET['filterOrderField']);
+            } else {
+                executeDefaultQuery();
+            }
+        
+        ?>
         <section id="loading-animation" class="loading-animation hidden">
             <div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
         </section>
     </section>
 </body>
+<?php
+
+        
+            
+
+?>
 </html>

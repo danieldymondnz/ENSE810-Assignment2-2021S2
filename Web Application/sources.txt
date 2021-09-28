@@ -27,3 +27,4 @@ https://www.pexels.com/photo/white-dump-truck-near-pine-tress-during-daytime-933
 https://stackoverflow.com/questions/5198304/how-to-keep-form-values-after-post
 https://www.w3schools.com/sql/sql_top.asp
 https://stackoverflow.com/questions/16699734/mysql-query-for-table-row-range/16699850
+https://stackoverflow.com/questions/6655628/mysql-count-total-number-of-rows-in-php
