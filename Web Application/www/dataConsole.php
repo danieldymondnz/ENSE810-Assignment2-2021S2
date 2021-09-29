@@ -3,16 +3,7 @@
 <head>
     <title> Data Console | SDMMS Console </title>
     <?php require('phpTemplates/header.php'); ?>
-
-    <!-- PHP Verification - If no active session, return to login. -->
-    <?php
-        session_start();
-        if (session_status() == PHP_SESSION_ACTIVE && $_SESSION["signOnSuccessful"] == true) {
-            require('phpTemplates/databaseConfig.php');
-        } else {
-            header("Location: logout.php");
-        }
-    ?>
+    <?php require('phpTemplates/sessionVerification.php'); ?>
     <?php
         
         if (isset($_GET['startVal'])) 
