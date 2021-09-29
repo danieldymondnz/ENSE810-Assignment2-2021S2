@@ -56,7 +56,6 @@
         session_start();
         $_SESSION['servername'] = $servername;
         $_SESSION['database'] = $database;
-        $_SESSION['table'] = "initalTesting";
         $_SESSION["username"] = $username;
         $_SESSION["password"] = $password;
         $_SESSION["signOnSuccessful"] = true;

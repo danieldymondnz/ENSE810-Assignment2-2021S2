@@ -2,8 +2,9 @@
 
     // Globals for Configuration Information
     $GLOBALS['recordsPerPage'] = 10;
-    $GLOBALS['columnNames'] = getColumns();
     $GLOBALS['vehicleData'] = "initalTesting";
+    $GLOBALS['columnNames'] = getColumns();
+    
     // Get Column Telemetry such as names and length
     function getColumns(){
         
@@ -16,12 +17,12 @@
         if ($conn->connect_error)
             triggerDatabaseError($conn->connect_error);
 
-        $SQLPreQuery = "SELECT COUNT(*) FROM " . $GLOBALS['vehicleData'];
+        $SQLPreQuery = "SELECT COUNT(*) FROM `" . $GLOBALS['vehicleData'] . "`";
         $result = $conn->query($SQLPreQuery);
         $GLOBALS['numRecords'] = mysqli_fetch_array($result)[0];
 
         // Run query and aggregate results
-        $sqlQuery = "SELECT COLUMN_NAME FROM information_schema.COLUMNS WHERE TABLE_SCHEMA = 'week8DatabaseTest' AND TABLE_NAME = 'initalTesting'";
+        $sqlQuery = "SELECT COLUMN_NAME FROM information_schema.COLUMNS WHERE TABLE_SCHEMA = '" . $_SESSION['database'] . "' AND TABLE_NAME = '" . $GLOBALS['vehicleData'] . "'";
         $result = $conn->query($sqlQuery);
         $conn->close();
 
