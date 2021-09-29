@@ -362,6 +362,7 @@ tr {
     display: block;
     background-color: #1A1A1A;
     height: 48px;
+    margin: 6px 0;
     width: 100%;
 }
 
@@ -373,6 +374,7 @@ tr {
 
 .heartbeatVehicleRegistration {
     font-weight: bold;
+    width: 70px;
 }
 
 .heartbeatVehicleStatus, .heartbeatVehicleStatusLabel {

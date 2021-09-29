@@ -3,7 +3,7 @@
     // Globals for Configuration Information
     $GLOBALS['recordsPerPage'] = 10;
     $GLOBALS['columnNames'] = getColumns();
-
+    $GLOBALS['vehicleData'] = "initalTesting";
     // Get Column Telemetry such as names and length
     function getColumns(){
         
@@ -16,7 +16,7 @@
         if ($conn->connect_error)
             triggerDatabaseError($conn->connect_error);
 
-        $SQLPreQuery = "SELECT COUNT(*) FROM " . $_SESSION['table'];
+        $SQLPreQuery = "SELECT COUNT(*) FROM " . $GLOBALS['vehicleData'];
         $result = $conn->query($SQLPreQuery);
         $GLOBALS['numRecords'] = mysqli_fetch_array($result)[0];
 
@@ -99,7 +99,7 @@
     function queryByFilter($filterName, $filterOrder, $startVal)
     {
         // Craft the query
-        $sqlQuery = "SELECT * FROM " . $_SESSION['table'] . " ORDER BY `" . $_SESSION['table'] . "`.`" . $filterName . "` " . $filterOrder . " LIMIT " . $startVal . "," . $GLOBALS['recordsPerPage'];
+        $sqlQuery = "SELECT * FROM " . $GLOBALS['vehicleData'] . " ORDER BY `" . $GLOBALS['vehicleData'] . "`.`" . $filterName . "` " . $filterOrder . " LIMIT " . $startVal . "," . $GLOBALS['recordsPerPage'];
 
         // Execute the query and generate the table data
         executeQueryAndTabulate($sqlQuery);
@@ -109,7 +109,7 @@
     function executeDefaultQuery() 
     {
         // Craft the query
-        $sqlQuery = "SELECT * FROM " . $_SESSION['table'] . " ORDER BY `" . $_SESSION['table'] . "`.`uid` ASC LIMIT 1," . $GLOBALS['recordsPerPage'];
+        $sqlQuery = "SELECT * FROM " . $GLOBALS['vehicleData'] . " ORDER BY `" . $GLOBALS['vehicleData'] . "`.`uid` ASC LIMIT 1," . $GLOBALS['recordsPerPage'];
 
         // Execute the query and generate the table data
         executeQueryAndTabulate($sqlQuery);

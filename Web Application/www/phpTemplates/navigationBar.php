@@ -5,10 +5,10 @@
         </a>
     </section>
     <section class="nav-button nav-button-disabled">
-        <a class="nav-link" href="heartbeat.php">
+        <a class="nav-link" href="fleethealth.php">
             <span class="material-icons material-icons-outlined">
                 monitor_heart
-            </span> Heartbeat
+            </span> Fleet Health
         </a>
     </section>
     <section class="nav-button nav-button-disabled">

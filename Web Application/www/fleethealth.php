@@ -1,7 +1,7 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
 <head>
-    <title> Heartbeat | SDMMS Console </title>
+    <title> Fleet Health | SDMMS Console </title>
     <?php require('phpTemplates/header.php'); ?>
 
     <!-- PHP Verification - If no active session, return to login. -->
@@ -20,7 +20,7 @@
     <?php require('phpTemplates/navigationBar.php'); ?>
 
     <section class="content">
-        <h1 class="header-title">Heartbeat</h1>
+        <h1 class="header-title">Fleet Health</h1>
         <div class="header-charms">
 
             <!-- Search for Heartbeat -->
@@ -46,7 +46,7 @@
                 read_more
             </span>
             <span class="heartbeatVehicleStatus">
-                <span class="heartbeatVehicleStatusLabel back-red">
+                <span class="heartbeatVehicleStatusLabel back-orange">
                     TEMP WARN
                 </span>
                 <span class="heartbeatVehicleStatusLabel back-green">
@@ -56,9 +56,24 @@
             
         </div>
 
-        <section id="loading-animation" class="loading-animation hidden">
-            <div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
-        </section>
+        <div class="heartbeatVehicle">
+            <span class="heartbeatVehicleRegistration">
+                BNK611
+            </span>
+            <span class="heartbeatVehicleInfo">
+                No Trip Data Available
+            </span>
+            <span class="heartbeatVehicleLink material-icons-outlined">
+                read_more
+            </span>
+            <span class="heartbeatVehicleStatus">
+                <span class="heartbeatVehicleStatusLabel back-red">
+                    HEARTBEAT MISSED
+                </span>
+            </span>
+            
+        </div>
+            <!-- SELECT REGISTRATION FROM `VEHICLES` -->
     </section>
 </body>
 </html>
