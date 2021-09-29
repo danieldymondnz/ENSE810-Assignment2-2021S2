@@ -355,3 +355,37 @@ tr {
     }
 
 }
+
+/* Heartbeat */
+
+.heartbeatVehicle {
+    display: block;
+    background-color: #1A1A1A;
+    height: 48px;
+    width: 100%;
+}
+
+.heartbeatVehicleRegistration, .heartbeatVehicleInfo, .heartbeatVehicleLink  {
+    display: inline-block;
+    margin: auto 14px;
+    padding: 14px 0;
+}
+
+.heartbeatVehicleRegistration {
+    font-weight: bold;
+}
+
+.heartbeatVehicleStatus, .heartbeatVehicleStatusLabel {
+    display: inline-block;
+    margin: auto 0;
+    padding: 7px;
+}
+
+.heartbeatVehicleStatus, .heartbeatVehicleLink {
+    float: right;
+}
+
+.heartbeatVehicleLink {
+    padding: 12px 0;
+}
+

@@ -9,8 +9,8 @@
 
     <section class="floatingSessionContainer">
         <h1 class="header-title header-title-login">Kia ora</h1>
-        <p>Welcome back to the SDMMS Console</p>
-        <p id="submissionOutcome">Please enter your username and password to access the database</p>
+        <p>Welcome back to SDMMS</p>
+        <p id="submissionOutcome">Please enter your username and password</p>
         <br></br>
         <form method="post" action="login.php">
             <input id= "username" name="username" type="text" placeholder="Username" autocomplete="off" arial-label="Inventory Search Box" />
