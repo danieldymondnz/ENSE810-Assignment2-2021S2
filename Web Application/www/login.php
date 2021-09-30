@@ -2,7 +2,6 @@
 <html lang="en"><html>
 <head>
     <title> Login | SDMMS Console </title>
-    <!-- Header Template -->
     <?php require('phpTemplates/header.php'); ?>
 </head>
 <body class="sessionBody">

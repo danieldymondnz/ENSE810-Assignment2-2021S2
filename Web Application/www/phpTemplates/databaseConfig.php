@@ -110,7 +110,7 @@
     function executeDefaultQuery() 
     {
         // Craft the query
-        $sqlQuery = "SELECT * FROM " . $GLOBALS['vehicleData'] . " ORDER BY `" . $GLOBALS['vehicleData'] . "`.`uid` ASC LIMIT 1," . $GLOBALS['recordsPerPage'];
+        $sqlQuery = "SELECT * FROM " . $GLOBALS['vehicleData'] . " ORDER BY `" . $GLOBALS['vehicleData'] . "`.`uid` ASC LIMIT 0," . $GLOBALS['recordsPerPage'];
 
         // Execute the query and generate the table data
         executeQueryAndTabulate($sqlQuery);
