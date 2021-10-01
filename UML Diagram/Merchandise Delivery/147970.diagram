@@ -47,6 +47,7 @@ msg 129666 synchronous
   label_xy 161 130
 reflexivemsg 131202 asynchronous
   to durationcanvas_ref 131074
-  yz 152 2025 unspecifiedmsg
+  yz 152 2025 msg operation_ref 143874 // "_connectToLocalDB(in localDBFilePath : string [1]) : Connection"
   show_full_operations_definition default show_class_of_operation default drawing_language default show_context_mode default
+  label_xy 588 149
 end

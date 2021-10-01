@@ -2,42 +2,42 @@ format 224
 
 classcanvas 128002 class_ref 135298 // Manager
   simpleclassdiagramsettings end
-  xyz 199.4 363.4 2000
+  xyz 200 364 2000
 end
 classcanvas 128130 class_ref 135170 // TruckDriver
   simpleclassdiagramsettings end
-  xyz 193 506.7 2000
+  xyz 193.5 507.6 2000
 end
 classcanvas 128386 class_ref 135426 // Analyst
   simpleclassdiagramsettings end
-  xyz 201.7 221.4 2000
+  xyz 201 221.6 2000
 end
 usecasecanvas 128514 usecase_ref 128130 // View Enviromental Temperature & Humidity
-  xyzwh 624.7 467.9 3005 132 68 max_width 22 label_xy 632 486
+  xyzwh 624.4 467 3005 132 68 max_width 22 label_xy 632 486
 end
 usecasecanvas 128642 usecase_ref 128258 // View Enviromental & Inertial Warnings
-  xyzwh 624 545 3005 134 68 max_width 21 label_xy 639 565
+  xyzwh 624 544.8 3005 134 68 max_width 21 label_xy 639 565
 end
 usecasecanvas 128770 usecase_ref 128386 // View Vehicle Statistics
-  xyzwh 394 303 3005 138 65 label_xy 406 329
+  xyzwh 394.2 303 3005 138 65 label_xy 406 329
 end
 subject 129794 "SDMMS"
-  xyzwh 360 211 2000 412 415
+  xyzwh 360 211.8 2000 412 415
 usecasecanvas 129922 usecase_ref 128514 // View Latest Trip Information from each Vehicle
-  xyzwh 393 377 3005 139 67 max_width 20 label_xy 418 387
+  xyzwh 393.2 377 3005 139 67 max_width 20 label_xy 418 387
 end
 usecasecanvas 130434 usecase_ref 128642 // View Raw Data from Database
-  xyzwh 395 231 3005 135 64 max_width 16 label_xy 419 246
+  xyzwh 395.2 231.2 3005 135 64 max_width 16 label_xy 419 246
 end
 simplerelationcanvas 128898 simplerelation_ref 128002
   decenter_end 270
-  from ref 128514 z 3006 stereotype "<<include>>" xyz 644.5 409 3000 to point 659 351
+  from ref 128514 z 3006 stereotype "<<include>>" xyz 644 409 3000 to point 659.6 351.8
   line 130050 z 3006 to ref 128770
 end
 simplerelationcanvas 129026 simplerelation_ref 128130
   decenter_begin 119
-  from ref 128642 z 3006 to point 597 539
-  line 130306 z 3006 stereotype "<<include>>" xyz 555 455.5 3000 to point 564 368
+  from ref 128642 z 3006 to point 597.4 539.6
+  line 130306 z 3006 stereotype "<<include>>" xyz 555 455 3000 to point 564.6 368
   line 130178 z 3006 to ref 128770
 end
 line 129282 ----

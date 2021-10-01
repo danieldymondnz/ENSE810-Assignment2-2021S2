@@ -1,7 +1,7 @@
-window_sizes 1920 1017 290 1624 861 104
+window_sizes 1920 1017 290 1624 855 110
 cleanlooks_style
 diagrams
-  active  classdiagram_ref 128002 // MonitoringSystem
+  classdiagram_ref 128002 // MonitoringSystem
     1453 847 90 A3-Landscape 7 0
   usecasediagram_ref 141314 // MonitoringSystemCaseView
     1429 802 130 A3-Landscape 208 126
@@ -9,13 +9,15 @@ diagrams
     1085 681 100 A3-Landscape 0 0
   sequencediagram_ref 148098 // MonitoringSystemShutdown
     896 681 100 A4 0 0
+  sequencediagram_ref 134541 // MonitoringSystemSensorData
+    1299 688 100 A3-Landscape 0 0
+  active  sequencediagram_ref 147970 // MonitoringSystemStartup
+    1624 855 100 A4 0 0
 end
 show_stereotypes
-selected attribute_ref 143746 // __maxAccel
+selected sequencediagram_ref 147970 // MonitoringSystemStartup
 open
-  attribute_ref 143746 // __maxAccel
   class_ref 128514 // DBAgent
-  state_ref 128770 // DatabaseStateMachine
   deploymentview_ref 128002 // MonitoringSystemDeployView
   usecaseview_ref 128002 // MonitoringSystemCaseView
 end
