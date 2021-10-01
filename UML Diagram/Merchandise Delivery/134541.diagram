@@ -1,0 +1,88 @@
+format 224
+
+classinstancecanvas 128013 classinstance_ref 134541 // 
+  xyz 74 5 2000 life_line_z 2000
+end
+classinstancecanvas 128141 classinstance_ref 134669 // 
+  xyz 340 4 2000 life_line_z 2000
+end
+classinstancecanvas 128269 classinstance_ref 134797 // 
+  xyz 200 8 2000 life_line_z 2000
+end
+classinstancecanvas 128397 classinstance_ref 134925 // 
+  xyz 455 4 2000 life_line_z 2000
+end
+durationcanvas 131981 classinstance_ref 128013 // :Controller
+  xyzwh 99 100 2010 11 218
+end
+durationcanvas 132109 classinstance_ref 128269 // :DataCollection
+  xyzwh 236 98 2010 11 71
+  overlappingdurationcanvas 132365
+    xyzwh 242 102 2020 11 25
+  end
+  overlappingdurationcanvas 132621
+    xyzwh 242 125 2020 11 25
+  end
+end
+durationcanvas 133005 classinstance_ref 128141 // :MatrixDriver
+  xyzwh 371 212 2010 11 60
+  overlappingdurationcanvas 133261
+    xyzwh 377 216 2020 11 25
+  end
+  overlappingdurationcanvas 133517
+    xyzwh 377 239 2020 11 25
+  end
+end
+durationcanvas 133901 classinstance_ref 128397 // :DBAgent
+  xyzwh 478 297 2010 11 27
+end
+msg 132237 synchronous
+  from durationcanvas_ref 131981
+  to durationcanvas_ref 132109
+  yz 100 2015 explicitmsg "request dataQueue"
+  show_full_operations_definition default show_class_of_operation default drawing_language default show_context_mode default
+  label_xy 127 86
+reflexivemsg 132493 synchronous
+  to durationcanvas_ref 132365
+  yz 102 2025 explicitmsg "calcAvg()"
+  show_full_operations_definition default show_class_of_operation default drawing_language default show_context_mode default
+  label_xy 246 88
+reflexivemsg 132749 synchronous
+  to durationcanvas_ref 132621
+  yz 125 2025 explicitmsg "genFlags()"
+  show_full_operations_definition default show_class_of_operation default drawing_language default show_context_mode default
+  label_xy 256 112
+msg 132877 return
+  from durationcanvas_ref 132109
+  to durationcanvas_ref 131981
+  yz 156 2015 explicitmsg "return dataQueue"
+  show_full_operations_definition default show_class_of_operation default drawing_language default show_context_mode default
+  label_xy 131 142
+msg 133133 synchronous
+  from durationcanvas_ref 131981
+  to durationcanvas_ref 133005
+  yz 212 2015 explicitmsg "dispDataQueue()"
+  show_full_operations_definition default show_class_of_operation default drawing_language default show_context_mode default
+  label_xy 199 198
+reflexivemsg 133389 synchronous
+  to durationcanvas_ref 133261
+  yz 216 2025 explicitmsg "updateGraph()"
+  show_full_operations_definition default show_class_of_operation default drawing_language default show_context_mode default
+  label_xy 382 201
+reflexivemsg 133645 synchronous
+  to durationcanvas_ref 133517
+  yz 239 2025 explicitmsg "dispWarnings()"
+  show_full_operations_definition default show_class_of_operation default drawing_language default show_context_mode default
+  label_xy 390 226
+msg 133773 return
+  from durationcanvas_ref 133005
+  to durationcanvas_ref 131981
+  yz 259 2025 unspecifiedmsg
+  show_full_operations_definition default show_class_of_operation default drawing_language default show_context_mode default
+msg 134029 synchronous
+  from durationcanvas_ref 131981
+  to durationcanvas_ref 133901
+  yz 297 2015 explicitmsg "log data to DB"
+  show_full_operations_definition default show_class_of_operation default drawing_language default show_context_mode default
+  label_xy 261 283
+end

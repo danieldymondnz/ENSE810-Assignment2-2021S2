@@ -1,7 +1,7 @@
 format 224
 "MonitoringSystem" // MonitoringSystem
-  revision 7
-  modified_by 2 "danie"
+  revision 8
+  modified_by 13 "kylea"
   // class settings
   
   classdiagramsettings member_max_width 0 end
@@ -981,17 +981,17 @@ initalised"
         end
     end
 
+    sequencediagram 148098 "MonitoringSystemShutdown"
+      sequencediagramsettings end
+      overlapping_bars size A4
+    end
+
     classinstance 128514 ""
       type class_ref 128514 // DBAgent
       attributes
         end
       relations
         end
-    end
-
-    sequencediagram 148098 "MonitoringSystemShutdown"
-      sequencediagramsettings end
-      overlapping_bars size A4
     end
 
     classinstance 128642 ""
@@ -1019,6 +1019,43 @@ initalised"
     end
 
     classinstance 129026 ""
+      type class_ref 128514 // DBAgent
+      attributes
+        end
+      relations
+        end
+    end
+
+    sequencediagram 134541 "MonitoringSystemSensorData"
+      sequencediagramsettings end
+      overlapping_bars size A4
+    end
+
+    classinstance 134541 ""
+      type class_ref 128130 // Controller
+      attributes
+        end
+      relations
+        end
+    end
+
+    classinstance 134669 ""
+      type class_ref 128002 // MatrixDriver
+      attributes
+        end
+      relations
+        end
+    end
+
+    classinstance 134797 ""
+      type class_ref 128258 // DataCollection
+      attributes
+        end
+      relations
+        end
+    end
+
+    classinstance 134925 ""
       type class_ref 128514 // DBAgent
       attributes
         end
