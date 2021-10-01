@@ -1,14 +1,17 @@
-window_sizes 1920 1027 387 1527 871 104
+window_sizes 1920 1017 330 1584 861 104
 cleanlooks_style
 diagrams
-  active  classdiagram_ref 128002 // MonitoringSystem
+  classdiagram_ref 128002 // MonitoringSystem
     1453 847 90 A3-Landscape 31 0
+  active  usecasediagram_ref 141314 // MonitoringSystemCaseView
+    1429 802 130 A3-Landscape 208 126
 end
 show_stereotypes
-selected statediagram_ref 134530 // MatrixDriverStateDiagram
+selected class_ref 135426 // Analyst
 open
   state_ref 128002 // MatrixDriverStateDiagram
   state_ref 128770 // DatabaseStateMachine
   deploymentview_ref 128002 // MonitoringSystemDeployView
+  usecaseview_ref 128002 // MonitoringSystemCaseView
 end
 end
