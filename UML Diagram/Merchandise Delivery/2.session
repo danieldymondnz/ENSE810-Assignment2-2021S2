@@ -1,15 +1,20 @@
-window_sizes 1920 1017 330 1584 861 104
+window_sizes 1920 1017 290 1624 861 104
 cleanlooks_style
 diagrams
-  classdiagram_ref 128002 // MonitoringSystem
-    1453 847 90 A3-Landscape 31 0
-  active  usecasediagram_ref 141314 // MonitoringSystemCaseView
+  active  classdiagram_ref 128002 // MonitoringSystem
+    1453 847 90 A3-Landscape 7 0
+  usecasediagram_ref 141314 // MonitoringSystemCaseView
     1429 802 130 A3-Landscape 208 126
+  statediagram_ref 134530 // MatrixDriverStateDiagram
+    1085 681 100 A3-Landscape 0 0
+  sequencediagram_ref 148098 // MonitoringSystemShutdown
+    896 681 100 A4 0 0
 end
 show_stereotypes
-selected class_ref 135426 // Analyst
+selected attribute_ref 143746 // __maxAccel
 open
-  state_ref 128002 // MatrixDriverStateDiagram
+  attribute_ref 143746 // __maxAccel
+  class_ref 128514 // DBAgent
   state_ref 128770 // DatabaseStateMachine
   deploymentview_ref 128002 // MonitoringSystemDeployView
   usecaseview_ref 128002 // MonitoringSystemCaseView

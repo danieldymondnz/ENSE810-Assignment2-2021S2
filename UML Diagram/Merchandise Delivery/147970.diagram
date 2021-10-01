@@ -1,0 +1,52 @@
+format 224
+
+classinstancecanvas 128002 classinstance_ref 128130 // 
+  xyz 72 5 2000 life_line_z 2000
+end
+classinstancecanvas 128130 classinstance_ref 128258 // 
+  xyz 382 6 2000 life_line_z 2000
+end
+classinstancecanvas 128258 classinstance_ref 128386 // 
+  xyz 217 6 2000 life_line_z 2000
+end
+classinstancecanvas 128386 classinstance_ref 128514 // 
+  xyz 526 8 2000 life_line_z 2000
+end
+durationcanvas 128514 classinstance_ref 128002 // :Controller
+  xyzwh 97 78 2010 11 91
+end
+durationcanvas 128642 classinstance_ref 128258 // :DataCollection
+  xyzwh 253 86 2010 11 25
+end
+durationcanvas 128898 classinstance_ref 128130 // :MatrixDriver
+  xyzwh 413 113 2010 11 25
+end
+durationcanvas 129538 classinstance_ref 128386 // :DBAgent
+  xyzwh 549 141 2010 11 41
+  overlappingdurationcanvas 131074
+    xyzwh 555 151 2020 11 25
+  end
+end
+msg 128770 synchronous
+  from durationcanvas_ref 128514
+  to durationcanvas_ref 128642
+  yz 86 2015 msg operation_ref 129282 // "__init__(inout self : DataCollection [1], in senseHAT : SenseHat [1], in dataQueue : Queue [1])"
+  show_full_operations_definition default show_class_of_operation default drawing_language default show_context_mode default
+  label_xy 158 72
+msg 129026 synchronous
+  from durationcanvas_ref 128514
+  to durationcanvas_ref 128898
+  yz 113 2015 msg operation_ref 128002 // "__init__(inout self : MatrixDriver [1], in senseHAT : SenseHat [1])"
+  show_full_operations_definition default show_class_of_operation default drawing_language default show_context_mode default
+  label_xy 161 104
+msg 129666 synchronous
+  from durationcanvas_ref 128514
+  to durationcanvas_ref 129538
+  yz 141 2015 msg operation_ref 137090 // "__init__(inout self : DBAgent [1], in dataQueue : Queue<Dictionary> [1])"
+  show_full_operations_definition default show_class_of_operation default drawing_language default show_context_mode default
+  label_xy 161 130
+reflexivemsg 131202 asynchronous
+  to durationcanvas_ref 131074
+  yz 152 2025 unspecifiedmsg
+  show_full_operations_definition default show_class_of_operation default drawing_language default show_context_mode default
+end

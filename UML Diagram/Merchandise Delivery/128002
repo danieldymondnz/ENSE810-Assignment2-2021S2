@@ -1,6 +1,6 @@
 format 224
 "MonitoringSystem" // MonitoringSystem
-  revision 6
+  revision 7
   modified_by 2 "danie"
   // class settings
   
@@ -514,6 +514,19 @@ ${docstring}${members}
 	MysqlColumn
       end
 
+      attribute 143746 "__maxAccel"
+	class_attribute private explicit_type "float"
+	multiplicity "1"
+	cpp_decl ""
+	java_decl ""
+	php_decl ""
+	python_decl "${comment}${self}${name} = ${value}
+"
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+      end
+
       operation 129282 "__init__"
 	public explicit_return_type ""
 	nparams 3
@@ -562,17 +575,19 @@ ${docstring}${body}
 
       operation 129794 "__generateFlags"
 	class_operation private explicit_return_type "bool[5]"
-	nparams 3
+	nparams 4
 	  param in name "temp" explicit_type "float"
 	multiplicity "1"
 	  param in name "relHumidity" explicit_type "float"
 	multiplicity "1"
 	  param in name "speed" explicit_type "float"
 	multiplicity "1"
+	  param in name "accel" explicit_type "float"
+	multiplicity "1"
 	
 	
 	
-	python_def "${@}${static}${abstract}def ${name}${(}${p0}${v0}, ${p1}${v1}, ${p2}${v2}${)}:
+	python_def "${@}${static}${abstract}def ${name}${(}${p0}${v0}, ${p1}${v1}, ${p2}${v2}, ${p3}${v3}${)}:
 ${docstring}${body}
 "
 	
@@ -728,6 +743,18 @@ ${docstring}${body}
 ${docstring}${body}
 "
 	
+      end
+
+      attribute 143618 "localDBPath"
+	protected explicit_type "string"
+	cpp_decl ""
+	java_decl ""
+	php_decl ""
+	python_decl "${comment}${self}${name} = ${value}
+"
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
       end
     end
 
@@ -910,6 +937,93 @@ initalised"
 
       pseudostate 135042 exit_point "Exit"
       end
+    end
+
+    sequencediagram 147842 "MonitoringSystemSequenceDiagram"
+      sequencediagramsettings end
+      overlapping_bars size A4
+    end
+
+    classinstance 128002 "DataCollection"
+      type class_ref 128258 // DataCollection
+      attributes
+        end
+      relations
+        end
+    end
+
+    sequencediagram 147970 "MonitoringSystemStartup"
+      sequencediagramsettings end
+      overlapping_bars size A4
+    end
+
+    classinstance 128130 ""
+      type class_ref 128130 // Controller
+      attributes
+        end
+      relations
+        end
+    end
+
+    classinstance 128258 ""
+      type class_ref 128002 // MatrixDriver
+      attributes
+        end
+      relations
+        end
+    end
+
+    classinstance 128386 ""
+      type class_ref 128258 // DataCollection
+      attributes
+        end
+      relations
+        end
+    end
+
+    classinstance 128514 ""
+      type class_ref 128514 // DBAgent
+      attributes
+        end
+      relations
+        end
+    end
+
+    sequencediagram 148098 "MonitoringSystemShutdown"
+      sequencediagramsettings end
+      overlapping_bars size A4
+    end
+
+    classinstance 128642 ""
+      type class_ref 128130 // Controller
+      attributes
+        end
+      relations
+        end
+    end
+
+    classinstance 128770 ""
+      type class_ref 128258 // DataCollection
+      attributes
+        end
+      relations
+        end
+    end
+
+    classinstance 128898 ""
+      type class_ref 128002 // MatrixDriver
+      attributes
+        end
+      relations
+        end
+    end
+
+    classinstance 129026 ""
+      type class_ref 128514 // DBAgent
+      attributes
+        end
+      relations
+        end
     end
   end
 
