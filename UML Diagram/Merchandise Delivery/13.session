@@ -1,10 +1,10 @@
-window_sizes 1366 715 297 1064 565 104
+window_sizes 681 706 176 500 556 104
 
 diagrams
   usecasediagram_ref 141314 // MonitoringSystemCaseView
     379 556 100 A3-Landscape 170 293
   classdiagram_ref 128002 // MonitoringSystem
-    1064 565 80 A3-Landscape 211 0
+    1064 565 80 A3-Landscape 142 0
   sequencediagram_ref 147842 // MonitoringSystemSequenceDiagram
     851 452 29 A4 0 0
   sequencediagram_ref 147970 // MonitoringSystemStartup
@@ -12,7 +12,7 @@ diagrams
   sequencediagram_ref 148098 // MonitoringSystemShutdown
     114 86 100 A4 0 0
   active  sequencediagram_ref 134541 // MonitoringSystemSensorData
-    1064 565 100 A4 0 0
+    500 556 80 A4 0 0
 end
 show_stereotypes
 selected sequencediagram_ref 134541 // MonitoringSystemSensorData
