@@ -15,8 +15,8 @@
         <div class="header-charms">
 
             <!-- Search for Heartbeat -->
-            <form method="get" action="heartbeat.php">
-                <input id="registration" type="text" placeholder="Search for Registration..."></input>
+            <form method="get" action="fleetInspector.php">
+                <input name="registration" id="registration" type="text" placeholder="Search for Registration..."></input>
                 <input id="button" type="submit" value="Search"></input>
             </form>
 
@@ -26,7 +26,14 @@
             Sorry, there's nothing to show. Try searching for something else.
         </section>
 
-        <?php executeInspectorQueryAndTabulate("") ?>
+        
+        <?php 
+            if (isset($_GET['registration'])) {
+               executeInspectorQueryAndTabulate($_GET['registration']);
+            } else {
+                executeInspectorQueryAndTabulate("");
+            }
+        ?>
 
     </section>
 </body>

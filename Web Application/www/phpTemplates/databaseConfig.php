@@ -197,7 +197,7 @@
         // Construct SQL Query - Use registration if available, otherwise default
         $SQLQuery = "";
         if (strlen($registration) > 0) {
-            $SQLQuery = "SELECT * FROM `" . $GLOBALS['tripData'] . "` WHERE `Registration` LIKE `%" . $registration . "%` ORDER BY TRIP_TIMESTAMP DESC";
+            $SQLQuery = "SELECT * FROM `" . $GLOBALS['tripData'] . "` WHERE `REGISTRATION` LIKE '%" . $registration . "%' ORDER BY TRIP_TIMESTAMP DESC";
         } else {
             $SQLQuery = "SELECT * FROM `" . $GLOBALS['tripData'] . "` ORDER BY TRIP_TIMESTAMP DESC";
         }
@@ -215,7 +215,13 @@
         if ($result->num_rows > 0) {
 
             // Display Head of Results
-            echo "<section class='inventory-results-head'>Showing records " . ($_SESSION["startIndex"] + 1) . " to " . ($_SESSION["startIndex"] + $result->num_rows) . " of " . $GLOBALS['numRecords'] . " result(s)</section>";
+            echo "<section class='inventory-results-head'>Showing " . $result->num_rows . " result(s)";
+            
+            if (strlen($registration) > 0) {
+                echo  " for registration containing '" . $registration . "'";
+            }
+            
+            echo ".<br>";
             echo "<i class='SQLQueryText'>". $SQLQuery ."</i><br><br/>";
 
             $output = "";
