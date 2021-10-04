@@ -55,7 +55,7 @@ transitioncanvas 129410 transition_ref 128514 // <transition>
   
   from ref 129026 z 2001 label "after
 _displayRHWarning()
-finished execution" xyz 651 319 2001 to point 610 357.5
+finished execution" xyz 651 319 2001 to point 610 357
   line 129538 z 2001 to ref 128002
   write_horizontally default show_definition default drawing_language default
 end
@@ -63,7 +63,7 @@ transitioncanvas 129666 transition_ref 128642 // <transition>
   decenter_begin 722
   decenter_end 662
   
-  from ref 128002 z 2001 label "_RHWarning == 1" xyz 663 382 2001 to point 589.5 374
+  from ref 128002 z 2001 label "_RHWarning == 1" xyz 663 382 2001 to point 589 374
   line 129794 z 2001 to ref 129026
   write_horizontally default show_definition default drawing_language default
 end
@@ -87,7 +87,7 @@ transitioncanvas 130562 transition_ref 129026 // <transition>
   decenter_begin 136
   decenter_end 289
   
-  from ref 128002 z 2001 label "_accelerationWarning == 1" xyz 343 336 2001 to point 477.5 355.5
+  from ref 128002 z 2001 label "_accelerationWarning == 1" xyz 343 336 2001 to point 477 355
   line 130690 z 2001 to ref 130178
   write_horizontally default show_definition default drawing_language default
 end
@@ -97,7 +97,7 @@ transitioncanvas 130818 transition_ref 129154 // <transition>
   
   from ref 130178 z 2001 label "after
 _displayAccelerationWarning()
-finished execution" xyz 341 390 2001 to point 496 375.5
+finished execution" xyz 341 390 2001 to point 496 375
   line 130946 z 2001 to ref 128002
   write_horizontally default show_definition default drawing_language default
 end
@@ -114,7 +114,7 @@ transitioncanvas 131714 transition_ref 129410 // <transition>
   decenter_end 430
   
   from ref 128002 z 2001 label "while
-loop" xyz 535 302 3000 to point 557.5 292
+loop" xyz 535 302 2001 to point 557 292
   line 131842 z 2001 to point 532 292
   line 131970 z 2001 to ref 128002
   write_horizontally default show_definition default drawing_language default

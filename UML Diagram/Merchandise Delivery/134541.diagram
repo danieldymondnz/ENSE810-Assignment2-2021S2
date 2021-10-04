@@ -1,0 +1,181 @@
+format 224
+
+classinstancecanvas 128013 classinstance_ref 134541 // 
+  xyz 190.8 82.9 2000 life_line_z 2000
+end
+classinstancecanvas 128130 classinstance_ref 135554 // 
+  xyz 579.4 79.9 2000 life_line_z 2000
+end
+classinstancecanvas 128141 classinstance_ref 134669 // 
+  xyz 315.4 78.7 2000 life_line_z 2000
+end
+classinstancecanvas 128269 classinstance_ref 134797 // 
+  xyz 41.8 79.3 2000 life_line_z 2000
+end
+classinstancecanvas 128397 classinstance_ref 134925 // 
+  xyz 719.3 79.8 2000 life_line_z 2000
+end
+fragment 130050 "opt"
+  form "isOnline" xyzwh 661.9 642.2 2020 273 118
+end
+textcanvas 130946 "isOnline"
+  xyzwh 674.2 673.2 2000 108 22
+fragment 131074 "opt"
+  xyzwh 662.7 553.9 2030 271 81
+end
+textcanvas 131202 "!isOnline
+"
+  xyzwh 674 587.8 2035 67 22
+fragment 132098 "std iteration"
+  xyzwh 533.8 409.4 2030 408 366
+end
+fragment 134157 "sd Iteration"
+  refer sequencediagram_ref 134541 // MonitoringSystemSensorData
+  xyzwh 29.6 29.8 1995 922 764
+end
+fragment 134285 "sd Iteration"
+  xyzwh 47.8 117.2 2005 133 93
+end
+durationcanvas 128258 classinstance_ref 128397 // :DBAgent
+  xyzwh 742 444.6 2010 11 328
+  overlappingdurationcanvas 129538
+    xyzwh 748 571.3 2020 11 25
+  end
+  overlappingdurationcanvas 129794
+    xyzwh 748 602.4 2020 11 25
+  end
+  overlappingdurationcanvas 130178
+    xyzwh 748 694.6 2015 11 25
+  end
+  overlappingdurationcanvas 130434
+    xyzwh 748 665.4 2015 11 24
+  end
+  overlappingdurationcanvas 130690
+    xyzwh 748 721.2 2015 11 24
+  end
+  overlappingdurationcanvas 131330
+    xyzwh 748 516.6 2020 11 25
+  end
+end
+durationcanvas 128386 classinstance_ref 128130 // :DatabaseQueue
+  xyzwh 619 424.7 2010 11 88
+  overlappingdurationcanvas 128898
+    xyzwh 625 474.6 2020 11 25
+  end
+  overlappingdurationcanvas 131842
+    xyzwh 625 429.8 2020 11 28
+  end
+end
+durationcanvas 131981 classinstance_ref 128013 // :Controller
+  xyzwh 214 244 2010 11 228
+end
+durationcanvas 132109 classinstance_ref 128269 // :DataCollection
+  xyzwh 77 141.2 2010 11 180
+  overlappingdurationcanvas 132365
+    xyzwh 83 149.7 2020 11 25
+  end
+  overlappingdurationcanvas 132621
+    xyzwh 83 176.5 2020 11 25
+  end
+end
+durationcanvas 133005 classinstance_ref 128141 // :MatrixDriver
+  xyzwh 345 359 2010 11 68
+  overlappingdurationcanvas 133261
+    xyzwh 351 365.6 2020 11 25
+  end
+  overlappingdurationcanvas 133517
+    xyzwh 351 388 2020 11 25
+  end
+end
+msg 128514 synchronous
+  from durationcanvas_ref 128258
+  to durationcanvas_ref 128386
+  yz 447 2015 explicitmsg "size()"
+  show_full_operations_definition default show_class_of_operation default drawing_language default show_context_mode default
+  label_xy 673 435
+msg 129026 synchronous
+  from durationcanvas_ref 128258
+  to durationcanvas_ref 128898
+  yz 478 2025 explicitmsg "get()"
+  show_full_operations_definition default show_class_of_operation default drawing_language default show_context_mode default
+  label_xy 678 464
+reflexivemsg 129666 synchronous
+  to durationcanvas_ref 129538
+  yz 571 2025 msg operation_ref 144258 // "_genLocalDBWriteQuery(in dictToWrite : Dictionary [1])"
+  show_full_operations_definition default show_class_of_operation default drawing_language default show_context_mode default
+  label_xy 786 570
+reflexivemsg 129922 synchronous
+  to durationcanvas_ref 129794
+  yz 602 2025 msg operation_ref 144514 // "_writeToLocalDB(in sqlQuery : string [1])"
+  show_full_operations_definition default show_class_of_operation default drawing_language default show_context_mode default
+  label_xy 786 600
+reflexivemsg 130306 synchronous
+  to durationcanvas_ref 130178
+  yz 694 2025 msg operation_ref 144386 // "_genRemoteDBWriteQuery(in dictToWrite : Dictionary [1])"
+  show_full_operations_definition default show_class_of_operation default drawing_language default show_context_mode default
+  label_xy 785 690
+reflexivemsg 130562 synchronous
+  to durationcanvas_ref 130434
+  yz 665 2025 msg operation_ref 145026 // "_getLocalDBRecord() : Dictionary"
+  show_full_operations_definition default show_class_of_operation default drawing_language default show_context_mode default
+  label_xy 787 661
+reflexivemsg 130818 synchronous
+  to durationcanvas_ref 130690
+  yz 721 2025 msg operation_ref 144642 // "_writeToRemoteDB(in sqlQuery : string [1])"
+  show_full_operations_definition default show_class_of_operation default drawing_language default show_context_mode default
+  label_xy 787 718
+reflexivemsg 131458 synchronous
+  to durationcanvas_ref 131330
+  yz 516 2025 msg operation_ref 144130 // "checkRemoteConnectivity() : bool"
+  show_full_operations_definition default show_class_of_operation default drawing_language default show_context_mode default
+  label_xy 782 512
+msg 131970 synchronous
+  from durationcanvas_ref 131981
+  to durationcanvas_ref 131842
+  yz 431 2025 explicitmsg "put()"
+  show_full_operations_definition default show_class_of_operation default drawing_language default show_context_mode default
+  label_xy 278 420
+msg 132237 synchronous
+  from durationcanvas_ref 131981
+  to durationcanvas_ref 132109
+  yz 248 2015 explicitmsg "request dataQueue"
+  show_full_operations_definition default show_class_of_operation default drawing_language default show_context_mode default
+  label_xy 108 234
+reflexivemsg 132493 synchronous
+  to durationcanvas_ref 132365
+  yz 149 2025 explicitmsg "calcAvg()"
+  show_full_operations_definition default show_class_of_operation default drawing_language default show_context_mode default
+  label_xy 89 135
+reflexivemsg 132749 synchronous
+  to durationcanvas_ref 132621
+  yz 176 2025 explicitmsg "genFlags()"
+  show_full_operations_definition default show_class_of_operation default drawing_language default show_context_mode default
+  label_xy 99 163
+msg 132877 return
+  from durationcanvas_ref 132109
+  to durationcanvas_ref 131981
+  yz 304 2015 explicitmsg "return dataQueue"
+  show_full_operations_definition default show_class_of_operation default drawing_language default show_context_mode default
+  label_xy 112 290
+msg 133133 synchronous
+  from durationcanvas_ref 131981
+  to durationcanvas_ref 133005
+  yz 361 2015 explicitmsg "dispDataQueue()"
+  show_full_operations_definition default show_class_of_operation default drawing_language default show_context_mode default
+  label_xy 248 348
+reflexivemsg 133389 synchronous
+  to durationcanvas_ref 133261
+  yz 365 2025 explicitmsg "updateGraph()"
+  show_full_operations_definition default show_class_of_operation default drawing_language default show_context_mode default
+  label_xy 357 351
+reflexivemsg 133645 synchronous
+  to durationcanvas_ref 133517
+  yz 388 2025 explicitmsg "dispWarnings()"
+  show_full_operations_definition default show_class_of_operation default drawing_language default show_context_mode default
+  label_xy 365 376
+msg 133773 return
+  from durationcanvas_ref 133005
+  to durationcanvas_ref 131981
+  yz 408 2025 unspecifiedmsg
+  show_full_operations_definition default show_class_of_operation default drawing_language default show_context_mode default
+end
