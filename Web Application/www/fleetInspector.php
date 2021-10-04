@@ -11,35 +11,23 @@
     <?php require('phpTemplates/navigationBar.php'); ?>
 
     <section class="content">
-        <h1 class="header-title">Data Console</h1>
+        <h1 class="header-title">Fleet Inspector</h1>
         <div class="header-charms">
-            <form>
-            <span class="material-icons-outlined">filter_alt</span> Filter & Sort Data: 
-                <select id="filterTypeField">
-                    <option value="none" selected>Filter data by... </option>
-                    <?php getColumnNamesForSelectInput() ?>
-                </select>
-                <select id="filterOrderField">
-                    <option value="asc" selected>Ascending</option>
-                    <option value="desc">Descending</option>
-                </select>
-                <input id="button resetButton" type="reset" value="Reset Filter"></input>
-                <input id="button resetButton" type="submit" value="Apply Filter"></input>
-        </form>
+
+            <!-- Search for Heartbeat -->
+            <form method="get" action="heartbeat.php">
+                <input id="registration" type="text" placeholder="Search for Registration..."></input>
+                <input id="button" type="submit" value="Search"></input>
+            </form>
+
         </div>
-        <section id="inventory-splash-welcome" class="inventory-splash hidden">
-            <img src="img/happy-person.jpg" /><br /><br />
-            Start by typing a barcode or a tag/keyword into the search box to see results appear.<br /><br />
-            Note: Xenix only supports full barcode and tag/keyword entries in this development stage.
-        </section>
         <section id="inventory-splash-noitems" class="inventory-splash hidden">
             <img src="img/no-items.jpg" /><br /><br />
             Sorry, there's nothing to show. Try searching for something else.
         </section>
-        <?php executeQuery() ?>
-        <section id="loading-animation" class="loading-animation hidden">
-            <div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
-        </section>
+
+        <?php executeInspectorQueryAndTabulate("") ?>
+
     </section>
 </body>
 </html>

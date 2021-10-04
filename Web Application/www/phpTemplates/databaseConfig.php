@@ -3,6 +3,7 @@
     // Globals for Configuration Information
     $GLOBALS['recordsPerPage'] = 10;
     $GLOBALS['vehicleData'] = "initalTesting";
+    $GLOBALS['tripData'] = "TRIPS";
     $GLOBALS['columnNames'] = getColumns();
     
     // Get Column Telemetry such as names and length
@@ -174,6 +175,97 @@
             $stringToDisplay .="</table></section>
             ";
             echo $stringToDisplay;
+        } else {
+            echo "0 results";
+        }
+        
+        $conn->close();
+        
+    }
+
+
+
+
+    /* Fleet Inspector */
+
+    // Execute a SQL Query, and create HTML Table
+    function executeInspectorQueryAndTabulate($registration)
+    {
+        // Filter input to remove spaces at either end of registration
+        $registration = trim($registration);
+        
+        // Construct SQL Query - Use registration if available, otherwise default
+        $SQLQuery = "";
+        if (strlen($registration) > 0) {
+            $SQLQuery = "SELECT * FROM `" . $GLOBALS['tripData'] . "` WHERE `Registration` LIKE `%" . $registration . "%` ORDER BY TRIP_TIMESTAMP DESC";
+        } else {
+            $SQLQuery = "SELECT * FROM `" . $GLOBALS['tripData'] . "` ORDER BY TRIP_TIMESTAMP DESC";
+        }
+
+        // Open Connection
+        $conn = new mysqli($_SESSION['servername'], $_SESSION["username"], $_SESSION["password"], $_SESSION['database']);
+
+        // If connection fails, throw error
+        if ($conn->connect_error)
+            triggerDatabaseError($conn->connect_error);
+
+        // Otherwise, run query
+        $result = $conn->query($SQLQuery);
+
+        if ($result->num_rows > 0) {
+
+            // Display Head of Results
+            echo "<section class='inventory-results-head'>Showing records " . ($_SESSION["startIndex"] + 1) . " to " . ($_SESSION["startIndex"] + $result->num_rows) . " of " . $GLOBALS['numRecords'] . " result(s)</section>";
+            echo "<i class='SQLQueryText'>". $SQLQuery ."</i><br><br/>";
+
+            $output = "";
+
+            // Output each matching result
+            while($row = $result->fetch_assoc()) 
+            {
+                // Generate Div
+                $output .= '<div class="heartbeatVehicle">';
+
+                // Place registration
+                $output .= '<span class="heartbeatVehicleRegistration">' . $row["REGISTRATION"] . "</span>";
+
+                // Place Info
+                $output .= '<span class="heartbeatVehicleInfo">Trip ' . $row["TRIP_ID"] . " - " . $row["TIMESTAMP"] . "</span>";
+
+                // Place Status Container
+                $output .= '<span class="heartbeatVehicleStatus">';
+
+                // Determine labels
+                // Enviromental Warnings
+                if ($row['TEMP_WARN'] == 1 && $row['HUMIDITY_WARN'] == 1) {
+                    $output .= '<span class="heartbeatVehicleStatusLabel back-orange">ENVIRO WARN</span>';
+                } else if ($row['TEMP_WARN'] == 1) {
+                    $output .= '<span class="heartbeatVehicleStatusLabel back-orange">TEMP WARN</span>';
+                } else if ($row['HUMIDITY_WARN'] == 1) {
+                    $output .= '<span class="heartbeatVehicleStatusLabel back-orange">HUMIDITY WARN</span>';
+                }
+
+                // Driving Warnings
+                if ($row['SPEED_WARN'] == 1 && $row['ACCEL_WARN'] == 1) {
+                    $output .= '<span class="heartbeatVehicleStatusLabel back-orange">DRIVING WARN</span>';
+                } else if ($row['SPEED_WARN'] == 1) {
+                    $output .= '<span class="heartbeatVehicleStatusLabel back-orange">SPEED WARN</span>';
+                } else if ($row['ACCEL_WARN'] == 1) {
+                    $output .= '<span class="heartbeatVehicleStatusLabel back-orange">ACCEL WARN</span>';
+                }
+
+                // Display Sync Status
+                if ($row['IS_SYNCED'] == 1) {
+                    $output .= '<span class="heartbeatVehicleStatusLabel back-green">SYNCED</span>';
+                } else {
+                    $output .= '<span class="heartbeatVehicleStatusLabel back-red">PARTIAL SYNC</span>';
+                }
+                
+                // Close off
+                $output .= '</span></div>';
+
+            }
+            echo $output;
         } else {
             echo "0 results";
         }

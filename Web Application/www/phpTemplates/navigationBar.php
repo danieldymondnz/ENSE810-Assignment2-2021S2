@@ -4,15 +4,8 @@
             SDMMS
         </a>
     </section>
-    <section class="nav-button nav-button-disabled">
-        <a class="nav-link" href="fleethealth.php">
-            <span class="material-icons material-icons-outlined">
-                monitor_heart
-            </span> Fleet Health
-        </a>
-    </section>
-    <section class="nav-button nav-button-disabled">
-        <a class="nav-link" href="">
+    <section class="nav-button">
+        <a class="nav-link" href="fleetInspector.php">
             <span class="material-icons material-icons-outlined">
                 policy
             </span> Fleet Inspector

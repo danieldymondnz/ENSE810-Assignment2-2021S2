@@ -38,7 +38,7 @@
         $servername = "localhost";
         $username = $_POST["username"];
         $password = "l0ck3dR3alT!GHT:D";
-        $database = "week8DatabaseTest";
+        $database = "sdmms_db";
 
         $conn = new mysqli($servername, $username, $password, $database);
 

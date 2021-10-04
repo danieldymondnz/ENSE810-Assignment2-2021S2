@@ -379,7 +379,7 @@ tr {
 
 .heartbeatVehicleStatus, .heartbeatVehicleStatusLabel {
     display: inline-block;
-    margin: auto 0;
+    margin: auto 2px;
     padding: 7px;
 }
 
