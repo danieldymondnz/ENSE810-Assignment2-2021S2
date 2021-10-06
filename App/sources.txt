@@ -1,0 +1,3 @@
+https://stackoverflow.com/questions/25371636/how-to-get-sqlite-result-error-codes-in-python
+https://stackoverflow.com/questions/41344171/handling-pymysql-exceptions-best-practices/56291330
+https://www.sqlitetutorial.net/sqlite-python/sqlite-python-select/

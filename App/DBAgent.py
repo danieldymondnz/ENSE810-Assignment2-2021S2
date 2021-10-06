@@ -5,7 +5,7 @@ import pymysql as remoteDB
 class DBAgent(threading.Thread):
 
     # Constants
-    localDBLocation = "localDB.db"
+    localDBLocation = "App/localDB.db"
 
     # Constructor for this object
     def __init__(self, dataQueue, localDBConfig, remoteDBConfig):
@@ -23,8 +23,8 @@ class DBAgent(threading.Thread):
 
         # Connect and attempt to get data from localDB
         try:
-            self._localDBConn = localDB.connect('localDB.db')
-            self._localDBConn.cursor().execute("GET * FROM `TRIPS`")
+            self._localDBConn = localDB.connect(localDBFilePath)
+            self._localDBConn.cursor().execute("SELECT * FROM `TRIPS`")
             self._localDBConn.commit()
         except localDB.Error as error:
             raise Exception("Error connection to Local Database: %s" % (' '.join(error.args)))
@@ -46,6 +46,22 @@ class DBAgent(threading.Thread):
 
         # If connection is successful, then set flag
         self.remoteDBConnected = True
+
+    # Query local database for oldest record that need to be synced
+    # Return the ID, or -1 if none exist
+    def _queryLocalTripStatus(self):
+
+        sqlQuery = "SELECT * FROM TRIPS WHERE REMOTE_SYNC_COMPLETE=0 ORDER BY UID DESC LIMIT 1"
+        row = self._localDBConn.cursor().execute(sqlQuery).fetchall()
+        if not(len(row) == 0):
+            return row[0][0]
+        else:
+            return -1
+
+
+
+
+
 
     @staticmethod    
     def _genLocalDBWriteQuery(dictToWrite, tripID):
@@ -99,7 +115,10 @@ class DBAgent(threading.Thread):
 
         while self.isRunning:
 
-            # Check if Remote Database is available
+            # If connectivity has just been lost to Remote DB, start a new trip
+
+
+            # If offline, then 
             
 
 
