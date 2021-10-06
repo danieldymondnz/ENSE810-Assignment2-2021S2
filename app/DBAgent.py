@@ -5,18 +5,25 @@ import pymysql as remoteDB
 class DBAgent(threading.Thread):
 
     ENABLE_VERBOSE_CONFIG = True
-    ENABLE_VERBOSE_DBTRAN = False
+    ENABLE_VERBOSE_DBTRAN = True
 
     # Constructor for this object
     def __init__(self, dataQueue, registration, localDBConfig, remoteDBConfig):
+        
+        # Call Thread Init Method
+        threading.Thread.__init__(self)
+
+        # Store references and information, create Running flag for Thread
+        self._vehicleRegistration = registration
         self._dataQueue = dataQueue
+        self._remoteIsAvailable = False
         self.isRunning = True
 
-        # Extract localDBConfig Dictionary
+        # Extract localDBConfig Dictionary. If it fails, fall back to default
         try:
             self.localDBLocation = localDBConfig["fileLocation"]
         except:
-            self.localDBLocation = "App/localDB.db"
+            self.localDBLocation = "app/localDB.db"
             DBAgent.verboseConf("Error parsing local DB information, falling back to default.")
 
         # Perform Local DB Test to ensure location is valid
@@ -73,6 +80,7 @@ class DBAgent(threading.Thread):
     def _writeToLocalDB(self, sqlQuery):
         
         # Write data to Local DB
+        DBAgent.verboseDBTran("Local DB: Dict Write initiated")
         try:
             self._connectLocalDB()
             self._localDBConn.cursor().execute(sqlQuery)
@@ -104,10 +112,7 @@ class DBAgent(threading.Thread):
 
         # Connect to Local DB, Update Data, and Disconnect
         try:
-            self._connectLocalDB()
-            self._localDBConn.cursor().execute(sqlQuery)
-            self._localDBConn.commit()
-            self._disconnectLocalDB()
+            self._writeToLocalDB(sqlQuery)
         except Exception as exception:
             raise exception
         except localDB.Error as error:
@@ -140,14 +145,55 @@ class DBAgent(threading.Thread):
             sqlQuery = "INSERT INTO `TRIPS` (TRIP_COMPLETE, REMOTE_SYNC_COMPLETE, REMOTE_SYNC) VALUES (0, 0, 0)"
             self._writeToLocalDB(sqlQuery)
             self._tripID, _ = self._queryLocalLatestTripStatus()
+            return self._tripID
             
     # Write a Dictionary containing raw data to the local DB
     def _writeDictToLocalDB(self, dictToWrite):
         # Generate the Local DB Query to write Data
-        variables = (self._tripID, dictToWrite["ACCELERATION"], dictToWrite["HUMIDITY"], dictToWrite["PRESSURE"], dictToWrite["SPEED"], dictToWrite["TEMP"])
-        localDBQuery = "INSERT INTO `TRIP_DATA` (TRIP_ID, ACCELERATION, HUMIDITY, PRESSURE, SPEED, TEMP) VALUES (%s, %s, %s, %s, %s, %s)" % variables
+        variables = (self._tripID, dictToWrite["ACCELERATION"], dictToWrite["HUMIDITY"], dictToWrite["PRESSURE"], dictToWrite["SPEED"], dictToWrite["TEMPERATURE"])
+        localDBQuery = "INSERT INTO `TRIP_DATA` (TRIP_ID, ACCELERATION, HUMIDITY, PRESSURE, SPEED, TEMPERATURE) VALUES (%s, %s, %s, %s, %s, %s)" % variables
         self._writeToLocalDB(localDBQuery)
+
+    # Query local database for oldest record to syncGet the oldest local record from the DB. Return the data as a dictionary.
+    def _queryLocalTripDataRecord(self, tripID):
+
+        sqlQuery = "SELECT * FROM TRIP_DATA WHERE TRIP_ID = %s AND REMOTE_SYNCED=0 ORDER BY UID ASC LIMIT 1" % tripID
+        print(sqlQuery)
+        row = self._readLocalDB(sqlQuery)
+
+        # Parse data and return
+        if not(len(row) == 0):
+
+            dictReturn = {
+                "UID": row[0][0],
+                "TIMESTAMP": row[0][1],
+                "TRIP_ID": row[0][2],
+                "REMOTE_SYNCED": row[0][3],
+                "ACCELERATION": row[0][4],
+                "HUMIDITY": row[0][5],
+                "PRESSURE": row[0][6],
+                "SPEED": row[0][7],
+                "TEMPERATURE": row[0][8]
+            }
+
+            return dictReturn
+        else:
+            return -1 
+
+    # Update local database record to inidicate it has been written to the remote db
+    def _setLocalTripDataRecordAsSynced(self, uid):
         
+        sqlQuery = "UPDATE TRIP_DATA SET REMOTE_SYNCED=1 WHERE UID=%s" % uid
+
+        # Connect to Local DB, Update Data, and Disconnect
+        try:
+            self._writeToLocalDB(sqlQuery)
+        except Exception as exception:
+            raise exception
+        except localDB.Error as error:
+            raise Exception("Local Database Error: %s" % (' '.join(error.args)))
+
+
     ### REMOTE DATABASE : COMM METHODS ###
     
 
@@ -183,10 +229,7 @@ class DBAgent(threading.Thread):
     def _genRemoteDBWriteQuery(dictToWrite):
         pass
 
-    # Checks if Remote Database is available
-    # For testing, this is a fixed variable
-    def _remoteIsAvailable(self):
-        return False
+  
 
 
 
@@ -201,11 +244,22 @@ class DBAgent(threading.Thread):
     def _genNewTrip(dictToWrite):
         pass
         
-    # Get the oldest local record from the DB
-    def _getLocalDBRecord():
-        pass
+   
 
-    
+
+    ### CONNECTION METHODS ###
+
+    # Checks if Remote Database is available
+    # For testing, this is a fixed variable
+    def isRemoteAvailable(self):
+        return self._remoteIsAvailable
+
+    def setRemoteOffline(self):
+        self._remoteIsAvailable = False
+
+    def setRemoteOnline(self):
+        self._remoteIsAvailable = True
+
     ### MAIN THREAD : INIT/CONFIG ###
 
     #Perform Initial Setup for Thread
@@ -221,7 +275,7 @@ class DBAgent(threading.Thread):
             self._setLocalTripCurrentComplete()
 
         # Determine Connectivity
-        self.remoteConnected = self._remoteIsAvailable()
+        self.remoteConnected = self.isRemoteAvailable()
 
     ## MAIN THREAD ##
     
@@ -233,23 +287,22 @@ class DBAgent(threading.Thread):
         while self.isRunning:
 
             # Pop a dictionary from the queue
-            dictToWrite = self._dataQueue.get_nowait()
+            dictToWrite = None
+            if self._dataQueue.qsize() > 0:
+                dictToWrite = self._dataQueue.get_nowait()
             
             # If connectivity has just been lost to Remote DB, start a new trip
 
-
-            if self._remoteIsAvailable():
+            # If Remote Online, buffer data to remote database
+            if self.isRemoteAvailable():
                 
                 continue
 
-            # If offline, then write data to local database
+            # If Remote Offline, then write data to local database
             else:
-                self._writeDictToLocalDB(dictToWrite)
-
-        # When the thread is terminated, close connection
-        self._cleanup()
-        
-        
+                if not(dictToWrite == None):
+                    self._writeDictToLocalDB(dictToWrite)
+      
     # Terminates the DBAgent Thread
     def terminate(self):
         self.isRunning = False
