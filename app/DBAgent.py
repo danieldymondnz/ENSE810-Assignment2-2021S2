@@ -8,7 +8,7 @@ class DBAgent(threading.Thread):
     ENABLE_VERBOSE_DBTRAN = False
 
     # Constructor for this object
-    def __init__(self, dataQueue, localDBConfig, remoteDBConfig):
+    def __init__(self, dataQueue, registration, localDBConfig, remoteDBConfig):
         self._dataQueue = dataQueue
         self.isRunning = True
 
@@ -22,7 +22,7 @@ class DBAgent(threading.Thread):
         # Perform Local DB Test to ensure location is valid
         try:
             self._connectLocalDB()
-            self._localDBConn.cursor().execute("SELECT * FROM `TRIPS` LIMIT 1 ASC")
+            self._localDBConn.cursor().execute("SELECT * FROM `TRIPS` ORDER BY UID DESC LIMIT 1")
             self._disconnectLocalDB()
         except:
             DBAgent.verboseConf("Error connecting to local database")
@@ -38,7 +38,6 @@ class DBAgent(threading.Thread):
         # Connect and attempt to get data from localDB
         try:
             self._localDBConn = localDB.connect(self.localDBLocation, uri=True)
-            self._localDBConn.cursor().execute("SELECT * FROM `TRIPS`")
         except localDB.Error as error:
             raise Exception("Local Database Error: %s" % (' '.join(error.args)))
 
@@ -214,7 +213,7 @@ class DBAgent(threading.Thread):
     def _initialSetup(self):
         
         # Determine current Trip Number
-        self._tripID, isComplete = self._queryLocalTripCurrentID()
+        self._tripID, isComplete = self._queryLocalLatestTripStatus()
 
         # If the current trip is still in progress, set to complete and increment tripID
         # The system may have been unexpectedly powered down during operation
