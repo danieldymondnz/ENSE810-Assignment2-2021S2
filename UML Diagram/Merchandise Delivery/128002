@@ -1,6 +1,6 @@
 format 224
 "MonitoringSystem" // MonitoringSystem
-  revision 10
+  revision 12
   modified_by 2 "danie"
   // class settings
   
@@ -701,17 +701,583 @@ ${docstring}${members}
 	MysqlColumn
       end
 
+      attribute 156930 "_vehicleRegistration"
+	protected explicit_type "string"
+	cpp_decl ""
+	java_decl ""
+	php_decl ""
+	python_decl "${comment}${self}${name} = ${value}
+"
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+      end
+
+      attribute 158082 "_tripID"
+	protected explicit_type "int"
+	cpp_decl ""
+	java_decl ""
+	php_decl ""
+	python_decl "${comment}${self}${name} = ${value}
+"
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+      end
+
+      attribute 157442 "_localDBConn"
+	protected explicit_type "Connection"
+	init_value "None"
+	cpp_decl ""
+	java_decl ""
+	php_decl ""
+	python_decl "${comment}${self}${name} = ${value}
+"
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+      end
+
+      attribute 143618 "localDBLocation"
+	protected explicit_type "string"
+	cpp_decl ""
+	java_decl ""
+	php_decl ""
+	python_decl "${comment}${self}${name} = ${value}
+"
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+      end
+
+      attribute 158210 "_remoteDBConn"
+	protected explicit_type "Connection"
+	cpp_decl ""
+	java_decl ""
+	php_decl ""
+	python_decl "${comment}${self}${name} = ${value}
+"
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+      end
+
+      attribute 157698 "remoteDBdb"
+	public explicit_type "string"
+	cpp_decl ""
+	java_decl ""
+	php_decl ""
+	python_decl "${comment}${self}${name} = ${value}
+"
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+      end
+
+      attribute 157570 "remoteDBHost"
+	public explicit_type "string"
+	cpp_decl ""
+	java_decl ""
+	php_decl ""
+	python_decl "${comment}${self}${name} = ${value}
+"
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+      end
+
+      attribute 157954 "remoteDBPasswd"
+	public explicit_type "string"
+	cpp_decl ""
+	java_decl ""
+	php_decl ""
+	python_decl "${comment}${self}${name} = ${value}
+"
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+      end
+
+      attribute 157826 "remoteDBUser"
+	public explicit_type "string"
+	cpp_decl ""
+	java_decl ""
+	php_decl ""
+	python_decl "${comment}${self}${name} = ${value}
+"
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+      end
+
+      attribute 157058 "_remoteConnectionChanged"
+	protected explicit_type "bool"
+	init_value "False"
+	cpp_decl ""
+	java_decl ""
+	php_decl ""
+	python_decl "${comment}${self}${name} = ${value}
+"
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+      end
+
+      attribute 157186 "_remoteIsAvailable"
+	protected explicit_type "bool"
+	init_value "False"
+	cpp_decl ""
+	java_decl ""
+	php_decl ""
+	python_decl "${comment}${self}${name} = ${value}
+"
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+      end
+
+      attribute 157314 "isRunning"
+	public explicit_type "bool"
+	init_value "True"
+	cpp_decl ""
+	java_decl ""
+	php_decl ""
+	python_decl "${comment}${self}${name} = ${value}
+"
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+      end
+
+      attribute 150274 "ENABLE_VERBOSE"
+	class_attribute public explicit_type "bool"
+	init_value "True"
+	cpp_decl ""
+	java_decl ""
+	php_decl ""
+	python_decl "${comment}${self}${name} = ${value}
+"
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+      end
+
       operation 137090 "__init__"
 	public explicit_return_type ""
+	nparams 5
+	  param inout name "self" type class_ref 128514 // DBAgent
+	multiplicity "1"
+	  param in name "dataQueue" explicit_type "Queue<dict>"
+	multiplicity "1"
+	  param in name "registration" explicit_type "string"
+	multiplicity "1"
+	  param in name "localDBConfig" explicit_type "dict"
+	multiplicity "1"
+	  param in name "remoteDBConfig" explicit_type "dict"
+	
+	
+	
+	python_def "${@}${static}${abstract}def ${name}${(}${p0}${v0}, ${p1}${v1}, ${p2}${v2}, ${p3}${v3}, ${p4}${v4}${)}:
+${docstring}${body}
+"
+	
+      end
+
+      operation 143874 "_connectLocalDB"
+	protected explicit_return_type ""
+	nparams 1
+	  param inout name "self" type class_ref 128514 // DBAgent
+	multiplicity "1"
+	nexceptions 1
+	  explicit_exception "Exception"
+	
+	
+	
+	python_def "${@}${static}${abstract}def ${name}${(}${p0}${v0}${)}:
+${docstring}${body}
+"
+	
+      end
+
+      operation 151810 "_disconnectLocalDB"
+	protected explicit_return_type ""
+	nparams 1
+	  param inout name "self" type class_ref 128514 // DBAgent
+	multiplicity "1"
+	
+	
+	
+	python_def "${@}${static}${abstract}def ${name}${(}${p0}${v0}${)}:
+${docstring}${body}
+"
+	
+      end
+
+      operation 151682 "_readLocalDB"
+	protected explicit_return_type "Matrix[][]"
 	nparams 2
 	  param inout name "self" type class_ref 128514 // DBAgent
 	multiplicity "1"
-	  param in name "dataQueue" explicit_type "Queue<Dictionary>"
+	  param in name "sqlQuery" explicit_type "string"
 	multiplicity "1"
+	nexceptions 1
+	  explicit_exception "Exception"
 	
 	
 	
 	python_def "${@}${static}${abstract}def ${name}${(}${p0}${v0}, ${p1}${v1}${)}:
+${docstring}${body}
+"
+	
+      end
+
+      operation 158338 "_writeLocalDB"
+	protected explicit_return_type ""
+	nparams 2
+	  param inout name "self" type class_ref 128514 // DBAgent
+	multiplicity "1"
+	  param in name "sqlQuery" explicit_type "string"
+	multiplicity "1"
+	nexceptions 1
+	  explicit_exception "Exception"
+	
+	
+	
+	python_def "${@}${static}${abstract}def ${name}${(}${p0}${v0}, ${p1}${v1}${)}:
+${docstring}${body}
+"
+	
+      end
+
+      operation 144258 "_queryLocalLatestTrip"
+	protected explicit_return_type "Matrix[1][n]"
+	nparams 1
+	  param inout name "self" type class_ref 128514 // DBAgent
+	multiplicity "1"
+	nexceptions 1
+	  explicit_exception "Exception"
+	
+	
+	
+	python_def "${@}${static}${abstract}def ${name}${(}${p0}${v0}${)}:
+${docstring}${body}
+"
+	
+      end
+
+      operation 158466 "_setLocalTripCurrentComplete"
+	protected explicit_return_type ""
+	nparams 1
+	  param inout name "self" type class_ref 128514 // DBAgent
+	multiplicity "1"
+	nexceptions 1
+	  explicit_exception "Exception"
+	
+	
+	
+	python_def "${@}${static}${abstract}def ${name}${(}${p0}${v0}${)}:
+${docstring}${body}
+"
+	
+      end
+
+      operation 158594 "_queryLocalTripToSync"
+	protected explicit_return_type "Matrix[1][n]"
+	nparams 1
+	  param inout name "self" type class_ref 128514 // DBAgent
+	multiplicity "1"
+	nexceptions 1
+	  explicit_exception "Exception"
+	
+	
+	
+	python_def "${@}${static}${abstract}def ${name}${(}${p0}${v0}${)}:
+${docstring}${body}
+"
+	
+      end
+
+      operation 144898 "_createNewTrip"
+	protected explicit_return_type "int"
+	nparams 1
+	  param inout name "self" type class_ref 128514 // DBAgent
+	multiplicity "1"
+	nexceptions 1
+	  explicit_exception "Exception"
+	
+	
+	
+	python_def "${@}${static}${abstract}def ${name}${(}${p0}${v0}${)}:
+${docstring}${body}
+"
+	
+      end
+
+      operation 158722 "_writeDictToLocalDB"
+	protected explicit_return_type ""
+	nparams 2
+	  param inout name "self" type class_ref 128514 // DBAgent
+	multiplicity "1"
+	  param in name "dictToWrite" explicit_type "dict"
+	multiplicity "1"
+	nexceptions 1
+	  explicit_exception "Exception"
+	
+	
+	
+	python_def "${@}${static}${abstract}def ${name}${(}${p0}${v0}, ${p1}${v1}${)}:
+${docstring}${body}
+"
+	
+      end
+
+      operation 158850 "_setLocalTripWarningFlags"
+	protected explicit_return_type ""
+	nparams 2
+	  param inout name "self" type class_ref 128514 // DBAgent
+	multiplicity "1"
+	  param in name "dictToWrite" explicit_type "dict"
+	multiplicity "1"
+	nexceptions 1
+	  explicit_exception "Exception"
+	
+	
+	
+	python_def "${@}${static}${abstract}def ${name}${(}${p0}${v0}, ${p1}${v1}${)}:
+${docstring}${body}
+"
+	
+      end
+
+      operation 158978 "_queryLocalTripDataRecord"
+	protected explicit_return_type "dict"
+	nparams 2
+	  param inout name "self" type class_ref 128514 // DBAgent
+	multiplicity "1"
+	  param in name "tripID" explicit_type "int"
+	multiplicity "1"
+	nexceptions 1
+	  explicit_exception "Exception"
+	
+	
+	
+	python_def "${@}${static}${abstract}def ${name}${(}${p0}${v0}, ${p1}${v1}${)}:
+${docstring}${body}
+"
+	
+      end
+
+      operation 159106 "_setLocalTripDataRecordAsSynced"
+	protected explicit_return_type ""
+	nparams 2
+	  param inout name "self" type class_ref 128514 // DBAgent
+	multiplicity "1"
+	  param in name "uid" explicit_type "int"
+	multiplicity "1"
+	nexceptions 1
+	  explicit_exception "Exception"
+	
+	
+	
+	python_def "${@}${static}${abstract}def ${name}${(}${p0}${v0}, ${p1}${v1}${)}:
+${docstring}${body}
+"
+	
+      end
+
+      operation 159234 "_setLocalTripSyncComplete"
+	protected explicit_return_type ""
+	nparams 2
+	  param inout name "self" type class_ref 128514 // DBAgent
+	multiplicity "1"
+	  param in name "uid" explicit_type "int"
+	multiplicity "1"
+	nexceptions 1
+	  explicit_exception "Exception"
+	
+	
+	
+	python_def "${@}${static}${abstract}def ${name}${(}${p0}${v0}, ${p1}${v1}${)}:
+${docstring}${body}
+"
+	
+      end
+
+      operation 144002 "_connectRemoteDB"
+	protected explicit_return_type "Connection"
+	nparams 1
+	  param inout name "self" type class_ref 128514 // DBAgent
+	multiplicity "1"
+	nexceptions 1
+	  explicit_exception "Exception"
+	
+	
+	
+	python_def "${@}${static}${abstract}def ${name}${(}${p0}${v0}${)}:
+${docstring}${body}
+"
+	
+      end
+
+      operation 159362 "_disconnectRemoteDB"
+	protected explicit_return_type "Connection"
+	nparams 1
+	  param inout name "self" type class_ref 128514 // DBAgent
+	multiplicity "1"
+	
+	
+	
+	python_def "${@}${static}${abstract}def ${name}${(}${p0}${v0}${)}:
+${docstring}${body}
+"
+	
+      end
+
+      operation 159490 "_readRemoteDB"
+	protected explicit_return_type "Matrix[][]"
+	nparams 2
+	  param inout name "self" type class_ref 128514 // DBAgent
+	multiplicity "1"
+	  param in name "sqlQuery" explicit_type "string"
+	multiplicity "1"
+	nexceptions 1
+	  explicit_exception "Exception"
+	
+	
+	
+	python_def "${@}${static}${abstract}def ${name}${(}${p0}${v0}, ${p1}${v1}${)}:
+${docstring}${body}
+"
+	
+      end
+
+      operation 159618 "_writeRemoteDB"
+	protected explicit_return_type ""
+	nparams 2
+	  param inout name "self" type class_ref 128514 // DBAgent
+	multiplicity "1"
+	  param in name "sqlQuery" explicit_type "string"
+	multiplicity "1"
+	nexceptions 1
+	  explicit_exception "Exception"
+	
+	
+	
+	python_def "${@}${static}${abstract}def ${name}${(}${p0}${v0}, ${p1}${v1}${)}:
+${docstring}${body}
+"
+	
+      end
+
+      operation 159746 "_writeTripDataRecordToRemote"
+	protected explicit_return_type ""
+	nparams 2
+	  param inout name "self" type class_ref 128514 // DBAgent
+	multiplicity "1"
+	  param in name "dictToWrite" explicit_type "dict"
+	multiplicity "1"
+	nexceptions 1
+	  explicit_exception "Exception"
+	
+	
+	
+	python_def "${@}${static}${abstract}def ${name}${(}${p0}${v0}, ${p1}${v1}${)}:
+${docstring}${body}
+"
+	
+      end
+
+      operation 159874 "_writeTripToRemote"
+	protected explicit_return_type ""
+	nparams 2
+	  param inout name "self" type class_ref 128514 // DBAgent
+	multiplicity "1"
+	  param in name "tripToSync" explicit_type "int"
+	multiplicity "1"
+	nexceptions 1
+	  explicit_exception "Exception"
+	
+	
+	
+	python_def "${@}${static}${abstract}def ${name}${(}${p0}${v0}, ${p1}${v1}${)}:
+${docstring}${body}
+"
+	
+      end
+
+      operation 160002 "_setRemoteTripSyncComplete"
+	protected explicit_return_type ""
+	nparams 2
+	  param inout name "self" type class_ref 128514 // DBAgent
+	multiplicity "1"
+	  param in name "tripID" explicit_type "int"
+	multiplicity "1"
+	nexceptions 1
+	  explicit_exception "Exception"
+	
+	
+	
+	python_def "${@}${static}${abstract}def ${name}${(}${p0}${v0}, ${p1}${v1}${)}:
+${docstring}${body}
+"
+	
+      end
+
+      operation 160130 "_queryRemotePartiallySyncedTrips"
+	protected explicit_return_type "int"
+	nparams 1
+	  param inout name "self" type class_ref 128514 // DBAgent
+	multiplicity "1"
+	nexceptions 1
+	  explicit_exception "Exception"
+	
+	
+	
+	python_def "${@}${static}${abstract}def ${name}${(}${p0}${v0}${)}:
+${docstring}${body}
+"
+	
+      end
+
+      operation 160258 "_bufferTripData"
+	protected explicit_return_type ""
+	nparams 1
+	  param inout name "self" type class_ref 128514 // DBAgent
+	multiplicity "1"
+	nexceptions 1
+	  explicit_exception "Exception"
+	
+	
+	
+	python_def "${@}${static}${abstract}def ${name}${(}${p0}${v0}${)}:
+${docstring}${body}
+"
+	
+      end
+
+      operation 160386 "setRemoteOnline"
+	public explicit_return_type ""
+	nparams 1
+	  param inout name "self" type class_ref 128514 // DBAgent
+	multiplicity "1"
+	
+	
+	
+	python_def "${@}${static}${abstract}def ${name}${(}${p0}${v0}${)}:
+${docstring}${body}
+"
+	
+      end
+
+      operation 160514 "setRemoteOffline"
+	public explicit_return_type ""
+	nparams 1
+	  param inout name "self" type class_ref 128514 // DBAgent
+	multiplicity "1"
+	
+	
+	
+	python_def "${@}${static}${abstract}def ${name}${(}${p0}${v0}${)}:
 ${docstring}${body}
 "
 	
@@ -745,22 +1311,10 @@ ${docstring}${body}
 	
       end
 
-      attribute 143618 "localDBPath"
-	protected explicit_type "string"
-	cpp_decl ""
-	java_decl ""
-	php_decl ""
-	python_decl "${comment}${self}${name} = ${value}
-"
-	idl_decl ""
-	mysql_decl ""
-	MysqlColumn
-      end
-
-      operation 143874 "_connectToLocalDB"
-	protected explicit_return_type "Connection"
+      operation 160642 "verbose"
+	class_operation public explicit_return_type ""
 	nparams 1
-	  param in name "localDBFilePath" explicit_type "string"
+	  param in name "textToPrint" explicit_type "string"
 	multiplicity "1"
 	
 	
@@ -771,131 +1325,6 @@ ${docstring}${body}
 	
       end
 
-      operation 144002 "_connectToRemoteDB"
-	protected explicit_return_type "Connection"
-	nparams 4
-	  param in name "address" explicit_type "string"
-	multiplicity "1"
-	  param in name "database" explicit_type "string"
-	multiplicity "1"
-	  param in name "username" explicit_type "string"
-	multiplicity "1"
-	  param in name "password" explicit_type "string"
-	multiplicity "1"
-	
-	
-	
-	python_def "${@}${static}${abstract}def ${name}${(}${p0}${v0}, ${p1}${v1}, ${p2}${v2}, ${p3}${v3}${)}:
-${docstring}${body}
-"
-	
-      end
-
-      operation 144130 "checkRemoteConnectivity"
-	public explicit_return_type "bool"
-	nparams 0
-	
-	
-	
-	python_def "${@}${static}${abstract}def ${name}${(}${)}:
-${docstring}${body}
-"
-	
-      end
-
-      operation 144258 "_genLocalDBWriteQuery"
-	protected explicit_return_type ""
-	nparams 1
-	  param in name "dictToWrite" explicit_type "Dictionary"
-	multiplicity "1"
-	
-	
-	
-	python_def "${@}${static}${abstract}def ${name}${(}${p0}${v0}${)}:
-${docstring}${body}
-"
-	
-      end
-
-      operation 144386 "_genRemoteDBWriteQuery"
-	protected explicit_return_type ""
-	nparams 1
-	  param in name "dictToWrite" explicit_type "Dictionary"
-	multiplicity "1"
-	
-	
-	
-	python_def "${@}${static}${abstract}def ${name}${(}${p0}${v0}${)}:
-${docstring}${body}
-"
-	
-      end
-
-      operation 144514 "_writeToLocalDB"
-	protected explicit_return_type ""
-	nparams 1
-	  param in name "sqlQuery" explicit_type "string"
-	multiplicity "1"
-	
-	
-	
-	python_def "${@}${static}${abstract}def ${name}${(}${p0}${v0}${)}:
-${docstring}${body}
-"
-	
-      end
-
-      operation 144642 "_writeToRemoteDB"
-	protected explicit_return_type ""
-	nparams 1
-	  param in name "sqlQuery" explicit_type "string"
-	multiplicity "1"
-	
-	
-	
-	python_def "${@}${static}${abstract}def ${name}${(}${p0}${v0}${)}:
-${docstring}${body}
-"
-	
-      end
-
-      operation 144770 "_getRemoteDBTripStatus"
-	protected explicit_return_type "Dictionary"
-	nparams 0
-	
-	
-	
-	python_def "${@}${static}${abstract}def ${name}${(}${)}:
-${docstring}${body}
-"
-	
-      end
-
-      operation 144898 "_genNewTrip"
-	protected explicit_return_type ""
-	nparams 1
-	  param in name "dictToWrite" explicit_type "Dictionary"
-	multiplicity "1"
-	
-	
-	
-	python_def "${@}${static}${abstract}def ${name}${(}${p0}${v0}${)}:
-${docstring}${body}
-"
-	
-      end
-
-      operation 145026 "_getLocalDBRecord"
-	protected explicit_return_type "Dictionary"
-	nparams 0
-	
-	
-	
-	python_def "${@}${static}${abstract}def ${name}${(}${)}:
-${docstring}${body}
-"
-	
-      end
     end
 
     state 128002 "MatrixDriverStateDiagram"
