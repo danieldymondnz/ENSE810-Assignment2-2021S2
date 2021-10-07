@@ -25,6 +25,7 @@ class DBAgent(threading.Thread):
         # Store references and information, create Running flag for Thread
         self._vehicleRegistration = registration
         self._dataQueue = dataQueue
+        self._remoteConnectionChanged = False
         self._remoteIsAvailable = False
         self.isRunning = True
 
@@ -117,18 +118,6 @@ class DBAgent(threading.Thread):
         else:
             return None
 
-    # Get the information for the latest trip.
-    def _queryLocalLatestTripInfo(self):
-        
-        sqlQuery = "SELECT * FROM TRIPS ORDER BY UID DESC LIMIT 1"
-        row = self._readLocalDB(sqlQuery)
-
-        # Parse data and return
-        if not(len(row) == 0):
-            return row
-        else:
-            return -1
-
     # Set the status of the latest trip as complete. Throws exception on error.
     def _setLocalTripCurrentComplete(self):
 
@@ -142,36 +131,36 @@ class DBAgent(threading.Thread):
         except localDB.Error as error:
             raise Exception("Local Database Error: %s" % (' '.join(error.args)))
 
-    # Query local database for oldest trip that needs to be synced. Return the ID, or -1 if none exist
-    def _queryLocalTripSyncStatus(self):
+    # Query local database for oldest trip that needs to be synced. Return the trip, or None
+    def _queryLocalTripToSync(self):
 
-        sqlQuery = "SELECT * FROM TRIPS WHERE REMOTE_SYNC_COMPLETE=0 ORDER BY UID DESC LIMIT 1"
+        sqlQuery = "SELECT * FROM TRIPS WHERE REMOTE_SYNC_COMPLETE=0 AND TRIP_COMPLETE=1 ORDER BY UID ASC LIMIT 1"
         row = self._readLocalDB(sqlQuery)
 
         # Parse data and return
         if not(len(row) == 0):
-            return int(row[0][0])
+            return row
         else:
-            return -1 
+            return None
 
     # Establish a new Trip. Throws exception on error, if current trip is still not completed.
     def _createNewTrip(self):
         
         # Confirm current trip has been marked as complete
         currTrip = self._queryLocalLatestTrip()
-        tripComp = currTrip[0][2]
+        if not(currTrip == None):
+            tripComp = currTrip[0][2]
 
-        # If current trip not complete, throw exception
-        if tripComp == 0:
-            raise Exception("The current trip is still open. Complete trip before creating a new one.")
-        
-        # If complete, increment Trip ID and create new trip
-        else:
-            sqlQuery = "INSERT INTO `TRIPS` (TRIP_COMPLETE, REMOTE_SYNC_COMPLETE, REMOTE_SYNC) VALUES (0, 0, 0)"
-            self._writeToLocalDB(sqlQuery)
-            newTrip = self._queryLocalLatestTrip()
-            self._tripID = newTrip[0][0]
-            return self._tripID
+            # If current trip not complete, throw exception
+            if tripComp == 0:
+                raise Exception("The current trip is still open. Complete trip before creating a new one.")
+
+        sqlQuery = "INSERT INTO `TRIPS` (TRIP_COMPLETE, REMOTE_SYNC_COMPLETE, REMOTE_SYNC) VALUES (0, 0, 0)"
+        self._writeToLocalDB(sqlQuery)
+        newTrip = self._queryLocalLatestTrip()
+        self._tripID = newTrip[0][0]
+        DBAgent.verboseDBTran("New Trip on Local DB #%s" % self._tripID)
+        return self._tripID
             
     # Write a Dictionary containing raw data to the local DB
     def _writeDictToLocalDB(self, dictToWrite):
@@ -190,11 +179,13 @@ class DBAgent(threading.Thread):
         spFl = int(dictToWrite["WARN_SPEED"])
         tpFl = int(dictToWrite["WARN_TEMPERATURE"])
 
-
         # If dictionary flags set, write to the trip attribute
         if acFl or huFl or spFl or tpFl:
 
-            row = self._queryLocalLatestTripInfo();
+            row = self._queryLocalLatestTrip();
+
+            if row == None:
+                return
 
             sqlQuery = "UPDATE TRIPS SET WARN_ACCELERATION=%s, WARN_HUMIDITY=%s, WARN_SPEED=%s, WARN_TEMPERATURE=%s WHERE UID=%s" % ((row[0][5] or acFl), (row[0][6] or huFl), (row[0][7] or spFl), (row[0][8] or tpFl), self._tripID)
 
@@ -229,7 +220,7 @@ class DBAgent(threading.Thread):
 
             return dictReturn
         else:
-            return -1 
+            return None 
 
     # Update local database record to inidicate it has been written to the remote db
     def _setLocalTripDataRecordAsSynced(self, uid):
@@ -244,6 +235,18 @@ class DBAgent(threading.Thread):
         except localDB.Error as error:
             raise Exception("Local Database Error: %s" % (' '.join(error.args)))
 
+    # Update local database record to inidicate it has been written to the remote db
+    def _setLocalTripSyncComplete(self, uid):
+        
+        sqlQuery = "UPDATE TRIPS SET REMOTE_SYNC_COMPLETE=1 WHERE UID=%s" % uid
+
+        # Connect to Local DB, Update Data, and Disconnect
+        try:
+            self._writeToLocalDB(sqlQuery)
+        except Exception as exception:
+            raise exception
+        except localDB.Error as error:
+            raise Exception("Local Database Error: %s" % (' '.join(error.args)))
 
     ### REMOTE DATABASE : COMM METHODS ###
     
@@ -274,7 +277,10 @@ class DBAgent(threading.Thread):
         # Connect to Local DB, Retrieve Data, and Disconnect
         try:
             self._connectRemoteDB()
-            rows = self._remoteDBConn.cursor().execute(sqlQuery).fetchall()
+            cur = self._remoteDBConn.cursor()
+            cur.execute(sqlQuery)
+            self._remoteDBConn.commit()
+            rows = cur.fetchall()
             self._disconnectRemoteDB()
         except Exception as exception:
             raise exception
@@ -320,41 +326,97 @@ class DBAgent(threading.Thread):
 
         pass
 
-    def _writeTripToRemote(self, tripID):
+    def _writeTripToRemote(self, tripToSync):
+
+        # Parse data from Trip
+        tripId = tripToSync[0][0]
+        timeStamp = tripToSync[0][1]
+        registration = self._vehicleRegistration
+        tempWrn = tripToSync[0][5]
+        huWrn = tripToSync[0][6]
+        spWrn = tripToSync[0][7]
+        accWrn = tripToSync[0][8]
+
+
+        sqlQuery = "INSERT INTO `TRIPS` (`TRIP_ID`, `TRIP_TIMESTAMP`, `REGISTRATION`, `TEMP_WARN`, `HUMIDITY_WARN`, `SPEED_WARN`, `ACCEL_WARN`) VALUES (%s, '%s', '%s', %s, %s, %s, %s)" % (tripId, timeStamp, registration, tempWrn, huWrn, spWrn, accWrn)
+        self._writeRemoteDB(sqlQuery)
+        
         pass
 
-        
-    def _bufferTripData(self, tripID):
-   
+    def _setRemoteTripSyncComplete(self, tripID):
+
+        sqlQuery = "UPDATE TRIPS SET IS_SYNCED=1 WHERE REGISTRATION='%s' AND UID=%s" % (self._vehicleRegistration, tripID)
+
+        # Connect to Local DB, Update Data, and Disconnect
+        try:
+            self._writeRemoteDB(sqlQuery)
+        except Exception as exception:
+            raise exception
+        except localDB.Error as error:
+            raise Exception("Local Database Error: %s" % (' '.join(error.args)))
+        pass
+
+    def _queryRemotePartiallySyncedTrips(self):
+
+        sqlQuery = "SELECT * FROM `TRIPS` WHERE IS_SYNCED=0 AND REGISTRATION='%s' ORDER BY UID ASC LIMIT 1" % self._vehicleRegistration
+        row = self._readRemoteDB(sqlQuery)
+
+        if len(row) > 0:
+            return int(row[0][2])
+        else:
+            return None
+
+
+    def _bufferTripData(self):
+
+        # Determine Trip to buffer. Check if any remaining on remote to sync, otherwise pull next oldest
+        tripID = self._queryRemotePartiallySyncedTrips()
+
+        # If none, find next on local and sync
+        if tripID == None:
+            tripToSync = self._queryLocalTripToSync()
+            if tripToSync == None:
+                return
+            else:
+                tripID = int(tripToSync[0][0])
+                self._writeTripToRemote(tripToSync)
+
+        # Find unbuffered record
         dictToBuffer = self._queryLocalTripDataRecord(tripID)
         
-        if not(type(dictToBuffer) is dict):
-            return
-
-        self._writeTripDataRecordToRemote(dictToBuffer)
-        self._setLocalTripDataRecordAsSynced(int(dictToBuffer["UID"]))
-
-
-
+        # If no dict is returned, all trip data has been synced to remote. Mark this.
+        if dictToBuffer == None:
+            self._setLocalTripSyncComplete(tripID)
+            self._setRemoteTripSyncComplete(tripID)
+        
+        # Otherwise, syncronise
+        else:
+            self._writeTripDataRecordToRemote(dictToBuffer)
+            self._setLocalTripDataRecordAsSynced(int(dictToBuffer["UID"]))
 
     ### CONNECTION METHODS ###
 
     def setRemoteOffline(self):
         self._remoteIsAvailable = False
+        self._remoteConnectionChanged = True
 
     def setRemoteOnline(self):
         self._remoteIsAvailable = True
+        self._remoteConnectionChanged = True
 
     ### MAIN THREAD : INIT/CONFIG ###
 
-    #Perform Initial Setup for Thread
-    #Closes any incomplete trip (in case of power failure), creates new trip locally
+    #Perform Initial Setup - Complete any incomplete trip (in case of power failure)
     def _initialSetup(self):
         
         # Determine current Trip Number
         currTrip = self._queryLocalLatestTrip()
-        self._tripID = currTrip[0][0]
-        isComplete = currTrip[0][2]
+        if currTrip == None:
+            self._tripID = 0
+            isComplete = 1
+        else:
+            self._tripID = currTrip[0][0]
+            isComplete = currTrip[0][2]
 
         # If the current trip is still in progress, set to complete and increment tripID
         # The system may have been unexpectedly powered down during operation
@@ -364,6 +426,24 @@ class DBAgent(threading.Thread):
         # Determine Connectivity
         self.remoteConnected = self._remoteIsAvailable
 
+        # If the system is offline, then sync
+        if not(self.remoteConnected):
+            self._createNewTrip()
+
+    # Configures the Trip accordingly on connection change
+    def _actionConnectionChange(self):
+
+        # If the remote is available, terminate the current trip
+        if self._remoteIsAvailable:
+            self._setLocalTripCurrentComplete()
+
+        # If the remote is unavailable, start a new trip
+        else:
+            self._createNewTrip()
+
+        # With the change actioned, de-set the flag
+        self._remoteConnectionChanged = False
+    
     ## MAIN THREAD ##
     
     def run(self):
@@ -381,20 +461,12 @@ class DBAgent(threading.Thread):
                 dictToWrite = None
             
             # If connectivity has just been lost or established, then start/end trip
-            #if self._remoteConnectionChanged:
-
-                # If switch to online, terminate trip
-
-                # If switch to offline, start trip
-
-            #    continue
+            if self._remoteConnectionChanged:
+                self._actionConnectionChange()
 
             # If Remote Online, ignore popped dictionary and buffer data to remote database
             if self._remoteIsAvailable:
-                
-                
-
-                continue
+                self._bufferTripData()
 
             # If Remote Offline, then write data to local database
             else:
