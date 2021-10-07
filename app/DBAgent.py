@@ -1,11 +1,18 @@
-from os import supports_effective_ids
+'''
+DBAgent
+Database Agent, which uses connectivity to a remote database to record trips and
+buffer data from a local SQLite to remote MySQL database.
+Daniel Dymond 2021
+'''
+
 import datetime
+import pymysql as remoteDB
 import threading
 import sqlite3 as localDB
-import pymysql as remoteDB
 
 class DBAgent(threading.Thread):
 
+    # Set these flags for debugging in console
     ENABLE_VERBOSE_CONFIG = True
     ENABLE_VERBOSE_DBTRAN = True
 
@@ -61,17 +68,9 @@ class DBAgent(threading.Thread):
         except localDB.Error as error:
             raise Exception("Local Database Error: %s" % (' '.join(error.args)))
 
-        # If connection is successful, then set flag
-        self._localDBConnected = True
-
     # Disconnects from Local Database.
     def _disconnectLocalDB(self):
         self._localDBConn.close()
-        self._localDBConnected = False
-
-    # Returns wheter the Local Database is connected.
-    def _isConnectedToLocalDB(self):
-        return self._localDBConnected
 
     # Read information using SELECT query and return row(s). Throws Exception on error.
     def _readLocalDB(self, sqlQuery):
@@ -106,17 +105,17 @@ class DBAgent(threading.Thread):
 
     ### LOCAL DATABASE : DATA METHODS ###
 
-    # Query the status of the latest trip. Returns matrix: [TripID, TripComplete], or [-1, -1] if no trips. Throws exception on error
-    def _queryLocalLatestTripStatus(self):
+    # Query information for the latest trip. Returns row matrix or None if no trips. Throws exception on error
+    def _queryLocalLatestTrip(self):
 
         sqlQuery = "SELECT * FROM TRIPS ORDER BY UID DESC LIMIT 1"
         row = self._readLocalDB(sqlQuery)
 
         # Parse data and return
         if not(len(row) == 0):
-            return [row[0][0], row[0][2]]
+            return row
         else:
-            return [-1, 1]
+            return None
 
     # Get the information for the latest trip.
     def _queryLocalLatestTripInfo(self):
@@ -159,7 +158,8 @@ class DBAgent(threading.Thread):
     def _createNewTrip(self):
         
         # Confirm current trip has been marked as complete
-        _, tripComp = self._queryLocalLatestTripStatus()
+        currTrip = self._queryLocalLatestTrip()
+        tripComp = currTrip[0][2]
 
         # If current trip not complete, throw exception
         if tripComp == 0:
@@ -169,7 +169,8 @@ class DBAgent(threading.Thread):
         else:
             sqlQuery = "INSERT INTO `TRIPS` (TRIP_COMPLETE, REMOTE_SYNC_COMPLETE, REMOTE_SYNC) VALUES (0, 0, 0)"
             self._writeToLocalDB(sqlQuery)
-            self._tripID, _ = self._queryLocalLatestTripStatus()
+            newTrip = self._queryLocalLatestTrip()
+            self._tripID = newTrip[0][0]
             return self._tripID
             
     # Write a Dictionary containing raw data to the local DB
@@ -322,10 +323,6 @@ class DBAgent(threading.Thread):
     def _writeTripToRemote(self, tripID):
         pass
 
-    @staticmethod    
-    def _genRemoteDBWriteQuery(dictToWrite):
-        pass
-
         
     def _bufferTripData(self, tripID):
    
@@ -342,11 +339,6 @@ class DBAgent(threading.Thread):
 
     ### CONNECTION METHODS ###
 
-    # Checks if Remote Database is available
-    # For testing, this is a fixed variable
-    def isRemoteAvailable(self):
-        return self._remoteIsAvailable
-
     def setRemoteOffline(self):
         self._remoteIsAvailable = False
 
@@ -360,7 +352,9 @@ class DBAgent(threading.Thread):
     def _initialSetup(self):
         
         # Determine current Trip Number
-        self._tripID, isComplete = self._queryLocalLatestTripStatus()
+        currTrip = self._queryLocalLatestTrip()
+        self._tripID = currTrip[0][0]
+        isComplete = currTrip[0][2]
 
         # If the current trip is still in progress, set to complete and increment tripID
         # The system may have been unexpectedly powered down during operation
@@ -368,7 +362,7 @@ class DBAgent(threading.Thread):
             self._setLocalTripCurrentComplete()
 
         # Determine Connectivity
-        self.remoteConnected = self.isRemoteAvailable()
+        self.remoteConnected = self._remoteIsAvailable
 
     ## MAIN THREAD ##
     
@@ -377,19 +371,28 @@ class DBAgent(threading.Thread):
         # Perform the Initial Setup
         self._initialSetup()
 
+        # Thread Loop - Continues until terminate() is publicly called
         while self.isRunning:
 
             # Pop a dictionary from the queue
-            dictToWrite = None
             if self._dataQueue.qsize() > 0:
                 dictToWrite = self._dataQueue.get_nowait()
+            else:
+                dictToWrite = None
             
-            # If connectivity has just been lost to Remote DB, start a new trip
+            # If connectivity has just been lost or established, then start/end trip
+            #if self._remoteConnectionChanged:
 
-            # If Remote Online, terminate trip and buffer data to remote database
-            if self.isRemoteAvailable():
+                # If switch to online, terminate trip
+
+                # If switch to offline, start trip
+
+            #    continue
+
+            # If Remote Online, ignore popped dictionary and buffer data to remote database
+            if self._remoteIsAvailable:
                 
-                self._setLocalTripCurrentComplete()
+                
 
                 continue
 
