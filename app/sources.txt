@@ -2,3 +2,4 @@ https://stackoverflow.com/questions/25371636/how-to-get-sqlite-result-error-code
 https://stackoverflow.com/questions/41344171/handling-pymysql-exceptions-best-practices/56291330
 https://www.sqlitetutorial.net/sqlite-python/sqlite-python-select/
 https://realpython.com/python-csv/
+https://thispointer.com/python-how-to-convert-a-timestamp-string-to-a-datetime-object-using-datetime-strptime/

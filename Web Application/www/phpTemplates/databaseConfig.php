@@ -2,7 +2,7 @@
 
     // Globals for Configuration Information
     $GLOBALS['recordsPerPage'] = 10;
-    $GLOBALS['vehicleData'] = "initalTesting";
+    $GLOBALS['vehicleData'] = "TRIP_DATA";
     $GLOBALS['tripData'] = "TRIPS";
     $GLOBALS['columnNames'] = getColumns();
     
@@ -111,7 +111,7 @@
     function executeDefaultQuery() 
     {
         // Craft the query
-        $sqlQuery = "SELECT * FROM " . $GLOBALS['vehicleData'] . " ORDER BY `" . $GLOBALS['vehicleData'] . "`.`uid` ASC LIMIT 0," . $GLOBALS['recordsPerPage'];
+        $sqlQuery = "SELECT * FROM " . $GLOBALS['vehicleData'] . " ORDER BY `" . $GLOBALS['vehicleData'] . "`.`UID` ASC LIMIT 0," . $GLOBALS['recordsPerPage'];
 
         // Execute the query and generate the table data
         executeQueryAndTabulate($sqlQuery);
@@ -155,18 +155,15 @@
             // output data of each row
             while($row = $result->fetch_assoc()) {
 
-                $stringToDisplay .= "<tr><td>" . $row["uid"].
-                                    "</td><td>" . $row["timestamp"].
-                                    "</td><td>" . $row["aPitch"].
-                                    "</td><td>" . $row["aRoll"].
-                                    "</td><td>" . $row["aYaw"].
-                                    "</td><td>" . $row["compass"].
-                                    "</td><td>" . $row["gPitch"].
-                                    "</td><td>" . $row["gRoll"].
-                                    "</td><td>" . $row["gYaw"].
-                                    "</td><td>" . $row["humidity"].
-                                    "</td><td>" . $row["pressure"].
-                                    "</td><td>" . $row["temperature"].
+                $stringToDisplay .= "<tr><td>" . $row["UID"].
+                                    "</td><td>" . $row["REGISTRATION"].
+                                    "</td><td>" . $row["TIMESTAMP"].
+                                    "</td><td>" . $row["LOCAL_UID"].
+                                    "</td><td>" . $row["TRIP_ID"].
+                                    "</td><td>" . $row["ACCELERATION"].
+                                    "</td><td>" . $row["HUMIDITY"].
+                                    "</td><td>" . $row["SPEED"].
+                                    "</td><td>" . $row["TEMPERATURE"].
                                     "</td></tr>";
 
             }

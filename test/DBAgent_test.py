@@ -15,6 +15,12 @@ class DBAgent_test(unittest.TestCase):
     LOCAL_DB_CONFIG = {
         "fileLocation": "test/testDB.db"
     }
+    REMOTE_DB_CONFIG = {
+        "host": "localhost",
+        "user": "dbuser",
+        "passwd": "l0ck3dR3alT!GHT:D",
+        "db": "sdmms_db"
+    }
     TEST_DATA_CSV = "test/testData.csv"
     REGISTRATION = "TE5TNG"
 
@@ -32,16 +38,19 @@ class DBAgent_test(unittest.TestCase):
                     dictToPlace = {
                         "ACCELERATION": row[0],
                         "HUMIDITY": row[1],
-                        "PRESSURE": row[2],
-                        "SPEED": row[3],
-                        "TEMPERATURE": row[4]
+                        "SPEED": row[2],
+                        "TEMPERATURE": row[3],
+                        "WARN_ACCELERATION": row[4],
+                        "WARN_HUMIDITY": row[5],
+                        "WARN_SPEED": row[6],
+                        "WARN_TEMPERATURE": row[7]
                     }
                     self.testQueue.put(dictToPlace)
 
                 line_count += 1
 
         # Create the DBAgent, but do not start as thread
-        self.dba = DBAgent(self.testQueue, DBAgent_test.REGISTRATION, DBAgent_test.LOCAL_DB_CONFIG, 0)
+        self.dba = DBAgent(self.testQueue, DBAgent_test.REGISTRATION, DBAgent_test.LOCAL_DB_CONFIG, DBAgent_test.REMOTE_DB_CONFIG)
         self.dba._initialSetup()
 
     def test_queryLocalTripSyncStatus(self):
@@ -59,16 +68,24 @@ class DBAgent_test(unittest.TestCase):
         self.dba._writeDictToLocalDB(self.testQueue.get_nowait())
 
     def test_queryLocalTripDataRecord(self):
-        dictReturned = self.dba._queryLocalTripDataRecord(3)
+        dictReturned = self.dba._queryLocalTripDataRecord(1)
         self.assertIsInstance(dictReturned, dict, "A dictionary was not returned.")
 
     def test_setLocalTripDataRecordAsSynced(self):
-        dictReturned = self.dba._queryLocalTripDataRecord(3)
-        oldId = dictReturned["UID"]
+        dictReturned = self.dba._queryLocalTripDataRecord(1)
+        oldId = int(dictReturned["UID"])
         self.dba._setLocalTripDataRecordAsSynced(oldId)
-        dictReturned = self.dba._queryLocalTripDataRecord(3)
-        newId = dictReturned["UID"]
+        dictReturned = self.dba._queryLocalTripDataRecord(1)
+        newId = int(dictReturned["UID"])
         self.assertNotEqual(oldId, newId, "The local database was unable to set a record as synced.")
+
+    ### REMOTE DB ###
+    def test_connectRemoteDB(self):
+        self.dba._connectRemoteDB()
+        boolean = self.dba._isConnectedToRemoteDB()
+        self.dba._disconnectRemoteDB()
+        self.assertEqual(True, boolean, "The database did not connect.")
+
 
 if __name__ == '__main__':
     unittest.main()

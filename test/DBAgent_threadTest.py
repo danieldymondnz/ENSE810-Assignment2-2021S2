@@ -12,6 +12,12 @@ import time
 LOCAL_DB_CONFIG = {
     "fileLocation": "test/testDB.db"
 }
+REMOTE_DB_CONFIG = {
+    "host": "localhost",
+    "user": "dbuser",
+    "passwd": "l0ck3dR3alT!GHT:D",
+    "db": "sdmms_db"
+}
 TEST_DATA_CSV = "test/testData.csv"
 REGISTRATION = "TE5TNG"
 
@@ -27,9 +33,12 @@ with open(TEST_DATA_CSV) as csv_file:
             dictToPlace = {
                 "ACCELERATION": row[0],
                 "HUMIDITY": row[1],
-                "PRESSURE": row[2],
-                "SPEED": row[3],
-                "TEMPERATURE": row[4]
+                "SPEED": row[2],
+                "TEMPERATURE": row[3],
+                "WARN_ACCELERATION": row[4],
+                "WARN_HUMIDITY": row[5],
+                "WARN_SPEED": row[6],
+                "WARN_TEMPERATURE": row[7]
             }
             testQueue.put(dictToPlace)
 
@@ -38,7 +47,10 @@ with open(TEST_DATA_CSV) as csv_file:
     print(testQueue.qsize())
 
 # Create the DBAgent, but do not start as thread
-dba = DBAgent(testQueue, REGISTRATION, LOCAL_DB_CONFIG, 0)
-dba.start()
-time.sleep(10)
-dba.terminate()
+try:
+    dba = DBAgent(testQueue, REGISTRATION, LOCAL_DB_CONFIG, REMOTE_DB_CONFIG)
+    dba.start()
+    time.sleep(2)
+    dba._bufferTripData(1)
+finally:
+    dba.terminate()
