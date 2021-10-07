@@ -13,8 +13,7 @@ import sqlite3 as localDB
 class DBAgent(threading.Thread):
 
     # Set these flags for debugging in console
-    ENABLE_VERBOSE_CONFIG = True
-    ENABLE_VERBOSE_DBTRAN = True
+    ENABLE_VERBOSE = True
 
     # Constructor for this object
     def __init__(self, dataQueue, registration, localDBConfig, remoteDBConfig):
@@ -34,7 +33,7 @@ class DBAgent(threading.Thread):
             self.localDBLocation = localDBConfig["fileLocation"]
         except:
             self.localDBLocation = "app/localDB.db"
-            DBAgent.verboseConf("Error parsing local DB information, falling back to default.")
+            DBAgent.verbose("Error parsing local DB information, falling back to default.")
 
         # Perform Local DB Test to ensure location is valid
         try:
@@ -42,7 +41,7 @@ class DBAgent(threading.Thread):
             self._localDBConn.cursor().execute("SELECT * FROM `TRIPS` ORDER BY UID DESC LIMIT 1")
             self._disconnectLocalDB()
         except:
-            DBAgent.verboseConf("Error connecting to local database")
+            DBAgent.verbose("Error connecting to local database")
             raise
 
         # Extract remoteDBConfig Dictionary. If it fails, fall back to default
@@ -56,7 +55,7 @@ class DBAgent(threading.Thread):
             self.remoteDBdb = ""
             self.remoteDBUser = ""
             self.remoteDBPasswd = ""
-            DBAgent.verboseConf("Error parsing remote DB information. This agent will not be able to write inforamtion to remote.")
+            DBAgent.verbose("Error parsing remote DB information. This agent will not be able to write inforamtion to remote.")
     
     ### LOCAL DATABASE : CONN METHODS ###
 
@@ -90,10 +89,10 @@ class DBAgent(threading.Thread):
         return rows
 
     # Write information using INSERT or UPDATE query. Throws Exception on error.
-    def _writeToLocalDB(self, sqlQuery):
+    def _writeLocalDB(self, sqlQuery):
         
         # Write data to Local DB
-        DBAgent.verboseDBTran("Local DB: Dict Write initiated")
+        DBAgent.verbose("Local DB: Dict Write initiated")
         try:
             self._connectLocalDB()
             self._localDBConn.cursor().execute(sqlQuery)
@@ -108,9 +107,12 @@ class DBAgent(threading.Thread):
 
     # Query information for the latest trip. Returns row matrix or None if no trips. Throws exception on error
     def _queryLocalLatestTrip(self):
-
-        sqlQuery = "SELECT * FROM TRIPS ORDER BY UID DESC LIMIT 1"
-        row = self._readLocalDB(sqlQuery)
+   
+        try:
+            sqlQuery = "SELECT * FROM TRIPS ORDER BY UID DESC LIMIT 1"
+            row = self._readLocalDB(sqlQuery)
+        except Exception as ex:
+            raise ex
 
         # Parse data and return
         if not(len(row) == 0):
@@ -125,7 +127,7 @@ class DBAgent(threading.Thread):
 
         # Connect to Local DB, Update Data, and Disconnect
         try:
-            self._writeToLocalDB(sqlQuery)
+            self._writeLocalDB(sqlQuery)
         except Exception as exception:
             raise exception
         except localDB.Error as error:
@@ -133,9 +135,12 @@ class DBAgent(threading.Thread):
 
     # Query local database for oldest trip that needs to be synced. Return the trip, or None
     def _queryLocalTripToSync(self):
-
-        sqlQuery = "SELECT * FROM TRIPS WHERE REMOTE_SYNC_COMPLETE=0 AND TRIP_COMPLETE=1 ORDER BY UID ASC LIMIT 1"
-        row = self._readLocalDB(sqlQuery)
+        
+        try:
+            sqlQuery = "SELECT * FROM TRIPS WHERE REMOTE_SYNC_COMPLETE=0 AND TRIP_COMPLETE=1 ORDER BY UID ASC LIMIT 1"
+            row = self._readLocalDB(sqlQuery)
+        except Exception as ex:
+            raise ex
 
         # Parse data and return
         if not(len(row) == 0):
@@ -156,10 +161,10 @@ class DBAgent(threading.Thread):
                 raise Exception("The current trip is still open. Complete trip before creating a new one.")
 
         sqlQuery = "INSERT INTO `TRIPS` (TRIP_COMPLETE, REMOTE_SYNC_COMPLETE, REMOTE_SYNC) VALUES (0, 0, 0)"
-        self._writeToLocalDB(sqlQuery)
+        self._writeLocalDB(sqlQuery)
         newTrip = self._queryLocalLatestTrip()
         self._tripID = newTrip[0][0]
-        DBAgent.verboseDBTran("New Trip on Local DB #%s" % self._tripID)
+        DBAgent.verbose("New Trip on Local DB #%s" % self._tripID)
         return self._tripID
             
     # Write a Dictionary containing raw data to the local DB
@@ -168,7 +173,7 @@ class DBAgent(threading.Thread):
         # Generate the Local DB Query to write Data
         variables = (self._tripID, dictToWrite["ACCELERATION"], dictToWrite["HUMIDITY"], dictToWrite["SPEED"], dictToWrite["TEMPERATURE"])
         localDBQuery = "INSERT INTO `TRIP_DATA` (TRIP_ID, ACCELERATION, HUMIDITY, SPEED, TEMPERATURE) VALUES (%s, %s, %s, %s, %s)" % variables
-        self._writeToLocalDB(localDBQuery)
+        self._writeLocalDB(localDBQuery)
         self._setLocalTripWarningFlags(dictToWrite)
 
     # Update the trip with the warning flags
@@ -191,7 +196,7 @@ class DBAgent(threading.Thread):
 
             # Connect to Local DB, Update Data, and Disconnect
             try:
-                self._writeToLocalDB(sqlQuery)
+                self._writeLocalDB(sqlQuery)
             except Exception as exception:
                 raise exception
             except localDB.Error as error:
@@ -229,7 +234,7 @@ class DBAgent(threading.Thread):
 
         # Connect to Local DB, Update Data, and Disconnect
         try:
-            self._writeToLocalDB(sqlQuery)
+            self._writeLocalDB(sqlQuery)
         except Exception as exception:
             raise exception
         except localDB.Error as error:
@@ -242,7 +247,7 @@ class DBAgent(threading.Thread):
 
         # Connect to Local DB, Update Data, and Disconnect
         try:
-            self._writeToLocalDB(sqlQuery)
+            self._writeLocalDB(sqlQuery)
         except Exception as exception:
             raise exception
         except localDB.Error as error:
@@ -259,17 +264,9 @@ class DBAgent(threading.Thread):
         except remoteDB.Error as error:
             raise Exception("Error connecting to Remote Database: %s" % (' '.join(error.args)))
 
-        # If connection is successful, then set flag
-        self._remoteDBConnected = True
-
     # Disconnects from Remote Database.
     def _disconnectRemoteDB(self):
         self._remoteDBConn.close()
-        self._remoteDBConnected = False
-
-    # Returns whether the Local Database is connected.
-    def _isConnectedToRemoteDB(self):
-        return self._remoteDBConnected
 
     # Read information using SELECT query and return row(s). Throws Exception on error.
     def _readRemoteDB(self, sqlQuery):
@@ -293,8 +290,8 @@ class DBAgent(threading.Thread):
     # Write information using INSERT or UPDATE query. Throws Exception on error.
     def _writeRemoteDB(self, sqlQuery):
         # Write data to Local DB
-        DBAgent.verboseDBTran("Remote DB: Dict Write initiated")
-        DBAgent.verboseDBTran("Remote DB: %s" % sqlQuery)
+        DBAgent.verbose("Remote DB: Dict Write initiated")
+        DBAgent.verbose("Remote DB: %s" % sqlQuery)
         try:
             self._connectRemoteDB()
             self._remoteDBConn.cursor().execute(sqlQuery)
@@ -324,8 +321,6 @@ class DBAgent(threading.Thread):
         sqlQuery = "INSERT INTO TRIP_DATA (REGISTRATION, TIMESTAMP, LOCAL_UID, TRIP_ID, ACCELERATION, HUMIDITY, SPEED, TEMPERATURE) VALUES ('%s', '%s',%s, %s, %s, %s, %s, %s)" % (registration, timestamp, local_uid, trip_id, acceleration, humidity, speed, temperature)
         self._writeRemoteDB(sqlQuery)
 
-        pass
-
     def _writeTripToRemote(self, tripToSync):
 
         # Parse data from Trip
@@ -336,7 +331,6 @@ class DBAgent(threading.Thread):
         huWrn = tripToSync[0][6]
         spWrn = tripToSync[0][7]
         accWrn = tripToSync[0][8]
-
 
         sqlQuery = "INSERT INTO `TRIPS` (`TRIP_ID`, `TRIP_TIMESTAMP`, `REGISTRATION`, `TEMP_WARN`, `HUMIDITY_WARN`, `SPEED_WARN`, `ACCEL_WARN`) VALUES (%s, '%s', '%s', %s, %s, %s, %s)" % (tripId, timeStamp, registration, tempWrn, huWrn, spWrn, accWrn)
         self._writeRemoteDB(sqlQuery)
@@ -365,7 +359,6 @@ class DBAgent(threading.Thread):
             return int(row[0][2])
         else:
             return None
-
 
     def _bufferTripData(self):
 
@@ -423,11 +416,8 @@ class DBAgent(threading.Thread):
         if not isComplete:
             self._setLocalTripCurrentComplete()
 
-        # Determine Connectivity
-        self.remoteConnected = self._remoteIsAvailable
-
         # If the system is offline, then sync
-        if not(self.remoteConnected):
+        if not(self._remoteIsAvailable):
             self._createNewTrip()
 
     # Configures the Trip accordingly on connection change
@@ -480,11 +470,6 @@ class DBAgent(threading.Thread):
     ### VERBOSE OUTPUT FOR DEBUGGING ###
 
     @staticmethod
-    def verboseConf(textToPrint):
-        if DBAgent.ENABLE_VERBOSE_CONFIG:
-            print(textToPrint)
-
-    @staticmethod
-    def verboseDBTran(textToPrint):
-        if DBAgent.ENABLE_VERBOSE_DBTRAN:
+    def verbose(textToPrint):
+        if DBAgent.ENABLE_VERBOSE:
             print(textToPrint)
