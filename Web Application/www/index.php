@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title> SDMMS Console </title>
+    <title> DMS Console </title>
     <!-- Header Template -->
     <?php require('phpTemplates/header.php'); ?>
 </head>

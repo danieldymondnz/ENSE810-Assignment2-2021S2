@@ -1,7 +1,7 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
 <head>
-    <title> Fleet Inspector | SDMMS Console </title>
+    <title> Fleet Inspector | DMS Console </title>
     <?php require('phpTemplates/header.php'); ?>
     <?php require('phpTemplates/sessionVerification.php'); ?>
 

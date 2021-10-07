@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html lang="en"><html>
 <head>
-    <title> Login | SDMMS Console </title>
+    <title> Login | DMS Console </title>
     <?php require('phpTemplates/header.php'); ?>
 </head>
 <body class="sessionBody">
 
     <section class="floatingSessionContainer">
         <h1 class="header-title header-title-login">Kia ora</h1>
-        <p>Welcome back to SDMMS</p>
+        <p>Welcome back to DMS</p>
         <p id="submissionOutcome">Please enter your username and password</p>
         <br></br>
         <form method="post" action="login.php">

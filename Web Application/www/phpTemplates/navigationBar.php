@@ -1,7 +1,7 @@
 <section class="nav">
     <section class="nav-logo">
         <a class="nav-link" href="home.php">
-            SDMMS
+            DMS
         </a>
     </section>
     <section class="nav-button">

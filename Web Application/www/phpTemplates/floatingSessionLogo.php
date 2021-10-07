@@ -6,7 +6,7 @@
         </span>
     </div>
     <div class="floatingSessionLogoText">
-        <h4>SDMMS</h4>
-        Supermarket Delivery Merchandise Monitoring System
+        <h4>DMS</h4>
+        Delivery Monitoring System
     </div>
 </section>

@@ -10,7 +10,7 @@
 <link rel="manifest" href="/img/favicon/site.webmanifest">
 
 <div id="buildHeader" style="position: absolute; bottom: 4px; left: 4px;" onload="replaceConnectionAddress();">
-    SDMMS dev build - <span id="buildHeaderDateTime"></span><br>
+    DMS dev build - <span id="buildHeaderDateTime"></span><br>
     <script>
         var dt = new Date().toDateString();
         document.getElementById('buildHeaderDateTime').innerHTML=dt;

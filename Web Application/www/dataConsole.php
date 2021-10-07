@@ -1,7 +1,7 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
 <head>
-    <title> Data Console | SDMMS Console </title>
+    <title> Data Console | DMS Console </title>
     <?php require('phpTemplates/header.php'); ?>
     <?php require('phpTemplates/sessionVerification.php'); ?>
     <?php
