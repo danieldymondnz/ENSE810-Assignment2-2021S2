@@ -1,3 +1,9 @@
+'''
+MatrixDriver
+Matrix driver class contains the methods to display various data
+on the LED Matrix on the senseHAT module as required
+Kyle Mendonca 2021
+'''
 from sense_emu import SenseHat
 import threading
 
@@ -11,6 +17,7 @@ class MatrixDriver(object):
         self._senseHAT = SenseHat()
         self._currentData = None
         
+        # define colour RGB values
         Red = (255,0,0)
         Green = (0,255,0)
         Blue = (0,0,255)
@@ -22,17 +29,18 @@ class MatrixDriver(object):
         
     def run(self):
         while self.isRunning:
-            updateData()
+            pass
         
     def terminate(self):
         self.isRunning = False
         
     def updateData(newData):
-        _displayGraph(?????????)
-        # check flags and display relevant warnings if needed
+        pass
         
     def _displayGraph(self, senseHAT, temp, relHumidity):
-        pixels = [(Red if i > 6 else Green for i in range(8,24)) + (Orange if i > 28 for i in range(48,56))]
+        temp_value = 24 * temp / 100
+        RH_value = 24 * relHumidity / 100
+        pixels = [(Red if i > temp_value else Green for i in range(0,23)) + (Orange if i > RH_value for i in range(32,63))]
         self._senseHAT.set_pixels(pixels)
         
     def _displayAccelerationWarning(self, _senseHAT, acceleration):

@@ -1,12 +1,15 @@
 '''
 DataCollection
-Data collection class which collects information from the senseHAT
-and processes it as needed.
+Data collection class which collects information from the senseHAT,
+processes it as appropriate and then enqueues the data as a
+dictionary
+Kyle Mendonca 2021
 '''
 
 from sense_emu import SenseHat
 import threading
 import time
+import queue
 
 import Controller
 
@@ -16,11 +19,11 @@ class DataCollection(object):
         
         threading.Thread.__init__(self)
 
-        self.__dataQueue = dataQueue[]
+        self.__DCDataQueue = dataQueue
         self.__dataDict = {}
         
         self._senseHAT = SenseHat()
-        self.__accelData = 0
+        self.__accelData = [0, 0, 0]
         self.__accel = 0
         self.__humidity = 0
         self.__speed = 0
@@ -32,6 +35,7 @@ class DataCollection(object):
         self.__tempFlag = False
         
         self.__currentSpeed = 0
+        # change this depending on mounting position of the senseHAT
         self.__accelDirection = 'y'
         
         self.isRunning = True
@@ -50,14 +54,17 @@ class DataCollection(object):
             currentSpeed()
             
             # run loop adding data to lists
+            # define temporary lists for storing temporary data
             accTempLst = []
-            humTempLst []
+            humTempLst = []
             spdTempLst = []
             tempTempLst = []
             
             # collect data for 1 second
             for i in range(9):
-                accTempLst.append(_senseHAT.get_accelerometer_raw())
+                self.__accelData = _senseHAT.get_accelerometer_raw()
+                self.__accel = accelData[self.__accelDirection]
+                accTempLst.append(self.__accel)
                 humTempLst.append(_senseHAT.humidity)
                 spdTempLst.append(currentSpeed())
                 tempTempLst.append(_senseHAT.temp)
@@ -82,14 +89,14 @@ class DataCollection(object):
                 "WARN_TEMPERATURE": self.__tempFlag
                 }
             
-            self.__dataQueue.append(self.__dataDict)
+            self.__DCDataQueue.append(self.__dataDict)
             
         
     def terminate(self):
         self.isRunning = False
         
-    def currentSpeed(self)
-        # update speed using the acceleration and update interval
+    def currentSpeed(self):
+        # update speed using the acceleration and sample rate
         self.__currentSpeed = self.__currentSpeed + (self.__accX * 0.1)
         
     @staticmethod
@@ -113,17 +120,4 @@ class DataCollection(object):
         
     @staticmethod
     def __calculateAverage(lst):
-        return sum(lst) / len(lst)
-    
-    pass
-
-#        self.__accX = accelData['x']
-#        self.__accY = accelData['y']
-#       self.__accZ = accelData['z']
-        
-#        self.__accX = abs(self.__accX)
-#        self.__accY = abs(self.__accY)
-#        self.__accZ = abs(self.__accZ)
-        
-        
-    
+        return round((sum(lst) / len(lst)), 2)

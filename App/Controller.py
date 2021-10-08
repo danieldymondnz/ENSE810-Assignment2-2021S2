@@ -1,11 +1,11 @@
 from sense_emu import SenseHat
 import threading
 import time
+import queue
 
 import MatrixDriver
 import DataCollection
 import DBAgent
-import WiFiAgent
 
 class Controller(object):
     def __init__(self):
@@ -24,7 +24,7 @@ class Controller(object):
     def run(self):
         while self.isRunning:
             # collect data
-            # generate flags
+            if DataCollection._DCDataQueue.qsize() > 0:
             
             # display data
             # transfer data to DBAgent
