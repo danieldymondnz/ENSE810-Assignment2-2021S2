@@ -7,9 +7,9 @@ Kyle Mendonca 2021
 from sense_emu import SenseHat
 import threading
 
-import Controller
+# import Controller
 
-class MatrixDriver(object):
+class MatrixDriver(threading.Thread):
     def __init__(self, senseHAT):
         
         threading.Thread.__init__(self)
@@ -40,7 +40,8 @@ class MatrixDriver(object):
     def _displayGraph(self, _senseHAT, temp, relHumidity):
         temp_value = 24 * temp / 100
         RH_value = 24 * relHumidity / 100
-        pixels = [(Red if i > temp_value else Green for i in range(0,23)) + (Orange if i > RH_value for i in range(32,63))]
+        #pixels = [(Red if i > temp_value else Green for i in range(0,23)) + (Orange if i > RH_value for i in range(32,63))]
+        pixels = [Red if i > temp_value else Green for i in range(64)]
         self._senseHAT.set_pixels(pixels)
         
     def _displayAccelerationWarning(self, _senseHAT, acceleration):

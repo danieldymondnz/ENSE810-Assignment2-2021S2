@@ -11,9 +11,9 @@ import threading
 import time
 import queue
 
-import Controller
+#From Controller import Controller
 
-class DataCollection(object):
+class DataCollection(threading.Thread):
     
     def __init__(self, senseHAT, dataQueue):
         
@@ -41,17 +41,17 @@ class DataCollection(object):
         self.isRunning = True
         
         # define and set required value parameters
-        __maxTemp = 6
-        __minTemp = 2
-        __maxRH = 85
-        __minRH = 65
-        __maxSpeed = 80
-        __maxAccel = 1
+        self.__maxTemp = 6
+        self.__minTemp = 2
+        self.__maxRH = 85
+        self.__minRH = 65
+        self.__maxSpeed = 80
+        self.__maxAccel = 1
         
     def run(self):
         while self.isRunning:
             # update current speed
-            currentSpeed()
+            self.currentSpeed()
             
             # run loop adding data to lists
             # define temporary lists for storing temporary data
@@ -62,21 +62,21 @@ class DataCollection(object):
             
             # collect data for 1 second
             for i in range(9):
-                self.__accelData = _senseHAT.get_accelerometer_raw()
-                self.__accel = accelData[self.__accelDirection]
+                self.__accelData = self._senseHAT.get_accelerometer_raw()
+                self.__accel = self.__accelData[self.__accelDirection]
                 accTempLst.append(self.__accel)
-                humTempLst.append(_senseHAT.humidity)
-                spdTempLst.append(currentSpeed())
-                tempTempLst.append(_senseHAT.temp)
+                humTempLst.append(self._senseHAT.humidity)
+                spdTempLst.append(self.currentSpeed())
+                tempTempLst.append(self._senseHAT.temp)
                 
                 time.sleep(0.1)
             
-            self.__accel = __calculateAverage(accTempLst)
-            self.__humidity = __calculateAverage(humTempLst)
-            self.__speed = __calculateAverage(spdTempLst)
-            self.__temp = __calculateAverage(tempTempLst)
+            self.__accel = self.__calculateAverage(accTempLst)
+            self.__humidity = self.__calculateAverage(humTempLst)
+            self.__speed = self.__calculateAverage(spdTempLst)
+            self.__temp = self.__calculateAverage(tempTempLst)
             
-            __generateFlags(self.__accel, self.__humidity, self.__speed, self.__temp)
+            self.__generateFlags(self.__accel, self.__humidity, self.__speed, self.__temp)
             
             self.__dataDict = {
                 "ACCELERATION": self.__accel,
@@ -89,7 +89,7 @@ class DataCollection(object):
                 "WARN_TEMPERATURE": self.__tempFlag
                 }
             
-            self.__DCDataQueue.append(self.__dataDict)
+            self.__DCDataQueue.put(self.__dataDict)
             
         
     def terminate(self):
@@ -97,10 +97,10 @@ class DataCollection(object):
         
     def currentSpeed(self):
         # update speed using the acceleration and sample rate
-        self.__currentSpeed = self.__currentSpeed + (self.__accX * 0.1)
+        self.__currentSpeed = self.__currentSpeed + (self.__accel * 0.1)
+        return self.__currentSpeed
         
-    @staticmethod
-    def __generateFlags(acc, relH, spd, temp):  
+    def __generateFlags(self, acc, relH, spd, temp):  
         if acc > self.__maxAccel:
             self.__accFlag = True
         else:
@@ -120,4 +120,7 @@ class DataCollection(object):
         
     @staticmethod
     def __calculateAverage(lst):
-        return round((sum(lst) / len(lst)), 2)
+        sums = sum(lst)
+        length = len(lst)
+        divs = sums / length
+        return round(divs, 2)
