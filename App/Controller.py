@@ -19,17 +19,29 @@ class Controller(object):
         self._senseHAT = SenseHat()
         self.dbDataQueue = dbDataQueue
         
+        self.__dataUseDict = {}
+        
         self.isRunning = True
         
     def run(self):
         while self.isRunning:
             # collect data
             if DataCollection._DCDataQueue.qsize() > 0:
+                self.__dataUseDict = self._DCDataQueue.get_nowait()
             
             # display data
+            MatrixDriver._displayGraph(_senseHAT, dataUseDict["TEMPERATURE"], dataUseDict["HUMIDITY"])
+            if dataUseDict["WARN_ACCELERATION"]:
+                MatrixDriver._displayAccelerationWarning(self, _senseHAT, dataUseDict["ACCELERATION"])
+            if dataUseDict["WARN_HUMIDITY"]:
+                MatrixDriver._displayRHWarning(self, _senseHAT, dataUseDict["HUMIDITY"])
+            if dataUseDict["WARN_SPEED"]:
+                MatrixDriver._displaySpeedWarning(self, _senseHAT, dataUseDict["SPEED"])
+            if dataUseDriver["WARN_TEMPERATURE"]:
+                MatrixDriver._displayTempWarning(self, _senseHAT, dataUseDict["TEMPERATURE"])
+
             # transfer data to DBAgent
             
-            # kms
         
     def terminate(self):
         self.isRunning = False

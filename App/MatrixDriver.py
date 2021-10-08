@@ -37,7 +37,7 @@ class MatrixDriver(object):
     def updateData(newData):
         pass
         
-    def _displayGraph(self, senseHAT, temp, relHumidity):
+    def _displayGraph(self, _senseHAT, temp, relHumidity):
         temp_value = 24 * temp / 100
         RH_value = 24 * relHumidity / 100
         pixels = [(Red if i > temp_value else Green for i in range(0,23)) + (Orange if i > RH_value for i in range(32,63))]
