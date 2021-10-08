@@ -1,4 +1,6 @@
 from sense_emu import SenseHat
+import threading
+import time
 
 import MatrixDriver
 import DataCollection
@@ -10,22 +12,27 @@ class Controller(object):
         
         threading.Thread.__init__(self)
         
-        self._senseHAT = SenseHat()
-        self._matrixDriver = None
-        self._dataCollection = None
+        self._matrixDriver = MatrixDriver
+        self._dataCollection = DataCollection
         self.dataQueue = dataQueue
-        self. = None
-        self. = None
-        self. = None
-        self. = None
-        self.dbDataQueue = None
-        pass
+        self.flushQueue = flushQueue
+        self._senseHAT = SenseHat()
+        self.dbDataQueue = dbDataQueue
+        
+        self.isRunning = True
         
     def run(self):
-        pass
+        while self.isRunning:
+            # collect data
+            # generate flags
+            
+            # display data
+            # transfer data to DBAgent
+            
+            # kms
         
     def terminate(self):
-        pass
+        self.isRunning = False
         
     def _flushQueue(self):
         pass
