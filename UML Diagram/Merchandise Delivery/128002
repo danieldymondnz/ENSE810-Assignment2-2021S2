@@ -1,7 +1,7 @@
 format 224
 "MonitoringSystem" // MonitoringSystem
-  revision 15
-  modified_by 13 "kylea"
+  revision 16
+  modified_by 2 "danie"
   // class settings
   
   classdiagramsettings member_max_width 0 end
@@ -2446,6 +2446,23 @@ ${docstring}${members}
 	  stereotype "include"
 	  on usecase_ref 136578 // Read Information from Remote Database
       end
+    end
+  end
+
+  deploymentview 134530 "DMS_DeploymentView"
+    //deployment diagram settings
+    deploymentdiagramsettings
+     end
+    deploymentdiagram 161154 "DMS_DeploymentDiagram"
+      deploymentdiagramsettings
+       end
+      size A4
+    end
+
+    deploymentnode 128002 "Embedded System"
+    end
+
+    deploymentnode 128130 "RemoteServer"
     end
   end
 end

@@ -1,22 +1,24 @@
-window_sizes 1920 1017 335 1579 855 110
+window_sizes 1920 1017 335 1579 909 56
 cleanlooks_style
 diagrams
   classdiagram_ref 128002 // MonitoringSystem
-    1624 855 57 A3-Landscape 0 0
+    1624 855 86 A3-Landscape 0 0
   usecasediagram_ref 154626 // DMS_UseCaseDiagram
     1579 855 100 A3-Landscape 0 0
   sequencediagram_ref 147970 // MonitoringSystemStartup
-    112 90 100 A4 0 0
-  active  sequencediagram_ref 148098 // MonitoringSystemShutdown
+    1355 673 100 A4 0 0
+  sequencediagram_ref 148098 // MonitoringSystemShutdown
     1579 855 100 A4 0 0
   sequencediagram_ref 134541 // MonitoringSystemSensorData
     112 90 90 A3-Landscape 0 0
+  active  deploymentdiagram_ref 161154 // DMS_DeploymentDiagram
+    1579 909 100 A4 0 0
 end
 show_stereotypes
-selected sequencediagram_ref 148098 // MonitoringSystemShutdown
+selected deploymentdiagram_ref 161154 // DMS_DeploymentDiagram
 open
   classview_ref 128002 // MonitoringSystem
   deploymentview_ref 128002 // MonitoringSystemDeployView
-  usecaseview_ref 134530 // DMS_CaseView
+  deploymentview_ref 134530 // DMS_DeploymentView
 end
 end
