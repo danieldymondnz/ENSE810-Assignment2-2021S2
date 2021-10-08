@@ -1,7 +1,7 @@
 format 224
 "MonitoringSystem" // MonitoringSystem
-  revision 14
-  modified_by 2 "danie"
+  revision 15
+  modified_by 13 "kylea"
   // class settings
   
   classdiagramsettings member_max_width 0 end
@@ -125,20 +125,6 @@ ${docstring}${body}
 	
       end
 
-      operation 128386 "updateData"
-	public explicit_return_type ""
-	nparams 1
-	  param in name "newData" explicit_type "Dictionary"
-	multiplicity "1"
-	
-	
-	
-	python_def "${@}${static}${abstract}def ${name}${(}${p0}${v0}${)}:
-${docstring}${body}
-"
-	
-      end
-
       attribute 128386 "_currentData"
 	protected explicit_type "Dictionary"
 	multiplicity "1"
@@ -246,6 +232,97 @@ ${docstring}${body}
 
       classrelation 128386 // <association>
 	relation_ref 128130 // <association>
+      end
+
+      attribute 129549 "isRunnning"
+	private explicit_type "bool"
+	multiplicity "1"
+	cpp_decl ""
+	java_decl ""
+	php_decl ""
+	python_decl "${comment}${self}${name} = ${value}
+"
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+      end
+
+      attribute 129677 "Red"
+	protected explicit_type "List"
+	multiplicity "1"
+	cpp_decl ""
+	java_decl ""
+	php_decl ""
+	python_decl "${comment}${self}${name} = ${value}
+"
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+      end
+
+      attribute 129805 "Green"
+	protected explicit_type "List"
+	multiplicity "1"
+	cpp_decl ""
+	java_decl ""
+	php_decl ""
+	python_decl "${comment}${self}${name} = ${value}
+"
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+      end
+
+      attribute 129933 "Blue"
+	protected explicit_type "List"
+	multiplicity "1"
+	cpp_decl ""
+	java_decl ""
+	php_decl ""
+	python_decl "${comment}${self}${name} = ${value}
+"
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+      end
+
+      attribute 130061 "Orange"
+	protected explicit_type "List"
+	multiplicity "1"
+	cpp_decl ""
+	java_decl ""
+	php_decl ""
+	python_decl "${comment}${self}${name} = ${value}
+"
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+      end
+
+      attribute 130189 "Black"
+	protected explicit_type "List"
+	multiplicity "1"
+	cpp_decl ""
+	java_decl ""
+	php_decl ""
+	python_decl "${comment}${self}${name} = ${value}
+"
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+      end
+
+      attribute 130317 "White"
+	protected explicit_type "List"
+	multiplicity "1"
+	cpp_decl ""
+	java_decl ""
+	php_decl ""
+	python_decl "${comment}${self}${name} = ${value}
+"
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
       end
     end
 
@@ -409,6 +486,45 @@ ${docstring}${body}
 "
 	
       end
+
+      attribute 129165 "dbAgent"
+	public type class_ref 128514 // DBAgent
+	multiplicity "1"
+	cpp_decl ""
+	java_decl ""
+	php_decl ""
+	python_decl "${comment}${self}${name} = ${value}
+"
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+      end
+
+      attribute 129293 "__dataUseDict"
+	private explicit_type "Dictionary"
+	multiplicity "1..*"
+	cpp_decl ""
+	java_decl ""
+	php_decl ""
+	python_decl "${comment}${self}${name} = ${stereotype}()
+"
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+      end
+
+      attribute 129421 "isRunning"
+	private explicit_type "bool"
+	multiplicity "1"
+	cpp_decl ""
+	java_decl ""
+	php_decl ""
+	python_decl "${comment}${self}${name} = ${value}
+"
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+      end
     end
 
     class 128258 "DataCollection"
@@ -436,7 +552,7 @@ ${docstring}${members}
 	MysqlColumn
       end
 
-      attribute 128898 "__dataQueue"
+      attribute 128898 "__DCDataQueue"
 	private explicit_type "Queue<Dictionary>"
 	multiplicity "1"
 	cpp_decl ""
@@ -574,7 +690,7 @@ ${docstring}${body}
       end
 
       operation 129794 "__generateFlags"
-	class_operation private explicit_return_type "bool[5]"
+	private explicit_return_type "bool[4]"
 	nparams 4
 	  param in name "temp" explicit_type "float"
 	multiplicity "1"
@@ -593,7 +709,7 @@ ${docstring}${body}
 	
       end
 
-      attribute 129666 "__temps"
+      attribute 129666 "__temp"
 	private explicit_type "float"
 	multiplicity "1..*"
 	cpp_decl ""
@@ -606,7 +722,7 @@ ${docstring}${body}
 	MysqlColumn
       end
 
-      attribute 129794 "__RHs"
+      attribute 129794 "__humidity"
 	private explicit_type "float"
 	multiplicity "1..*"
 	cpp_decl ""
@@ -619,7 +735,7 @@ ${docstring}${body}
 	MysqlColumn
       end
 
-      attribute 130050 "__speeds"
+      attribute 130050 "__speed"
 	private explicit_type "float"
 	multiplicity "1..*"
 	cpp_decl ""
@@ -632,7 +748,7 @@ ${docstring}${body}
 	MysqlColumn
       end
 
-      attribute 130178 "__accels"
+      attribute 130178 "__accel"
 	private explicit_type "float"
 	multiplicity "1..*"
 	cpp_decl ""
@@ -669,6 +785,137 @@ ${docstring}${body}
 	    python "${comment}${self}${name} = ${value}
 "
 	    classrelation_ref 128130 // <association>
+      end
+
+      attribute 128013 "__accelData"
+	private explicit_type "float"
+	multiplicity "1..*"
+	cpp_decl ""
+	java_decl ""
+	php_decl ""
+	python_decl "${comment}${self}${name} = ${stereotype}()
+"
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+      end
+
+      attribute 128141 "__accelDirection"
+	private explicit_type "string"
+	multiplicity "1..*"
+	cpp_decl ""
+	java_decl ""
+	php_decl ""
+	python_decl "${comment}${self}${name} = ${stereotype}()
+"
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+      end
+
+      attribute 128269 "__currentSpeed"
+	private explicit_type "float"
+	multiplicity "1..*"
+	cpp_decl ""
+	java_decl ""
+	php_decl ""
+	python_decl "${comment}${self}${name} = ${stereotype}()
+"
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+      end
+
+      attribute 128397 "__accFlag"
+	private explicit_type "bool"
+	multiplicity "1..*"
+	cpp_decl ""
+	java_decl ""
+	php_decl ""
+	python_decl "${comment}${self}${name} = ${stereotype}()
+"
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+      end
+
+      attribute 128525 "__humFlag"
+	private explicit_type "bool"
+	multiplicity "1..*"
+	cpp_decl ""
+	java_decl ""
+	php_decl ""
+	python_decl "${comment}${self}${name} = ${stereotype}()
+"
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+      end
+
+      attribute 128653 "__spdFlag"
+	private explicit_type "bool"
+	multiplicity "1..*"
+	cpp_decl ""
+	java_decl ""
+	php_decl ""
+	python_decl "${comment}${self}${name} = ${stereotype}()
+"
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+      end
+
+      attribute 128781 "__tempFlag"
+	private explicit_type "bool"
+	multiplicity "1..*"
+	cpp_decl ""
+	java_decl ""
+	php_decl ""
+	python_decl "${comment}${self}${name} = ${stereotype}()
+"
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+      end
+
+      attribute 128909 "__dataDict"
+	private explicit_type "Dictionary"
+	multiplicity "1..*"
+	cpp_decl ""
+	java_decl ""
+	php_decl ""
+	python_decl "${comment}${self}${name} = ${stereotype}()
+"
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+      end
+
+      attribute 129037 "isRunning"
+	private explicit_type "bool"
+	multiplicity "1"
+	cpp_decl ""
+	java_decl ""
+	php_decl ""
+	python_decl "${comment}${self}${name} = ${value}
+"
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
+      end
+
+      operation 128141 "currrentSpeed"
+	public explicit_return_type ""
+	nparams 1
+	  param out name "__currentSpeed" explicit_type "float"
+	multiplicity "1"
+	
+	
+	
+	python_def "${@}${static}${abstract}def ${name}${(}${p0}${v0}${)}:
+${docstring}${body}
+"
+	
       end
     end
 

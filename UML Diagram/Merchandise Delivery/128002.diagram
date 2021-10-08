@@ -2,34 +2,34 @@ format 224
 
 classcanvas 128002 class_ref 128002 // MatrixDriver
   classdiagramsettings show_members_full_definition yes show_members_visibility yes show_members_stereotype yes show_members_multiplicity yes show_members_initialization yes show_attribute_modifiers yes member_max_width 0 show_stereotype_properties yes end
-  xyzwh 13.28 926.82 2000 631 203
+  xyz 34.58 692.12 2000
 end
 classcanvas 128130 class_ref 128130 // Controller
   classdiagramsettings member_max_width 0 end
-  xyzwh 27 350.9 2000 468 270
+  xyz 215.1 448.1 2000
 end
 classcanvas 128258 class_ref 128258 // DataCollection
   classdiagramsettings member_max_width 0 end
-  xyzwh 25.32 21.7 2000 586 299
+  xyz 54.82 -9.2 2000
 end
 classcanvas 128514 class_ref 128514 // DBAgent
   classdiagramsettings member_max_width 0 end
-  xyz 982.1 128.98 2000
+  xyz 706.3 196.28 2000
 end
 relationcanvas 128642 relation_ref 128002 // <association>
   from ref 128258 z 2001 to ref 128130
   no_role_a no_role_b
-  multiplicity_a_pos 258 334 3000 multiplicity_b_pos 266 321 3000
+  multiplicity_a_pos 297 462 3000 multiplicity_b_pos 297 386 3000
 end
 relationcanvas 128770 relation_ref 128130 // <association>
   from ref 128130 z 2001 to ref 128002
   no_role_a no_role_b
-  multiplicity_a_pos 291 909 3000 multiplicity_b_pos 253 621 3000
+  multiplicity_a_pos 297 717 3000 multiplicity_b_pos 297 637 3000
 end
 relationcanvas 128898 relation_ref 128258 // <association>
   from ref 128130 z 2001 to ref 128514
   no_role_a no_role_b
-  multiplicity_a_pos 977 489 3000 multiplicity_b_pos 508 485 3000
+  multiplicity_a_pos 694 560 3000 multiplicity_b_pos 431 560 3000
 end
 preferred_whz 1453 840 1.5
 end
