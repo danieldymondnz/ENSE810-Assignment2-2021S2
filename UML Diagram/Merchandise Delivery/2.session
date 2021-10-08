@@ -1,33 +1,22 @@
 window_sizes 1920 1017 335 1579 855 110
 cleanlooks_style
 diagrams
-  active  classdiagram_ref 128002 // MonitoringSystem
-    1624 855 59 A3-Landscape 0 0
+  classdiagram_ref 128002 // MonitoringSystem
+    1624 855 57 A3-Landscape 0 0
+  usecasediagram_ref 154626 // DMS_UseCaseDiagram
+    1579 855 100 A3-Landscape 0 0
+  sequencediagram_ref 147970 // MonitoringSystemStartup
+    112 90 100 A4 0 0
+  active  sequencediagram_ref 148098 // MonitoringSystemShutdown
+    1579 855 100 A4 0 0
+  sequencediagram_ref 134541 // MonitoringSystemSensorData
+    112 90 90 A3-Landscape 0 0
 end
 show_stereotypes
-selected attribute_ref 157186 // _remoteIsAvailable
+selected sequencediagram_ref 148098 // MonitoringSystemShutdown
 open
-  attribute_ref 158082 // _tripID
-  attribute_ref 157442 // _localDBConn
-  attribute_ref 143618 // localDBLocation
-  attribute_ref 158210 // _remoteDBConn
-  attribute_ref 157698 // remoteDBdb
-  attribute_ref 157570 // remoteDBHost
-  attribute_ref 157826 // remoteDBUser
-  attribute_ref 157058 // _remoteConnectionChanged
-  attribute_ref 157186 // _remoteIsAvailable
-  attribute_ref 157314 // isRunning
-  operation_ref 137090 // __init__
-  operation_ref 143874 // _connectLocalDB
-  operation_ref 151682 // _readLocalDB
-  operation_ref 144898 // _createNewTrip
-  operation_ref 144002 // _connectRemoteDB
-  operation_ref 160130 // _queryRemotePartiallySyncedTrips
-  operation_ref 160258 // _bufferTripData
-  operation_ref 160386 // setRemoteOnline
-  operation_ref 137218 // run
-  operation_ref 160642 // verbose
+  classview_ref 128002 // MonitoringSystem
   deploymentview_ref 128002 // MonitoringSystemDeployView
-  usecaseview_ref 128002 // MonitoringSystemCaseView
+  usecaseview_ref 134530 // DMS_CaseView
 end
 end

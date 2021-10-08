@@ -1,6 +1,6 @@
 format 224
 "MonitoringSystem" // MonitoringSystem
-  revision 12
+  revision 14
   modified_by 2 "danie"
   // class settings
   
@@ -1283,6 +1283,34 @@ ${docstring}${body}
 	
       end
 
+      operation 167170 "_initialSetup"
+	protected explicit_return_type ""
+	nparams 1
+	  param inout name "self" type class_ref 128514 // DBAgent
+	multiplicity "1"
+	
+	
+	
+	python_def "${@}${static}${abstract}def ${name}${(}${p0}${v0}${)}:
+${docstring}${body}
+"
+	
+      end
+
+      operation 167298 "_actionConnectionChange"
+	protected explicit_return_type ""
+	nparams 1
+	  param inout name "self" type class_ref 128514 // DBAgent
+	multiplicity "1"
+	
+	
+	
+	python_def "${@}${static}${abstract}def ${name}${(}${p0}${v0}${)}:
+${docstring}${body}
+"
+	
+      end
+
       operation 137218 "run"
 	public explicit_return_type ""
 	nparams 1
@@ -1324,7 +1352,6 @@ ${docstring}${body}
 "
 	
       end
-
     end
 
     state 128002 "MatrixDriverStateDiagram"
@@ -1709,7 +1736,7 @@ ${definition}"
     end
   end
 
-  usecaseview 128002 "MonitoringSystemCaseView"
+  usecaseview 134530 "DMS_CaseView"
     
     usecasediagramsettings end
     
@@ -1730,40 +1757,12 @@ ${definition}"
     
     activitydiagramsettings
      end
-    class 135170 "TruckDriver"
-      visibility package stereotype "actor"
-      cpp_decl ""
-      java_decl ""
-      php_decl ""
-      python_2_2 python_decl "class ${name}${inherit}:
-${docstring}${members}
-"
-      idl_decl ""
-      explicit_switch_type ""
-      mysql_decl ""
-      
-    end
-
-    class 135298 "Manager"
-      visibility package stereotype "actor"
-      cpp_decl ""
-      java_decl ""
-      php_decl ""
-      python_2_2 python_decl "class ${name}${inherit}:
-${docstring}${members}
-"
-      idl_decl ""
-      explicit_switch_type ""
-      mysql_decl ""
-      
-    end
-
-    usecasediagram 141314 "MonitoringSystemCaseView"
-      usecasediagramsettings end
+    usecasediagram 154626 "DMS_UseCaseDiagram"
+      usecasediagramsettings draw_all_relations no end
       size A3-Landscape
     end
 
-    class 135426 "Analyst"
+    class 148482 "HumiditySensor"
       visibility package stereotype "actor"
       cpp_decl ""
       java_decl ""
@@ -1777,7 +1776,35 @@ ${docstring}${members}
       
     end
 
-    usecase 128130 "View Enviromental Temperature & Humidity"
+    class 148610 "TemperatureSensor"
+      visibility package stereotype "actor"
+      cpp_decl ""
+      java_decl ""
+      php_decl ""
+      python_2_2 python_decl "class ${name}${inherit}:
+${docstring}${members}
+"
+      idl_decl ""
+      explicit_switch_type ""
+      mysql_decl ""
+      
+    end
+
+    class 148738 "IMUSensor"
+      visibility package stereotype "actor"
+      cpp_decl ""
+      java_decl ""
+      php_decl ""
+      python_2_2 python_decl "class ${name}${inherit}:
+${docstring}${members}
+"
+      idl_decl ""
+      explicit_switch_type ""
+      mysql_decl ""
+      
+    end
+
+    usecase 135170 "View Trip Information"
       
       usecasediagramsettings end
       
@@ -1798,14 +1825,14 @@ ${docstring}${members}
       
       activitydiagramsettings
        end
-      simplerelation 128002
+      simplerelation 135682
 	-_->
 	  stereotype "include"
-	  on usecase_ref 128386 // View Vehicle Statistics
+	  on usecase_ref 136706 // Read Trip Table from Database
       end
     end
 
-    usecase 128258 "View Enviromental & Inertial Warnings"
+    usecase 135298 "View Logged Data"
       
       usecasediagramsettings end
       
@@ -1826,14 +1853,14 @@ ${docstring}${members}
       
       activitydiagramsettings
        end
-      simplerelation 128130
+      simplerelation 135554
 	-_->
 	  stereotype "include"
-	  on usecase_ref 128386 // View Vehicle Statistics
+	  on usecase_ref 136834 // Read Trip_Data Table from Database
       end
     end
 
-    usecase 128386 "View Vehicle Statistics"
+    usecase 135554 "Collection of Data"
       
       usecasediagramsettings end
       
@@ -1856,7 +1883,133 @@ ${docstring}${members}
        end
     end
 
-    usecase 128514 "View Latest Trip Information from each Vehicle"
+    usecase 135682 "View Enviromental & Inertial Warnings on LED Matrix"
+      
+      usecasediagramsettings end
+      
+      sequencediagramsettings end
+      
+      collaborationdiagramsettings end
+      
+      classdiagramsettings member_max_width 0 end
+      
+      classcompositediagramsettings end
+      
+      objectdiagramsettings end
+      
+      objectcompositediagramsettings end
+      
+      statediagramsettings
+       end
+      
+      activitydiagramsettings
+       end
+      simplerelation 134786
+	-_->
+	  stereotype "include"
+	  on usecase_ref 135810 // Processing Data
+      end
+    end
+
+    usecase 135810 "Processing Data"
+      
+      usecasediagramsettings end
+      
+      sequencediagramsettings end
+      
+      collaborationdiagramsettings end
+      
+      classdiagramsettings member_max_width 0 end
+      
+      classcompositediagramsettings end
+      
+      objectdiagramsettings end
+      
+      objectcompositediagramsettings end
+      
+      statediagramsettings
+       end
+      
+      activitydiagramsettings
+       end
+      simplerelation 134658
+	-_->
+	  stereotype "include"
+	  on usecase_ref 135554 // Collection of Data
+      end
+    end
+
+    usecase 135938 "View Enviromental Readings on LED Matrix"
+      
+      usecasediagramsettings end
+      
+      sequencediagramsettings end
+      
+      collaborationdiagramsettings end
+      
+      classdiagramsettings member_max_width 0 end
+      
+      classcompositediagramsettings end
+      
+      objectdiagramsettings end
+      
+      objectcompositediagramsettings end
+      
+      statediagramsettings
+       end
+      
+      activitydiagramsettings
+       end
+      simplerelation 134914
+	-_->
+	  stereotype "include"
+	  on usecase_ref 135810 // Processing Data
+      end
+    end
+
+    class 148866 "Delivery_Driver"
+      visibility package stereotype "actor"
+      cpp_decl ""
+      java_decl ""
+      php_decl ""
+      python_2_2 python_decl "class ${name}${inherit}:
+${docstring}${members}
+"
+      idl_decl ""
+      explicit_switch_type ""
+      mysql_decl ""
+      
+    end
+
+    usecase 136066 "Write Data to Local Database"
+      
+      usecasediagramsettings end
+      
+      sequencediagramsettings end
+      
+      collaborationdiagramsettings end
+      
+      classdiagramsettings member_max_width 0 end
+      
+      classcompositediagramsettings end
+      
+      objectdiagramsettings end
+      
+      objectcompositediagramsettings end
+      
+      statediagramsettings
+       end
+      
+      activitydiagramsettings
+       end
+      simplerelation 135042
+	-_->
+	  stereotype "include"
+	  on usecase_ref 135810 // Processing Data
+      end
+    end
+
+    usecase 136194 "Store Data Readings"
       
       usecasediagramsettings end
       
@@ -1879,7 +2032,7 @@ ${docstring}${members}
        end
     end
 
-    usecase 128642 "View Raw Data from Database"
+    usecase 136322 "Write Data to Remote Database"
       
       usecasediagramsettings end
       
@@ -1900,6 +2053,152 @@ ${docstring}${members}
       
       activitydiagramsettings
        end
+      simplerelation 135170
+	-_->
+	  stereotype "include"
+	  on usecase_ref 135810 // Processing Data
+      end
+
+      simplerelation 135298
+	-_->
+	  stereotype "include"
+	  on usecase_ref 136066 // Write Data to Local Database
+      end
+    end
+
+    usecase 136450 "User Authentication"
+      
+      usecasediagramsettings end
+      
+      sequencediagramsettings end
+      
+      collaborationdiagramsettings end
+      
+      classdiagramsettings member_max_width 0 end
+      
+      classcompositediagramsettings end
+      
+      objectdiagramsettings end
+      
+      objectcompositediagramsettings end
+      
+      statediagramsettings
+       end
+      
+      activitydiagramsettings
+       end
+      simplerelation 136066
+	-_->
+	  stereotype "include"
+	  on usecase_ref 136578 // Read Information from Remote Database
+      end
+    end
+
+    class 148994 "Vehicle_Maintainence_Crew"
+      visibility package stereotype "actor"
+      cpp_decl ""
+      java_decl ""
+      php_decl ""
+      python_2_2 python_decl "class ${name}${inherit}:
+${docstring}${members}
+"
+      idl_decl ""
+      explicit_switch_type ""
+      mysql_decl ""
+      
+    end
+
+    class 149122 "Driver_Manager"
+      visibility package stereotype "actor"
+      cpp_decl ""
+      java_decl ""
+      php_decl ""
+      python_2_2 python_decl "class ${name}${inherit}:
+${docstring}${members}
+"
+      idl_decl ""
+      explicit_switch_type ""
+      mysql_decl ""
+      
+    end
+
+    usecase 136578 "Read Information from Remote Database"
+      
+      usecasediagramsettings end
+      
+      sequencediagramsettings end
+      
+      collaborationdiagramsettings end
+      
+      classdiagramsettings member_max_width 0 end
+      
+      classcompositediagramsettings end
+      
+      objectdiagramsettings end
+      
+      objectcompositediagramsettings end
+      
+      statediagramsettings
+       end
+      
+      activitydiagramsettings
+       end
+    end
+
+    usecase 136706 "Read Trip Table from Database"
+      
+      usecasediagramsettings end
+      
+      sequencediagramsettings end
+      
+      collaborationdiagramsettings end
+      
+      classdiagramsettings member_max_width 0 end
+      
+      classcompositediagramsettings end
+      
+      objectdiagramsettings end
+      
+      objectcompositediagramsettings end
+      
+      statediagramsettings
+       end
+      
+      activitydiagramsettings
+       end
+      simplerelation 135810
+	-_->
+	  stereotype "include"
+	  on usecase_ref 136578 // Read Information from Remote Database
+      end
+    end
+
+    usecase 136834 "Read Trip_Data Table from Database"
+      
+      usecasediagramsettings end
+      
+      sequencediagramsettings end
+      
+      collaborationdiagramsettings end
+      
+      classdiagramsettings member_max_width 0 end
+      
+      classcompositediagramsettings end
+      
+      objectdiagramsettings end
+      
+      objectcompositediagramsettings end
+      
+      statediagramsettings
+       end
+      
+      activitydiagramsettings
+       end
+      simplerelation 135938
+	-_->
+	  stereotype "include"
+	  on usecase_ref 136578 // Read Information from Remote Database
+      end
     end
   end
 end
