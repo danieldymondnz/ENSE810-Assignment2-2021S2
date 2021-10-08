@@ -44,7 +44,7 @@ class Controller(threading.Thread):
 
         # Start the Database Thread
         self.dbAgent.start()
-        # self.MatrixDriver.start()
+        self._matrixDriver.start()
         self._dataCollection.start()
 
         while self.isRunning:
@@ -52,16 +52,16 @@ class Controller(threading.Thread):
             if self.dataQueue.qsize() > 0:
                 self.__dataUseDict = self.dataQueue.get_nowait()
             
-            # display data
-            # MatrixDriver._displayGraph(_senseHAT, dataUseDict["TEMPERATURE"], dataUseDict["HUMIDITY"])
-            # if dataUseDict["WARN_ACCELERATION"]:
-            #     MatrixDriver._displayAccelerationWarning(self, _senseHAT, dataUseDict["ACCELERATION"])
-            # if dataUseDict["WARN_HUMIDITY"]:
-            #     MatrixDriver._displayRHWarning(self, _senseHAT, dataUseDict["HUMIDITY"])
-            # if dataUseDict["WARN_SPEED"]:
-            #     MatrixDriver._displaySpeedWarning(self, _senseHAT, dataUseDict["SPEED"])
-            # if dataUseDriver["WARN_TEMPERATURE"]:
-            #     MatrixDriver._displayTempWarning(self, _senseHAT, dataUseDict["TEMPERATURE"])
+                # display data
+                MatrixDriver._displayGraph(_senseHAT, dataUseDict["TEMPERATURE"], dataUseDict["HUMIDITY"])
+                if dataUseDict["WARN_ACCELERATION"]:
+                    MatrixDriver._displayAccelerationWarning(self, _senseHAT, dataUseDict["ACCELERATION"])
+                if dataUseDict["WARN_HUMIDITY"]:
+                    MatrixDriver._displayRHWarning(self, _senseHAT, dataUseDict["HUMIDITY"])
+                if dataUseDict["WARN_SPEED"]:
+                    MatrixDriver._displaySpeedWarning(self, _senseHAT, dataUseDict["SPEED"])
+                if dataUseDriver["WARN_TEMPERATURE"]:
+                    MatrixDriver._displayTempWarning(self, _senseHAT, dataUseDict["TEMPERATURE"])
 
             # transfer data to DBAgent
             if not(self.__dataUseDict == None):
@@ -69,7 +69,7 @@ class Controller(threading.Thread):
 
         # When Thread is being disposed, terminate other Threads
         self.dbAgent.terminate()
-        # self.MatrixDriver.terminate()
+        self._matrixDriver.terminate()
         self._dataCollection.terminate()
         
     def terminate(self):
