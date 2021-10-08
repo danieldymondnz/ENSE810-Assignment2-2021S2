@@ -8,6 +8,18 @@ import DataCollection
 import DBAgent
 
 class Controller(object):
+
+    LOCAL_DB_CONFIG = {
+    "fileLocation": "test/testDB.db"
+    }
+    REMOTE_DB_CONFIG = {
+        "host": "localhost",
+        "user": "dbuser",
+        "passwd": "l0ck3dR3alT!GHT:D",
+        "db": "sdmms_db"
+    }
+    REGISTRATION = "TE5TNG"
+
     def __init__(self):
         
         threading.Thread.__init__(self)
@@ -17,13 +29,20 @@ class Controller(object):
         self.dataQueue = dataQueue
         self.flushQueue = flushQueue
         self._senseHAT = SenseHat()
-        self.dbDataQueue = dbDataQueue
+        
+        # Setup the Database Agent
+        self.dbDataQueue = queue.Queue()
+        self.dbAgent = DBAgent(self.dbDataQueue, Controller.REGISTRATION, Controller.LOCAL_DB_CONFIG, Controller.REMOTE_DB_CONFIG)
         
         self.__dataUseDict = {}
         
         self.isRunning = True
         
     def run(self):
+
+        # Start the Database Thread
+        self.dbAgent.start()
+
         while self.isRunning:
             # collect data
             if DataCollection._DCDataQueue.qsize() > 0:
@@ -41,7 +60,9 @@ class Controller(object):
                 MatrixDriver._displayTempWarning(self, _senseHAT, dataUseDict["TEMPERATURE"])
 
             # transfer data to DBAgent
-            
+
+        # When Thread is being disposed, terminate other Threads
+        self.dbAgent.terminate()
         
     def terminate(self):
         self.isRunning = False
