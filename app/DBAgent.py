@@ -31,17 +31,19 @@ class DBAgent(threading.Thread):
         # Extract localDBConfig Dictionary. If it fails, fall back to default
         try:
             self.localDBLocation = localDBConfig["fileLocation"]
+            DBAgent.verbose("i CONFIG: Local DB location parsed - %s" % self.localDBLocation)
         except:
             self.localDBLocation = "app/localDB.db"
-            DBAgent.verbose("Error parsing local DB information, falling back to default.")
+            DBAgent.verbose("! CONFIG: Local DB location couldn't be parsed. Falling back to default - %s" % self.localDBLocation)
 
         # Perform Local DB Test to ensure location is valid
         try:
             self._connectLocalDB()
             self._localDBConn.cursor().execute("SELECT * FROM `TRIPS` ORDER BY UID DESC LIMIT 1")
             self._disconnectLocalDB()
+            DBAgent.verbose("i CONFIG: Local DB connection test successful.")
         except:
-            DBAgent.verbose("Error connecting to local database")
+            DBAgent.verbose("! CONFIG: Local DB connection could not be established. DBAgent halted.")
             raise
 
         # Extract remoteDBConfig Dictionary. If it fails, fall back to default
@@ -50,12 +52,13 @@ class DBAgent(threading.Thread):
             self.remoteDBdb = remoteDBConfig["db"]
             self.remoteDBUser = remoteDBConfig["user"]
             self.remoteDBPasswd = remoteDBConfig["passwd"]
+            DBAgent.verbose("i CONFIG: Remote DB configuration parsed - %s @ %s.%s" % (self.remoteDBUser, self.remoteDBdb, self.remoteDBHost))
         except:
             self.remoteDBHost = ""
             self.remoteDBdb = ""
             self.remoteDBUser = ""
             self.remoteDBPasswd = ""
-            DBAgent.verbose("Error parsing remote DB information. This agent will not be able to write inforamtion to remote.")
+            DBAgent.verbose("! CONFIG: Remote DB configuration could not be parsed could not be established. DBAgent will not be able to contact remote DB.")
     
     ### LOCAL DATABASE : CONN METHODS ###
 
@@ -80,9 +83,12 @@ class DBAgent(threading.Thread):
             self._connectLocalDB()
             rows = self._localDBConn.cursor().execute(sqlQuery).fetchall()
             self._disconnectLocalDB()
+            DBAgent.verbose("i LOCAL: Read request success - %s" % sqlQuery)
         except Exception as exception:
+            DBAgent.verbose("! LOCAL: Read request failed using query - %s" % sqlQuery)
             raise exception
         except localDB.Error as error:
+            DBAgent.verbose("! LOCAL: Read request failed using query - %s" % sqlQuery)
             raise Exception("Error reading from Local Database: %s" % (' '.join(error.args)))
 
         # Return Data
@@ -92,15 +98,17 @@ class DBAgent(threading.Thread):
     def _writeLocalDB(self, sqlQuery):
         
         # Write data to Local DB
-        DBAgent.verbose("Local DB: Dict Write initiated")
         try:
             self._connectLocalDB()
             self._localDBConn.cursor().execute(sqlQuery)
             self._localDBConn.commit()
             self._disconnectLocalDB()
+            DBAgent.verbose("i LOCAL: Write request success - %s" % sqlQuery)
         except Exception as exception:
+            DBAgent.verbose("! LOCAL: Write request failed using query - %s" % sqlQuery)
             raise exception
         except localDB.Error as error:
+            DBAgent.verbose("! LOCAL: Write request failed using query - %s" % sqlQuery)
             raise Exception("Error writing to Local Database: %s" % (' '.join(error.args)))
 
     ### LOCAL DATABASE : DATA METHODS ###
@@ -164,7 +172,7 @@ class DBAgent(threading.Thread):
         self._writeLocalDB(sqlQuery)
         newTrip = self._queryLocalLatestTrip()
         self._tripID = newTrip[0][0]
-        DBAgent.verbose("New Trip on Local DB #%s" % self._tripID)
+        DBAgent.verbose("i LOCAL: New Trip #%s was created" % self._tripID)
         return self._tripID
             
     # Write a Dictionary containing raw data to the local DB
@@ -279,9 +287,12 @@ class DBAgent(threading.Thread):
             self._remoteDBConn.commit()
             rows = cur.fetchall()
             self._disconnectRemoteDB()
+            DBAgent.verbose("i REMOTE: Read request success - %s" % sqlQuery)
         except Exception as exception:
+            DBAgent.verbose("i REMOTE: Read request failed using query - %s" % sqlQuery)
             raise exception
         except localDB.Error as error:
+            DBAgent.verbose("i REMOTE: Read request failed using query - %s" % sqlQuery)
             raise Exception("Error reading from Local Database: %s" % (' '.join(error.args)))
 
         # Return Data
@@ -290,16 +301,17 @@ class DBAgent(threading.Thread):
     # Write information using INSERT or UPDATE query. Throws Exception on error.
     def _writeRemoteDB(self, sqlQuery):
         # Write data to Local DB
-        DBAgent.verbose("Remote DB: Dict Write initiated")
-        DBAgent.verbose("Remote DB: %s" % sqlQuery)
         try:
             self._connectRemoteDB()
             self._remoteDBConn.cursor().execute(sqlQuery)
             self._remoteDBConn.commit()
             self._disconnectRemoteDB()
+            DBAgent.verbose("i REMOTE: Write request success - %s" % sqlQuery)
         except Exception as exception:
+            DBAgent.verbose("i REMOTE: Write request failed using query - %s" % sqlQuery)
             raise exception
         except localDB.Error as error:
+            DBAgent.verbose("i REMOTE: Write request failed using query - %s" % sqlQuery)
             raise Exception("Error writing to Local Database: %s" % (' '.join(error.args)))
 
     ### REMOTE DATABASE :  DATA METHODS ###
@@ -459,9 +471,8 @@ class DBAgent(threading.Thread):
                 self._bufferTripData()
 
             # If Remote Offline, then write data to local database
-            else:
-                if not(dictToWrite == None):
-                    self._writeDictToLocalDB(dictToWrite)
+            elif not(dictToWrite == None):
+                self._writeDictToLocalDB(dictToWrite)
       
     # Terminates the DBAgent Thread
     def terminate(self):

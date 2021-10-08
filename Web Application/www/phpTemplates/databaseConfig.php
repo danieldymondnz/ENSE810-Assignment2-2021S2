@@ -280,6 +280,6 @@
     // Trigger a critical execution error
     function triggerDatabaseError($errorMessage)
     {
-        echo 'alert("A Critical execution error has occured. Please try to login again, by selecting \"Logout\". Error code: " . $errorMessage)';
+        echo '<script>alert("A Critical execution error has occured. Please try to login again, by selecting \"Logout\". Error code: " . $errorMessage)</script>';
     }
 ?>

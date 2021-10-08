@@ -50,8 +50,8 @@ with open(TEST_DATA_CSV) as csv_file:
 try:
     dba = DBAgent(testQueue, REGISTRATION, LOCAL_DB_CONFIG, REMOTE_DB_CONFIG)
     dba.start()
-    #time.sleep(5)
+    time.sleep(10)
     dba.setRemoteOnline()
-    time.sleep(20)
+    time.sleep(10)
 finally:
     dba.terminate()
