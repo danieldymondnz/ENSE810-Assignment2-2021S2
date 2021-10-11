@@ -37,7 +37,7 @@
         // Create connection
         $servername = "localhost";
         $username = $_POST["username"];
-        $password = "l0ck3dR3alT!GHT:D";
+        $password = $_POST["password"];
         $database = "sdmms_db";
 
         $conn = new mysqli($servername, $username, $password, $database);

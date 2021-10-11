@@ -54,9 +54,6 @@
             }
         
         ?>
-        <section id="loading-animation" class="loading-animation hidden">
-            <div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
-        </section>
     </section>
 </body>
 </html>
