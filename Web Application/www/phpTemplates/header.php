@@ -8,11 +8,3 @@
 <link rel="icon" type="image/png" sizes="32x32" href="/img/favicon/favicon-32x32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="/img/favicon/favicon-16x16.png">
 <link rel="manifest" href="/img/favicon/site.webmanifest">
-
-<div id="buildHeader" style="position: absolute; bottom: 4px; left: 4px;" onload="replaceConnectionAddress();">
-    DMS dev build - <span id="buildHeaderDateTime"></span><br>
-    <script>
-        var dt = new Date().toDateString();
-        document.getElementById('buildHeaderDateTime').innerHTML=dt;
-    </script>
-</div>
