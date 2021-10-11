@@ -173,15 +173,12 @@
             ";
             echo $stringToDisplay;
         } else {
-            echo "0 results";
+            showNoResults();
         }
         
         $conn->close();
         
     }
-
-
-
 
     /* Fleet Inspector */
 
@@ -270,7 +267,7 @@
             }
             echo $output;
         } else {
-            echo "0 results";
+            showNoResults();
         }
         
         $conn->close();
@@ -281,5 +278,10 @@
     function triggerDatabaseError($errorMessage)
     {
         echo '<script>alert("A Critical execution error has occured. Please try to login again, by selecting \"Logout\". Error code: " . $errorMessage)</script>';
+    }
+
+    function showNoResults()
+    {
+        echo '<section id="inventory-splash-noitems" class="inventory-splash"><img src="img/no-items.jpg" /><br /><br />Sorry, there\'s nothing to show. Try searching for something else.</section>';
     }
 ?>

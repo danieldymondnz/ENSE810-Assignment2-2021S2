@@ -21,12 +21,6 @@
             </form>
 
         </div>
-        <section id="inventory-splash-noitems" class="inventory-splash hidden">
-            <img src="img/no-items.jpg" /><br /><br />
-            Sorry, there's nothing to show. Try searching for something else.
-        </section>
-
-        
         <?php 
             if (isset($_GET['registration'])) {
                executeInspectorQueryAndTabulate($_GET['registration']);
