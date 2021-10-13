@@ -2,7 +2,7 @@ format 224
 
 statecanvas 128002 state_ref 135298 // OnlineState
   
-  xyzwh 159.7 231.8 2000 227 89
+  xyzwh 178.7 209.8 2000 243 131
 end
 statecanvas 128130 state_ref 135426 // OfflineState
   
@@ -30,24 +30,24 @@ initalised" xyz 547 198 3006 to ref 128130
   write_horizontally default show_definition default drawing_language default
 end
 transitioncanvas 129154 transition_ref 136194 // <transition>
-  decenter_begin 266
+  decenter_begin 358
   decenter_end 237
   
-  from ref 128002 z 2001 label "wireless disconnect" xyz 421 238 2001 to ref 128130
+  from ref 128002 z 2001 label "setRemoteOffline()" xyz 437.5 235.5 2001 to ref 128130
   write_horizontally default show_definition default drawing_language default
 end
 transitioncanvas 129282 transition_ref 136322 // <transition>
   decenter_begin 762
-  decenter_end 647
+  decenter_end 610
   
-  from ref 128130 z 2001 label "wireless connect" xyz 428 291 2001 to ref 128002
+  from ref 128130 z 2001 label "setRemoteOnline()" xyz 444.5 290 2001 to ref 128002
   write_horizontally default show_definition default drawing_language default
 end
 transitioncanvas 129410 transition_ref 142850 // <transition>
-  decenter_end 402
+  decenter_end 533
   
-  from ref 128002 z 2001 label "while loop" xyz 237 352 3000 to point 268 342
-  line 129538 z 2001 to point 246 342
+  from ref 128002 z 2001 label "while loop" xyz 275.5 369 2001 to point 289 356
+  line 129538 z 2001 to point 304 357
   line 129666 z 2001 to ref 128002
   write_horizontally default show_definition default drawing_language default
 end
@@ -55,7 +55,7 @@ transitioncanvas 129794 transition_ref 142978 // <transition>
   decenter_begin 560
   decenter_end 462
   
-  from ref 128130 z 2001 label "while loop" xyz 607 339 3000 to point 636 326
+  from ref 128130 z 2001 label "while loop" xyz 607 339 2001 to point 636 326
   line 129922 z 2001 to point 619 326
   line 130050 z 2001 to ref 128130
   write_horizontally default show_definition default drawing_language default
