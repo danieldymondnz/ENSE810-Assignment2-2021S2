@@ -4,85 +4,85 @@ classinstancecanvas 128013 classinstance_ref 134541 //
   xyz 190.8 82.9 2000 life_line_z 2000
 end
 classinstancecanvas 128130 classinstance_ref 135554 // 
-  xyz 579.4 80.3 2000 life_line_z 2000
+  xyz 579.4 79.9 2000 life_line_z 2000
 end
 classinstancecanvas 128141 classinstance_ref 134669 // 
-  xyz 315.6 78.9 2000 life_line_z 2000
+  xyz 315.4 78.7 2000 life_line_z 2000
 end
 classinstancecanvas 128269 classinstance_ref 134797 // 
-  xyz 41.2 78.5 2000 life_line_z 2000
+  xyz 41.8 79.3 2000 life_line_z 2000
 end
 classinstancecanvas 128397 classinstance_ref 134925 // 
-  xyz 718.7 80.2 2000 life_line_z 2000
+  xyz 719.3 79.8 2000 life_line_z 2000
 end
 textcanvas 130946 "isOnline"
-  xyzwh 578 606.2 2000 216 16
+  xyzwh 578 605.6 2000 216 16
 textcanvas 131202 "!isOnline
 "
-  xyzwh 577.6 663 2035 175 16
+  xyzwh 577.8 663 2035 175 16
 fragment 133506 "alt"
-  form "isOnline" xyzwh 543.6 602.4 2005 379 94
+  form "isOnline" xyzwh 543.2 601.8 2005 379 94
   separator 5000
 end
 fragment 133634 "alt"
-  xyzwh 542.8 548.4 2000 379 48
+  xyzwh 542.6 548.2 2000 379 48
 end
 textcanvas 133762 "_remote
 Connection
 Changed"
-  xyzwh 572.4 551.8 2005 60 43
+  xyzwh 572.2 551.4 2005 60 43
 fragment 134157 "sd Iteration"
   refer sequencediagram_ref 134541 // MonitoringSystemSensorData
-  xyzwh 24 33 1995 919 688
+  xyzwh 24.4 32.8 1995 919 688
 end
 fragment 134285 "sd Iteration"
-  xyzwh 47.4 117.8 2005 133 93
+  xyzwh 47.8 117.2 2005 133 93
 end
 fragment 135298 "alt"
-  xyzwh 542.4 493.8 2010 219 49
+  xyzwh 542.2 493.4 2010 219 49
 end
 textcanvas 135426 "[size > 0]"
-  xyzwh 570.4 500.4 2015 44 14
+  xyzwh 570.2 500.2 2015 44 14
 note 135554 "DBAgent details in DMS_DBAget_Sequence Diagram"
-  xyzwh 363.8 558.2 2000 149 61
+  xyzwh 363.4 558.6 2000 149 61
 durationcanvas 128258 classinstance_ref 128397 // :DBAgent
-  xyzwh 741 431 2000 11 260
+  xyzwh 742 431 2000 11 260
   overlappingdurationcanvas 129538
-    xyzwh 747 561.2 2020 11 25
+    xyzwh 748 561.6 2020 11 25
   end
   overlappingdurationcanvas 132482
-    xyzwh 747 611.4 2020 11 31
+    xyzwh 748 611.2 2020 11 31
   end
   overlappingdurationcanvas 133250
-    xyzwh 747 660.8 2020 11 25
+    xyzwh 748 660.4 2020 11 25
   end
 end
 durationcanvas 131981 classinstance_ref 128013 // :Controller
-  xyzwh 215 243.4 2010 11 228
+  xyzwh 215 243.2 2010 11 228
 end
 durationcanvas 132109 classinstance_ref 128269 // :DataCollection
   xyzwh 77 141 2010 11 180
   overlappingdurationcanvas 132365
-    xyzwh 83 149.4 2020 11 25
+    xyzwh 83 149.2 2020 11 25
   end
   overlappingdurationcanvas 132621
-    xyzwh 83 176.2 2020 11 25
+    xyzwh 83 176.6 2020 11 25
   end
 end
 durationcanvas 133005 classinstance_ref 128141 // :MatrixDriver
-  xyzwh 347 358.4 2010 11 68
+  xyzwh 347 358.2 2010 11 68
   overlappingdurationcanvas 133261
-    xyzwh 353 365.8 2020 11 25
+    xyzwh 353 365.4 2020 11 25
   end
   overlappingdurationcanvas 133517
     xyzwh 353 388 2020 11 25
   end
 end
 durationcanvas 134274 classinstance_ref 128130 // :DatabaseQueue
-  xyzwh 620 431.2 2010 11 25
+  xyzwh 620 431.6 2010 11 25
 end
 durationcanvas 134530 classinstance_ref 128130 // :DatabaseQueue
-  xyzwh 620 463.4 2000 11 27
+  xyzwh 620 463.2 2000 11 27
 end
 durationcanvas 134914 classinstance_ref 128130 // :DatabaseQueue
   xyzwh 620 505 2000 11 32

@@ -1,6 +1,6 @@
 format 224
 "MonitoringSystem" // MonitoringSystem
-  revision 16
+  revision 17
   modified_by 2 "danie"
   // class settings
   
@@ -30,7 +30,7 @@ format 224
   activitydiagramsettings
    end
   
-  classview 128002 "MonitoringSystem"
+  classview 128002 "DMS_ClassView_Local"
     
     classdiagramsettings member_max_width 0 end
     
@@ -50,7 +50,7 @@ format 224
     
     activitydiagramsettings
      end
-    associated_deployment_view deploymentview_ref 128002 // MonitoringSystemDeployView
+    associated_deployment_view deploymentview_ref 134530 // DMS_DeploymentView
     classdiagram 128002 "MonitoringSystem"
       classdiagramsettings show_members_full_definition yes show_members_visibility yes show_members_stereotype yes show_members_multiplicity yes show_members_initialization yes show_attribute_modifiers yes member_max_width 0 end
       size A3-Landscape
@@ -324,6 +324,24 @@ ${docstring}${body}
 	mysql_decl ""
 	MysqlColumn
       end
+
+      classrelation 136066 // <dependency>
+	relation 135682 -_->
+	  stereotype "import"
+	  a public
+	    python "${type}"
+	    classrelation_ref 136066 // <dependency>
+	  b parent class_ref 156290 // sense_emu
+      end
+
+      classrelation 136706 // <dependency>
+	relation 136322 -_->
+	  stereotype "import"
+	  a public
+	    python "${type}"
+	    classrelation_ref 136706 // <dependency>
+	  b parent class_ref 156034 // threading
+      end
     end
 
     class 128130 "Controller"
@@ -524,6 +542,33 @@ ${docstring}${body}
 	idl_decl ""
 	mysql_decl ""
 	MysqlColumn
+      end
+
+      classrelation 135682 // <dependency>
+	relation 135298 -_->
+	  stereotype "import"
+	  a public
+	    python "${type}"
+	    classrelation_ref 135682 // <dependency>
+	  b parent class_ref 156034 // threading
+      end
+
+      classrelation 135938 // <dependency>
+	relation 135554 -_->
+	  stereotype "import"
+	  a public
+	    python "${type}"
+	    classrelation_ref 135938 // <dependency>
+	  b parent class_ref 156290 // sense_emu
+      end
+
+      classrelation 136322 // <dependency>
+	relation 135938 -_->
+	  stereotype "import"
+	  a public
+	    python "${type}"
+	    classrelation_ref 136322 // <dependency>
+	  b parent class_ref 156418 // queue
       end
     end
 
@@ -916,6 +961,42 @@ ${docstring}${body}
 ${docstring}${body}
 "
 	
+      end
+
+      classrelation 135810 // <dependency>
+	relation 135426 -_->
+	  stereotype "import"
+	  a public
+	    python "${type}"
+	    classrelation_ref 135810 // <dependency>
+	  b parent class_ref 156290 // sense_emu
+      end
+
+      classrelation 136194 // <dependency>
+	relation 135810 -_->
+	  stereotype "import"
+	  a public
+	    python "${type}"
+	    classrelation_ref 136194 // <dependency>
+	  b parent class_ref 156034 // threading
+      end
+
+      classrelation 136450 // <dependency>
+	relation 136066 -_->
+	  stereotype "import"
+	  a public
+	    python "${type}"
+	    classrelation_ref 136450 // <dependency>
+	  b parent class_ref 156546 // time
+      end
+
+      classrelation 136578 // <dependency>
+	relation 136194 -_->
+	  stereotype "import"
+	  a public
+	    python "${type}"
+	    classrelation_ref 136578 // <dependency>
+	  b parent class_ref 156418 // queue
       end
     end
 
@@ -1599,6 +1680,42 @@ ${docstring}${body}
 "
 	
       end
+
+      classrelation 135170 // <dependency>
+	relation 134786 -_->
+	  stereotype "import"
+	  a public
+	    python "${type}"
+	    classrelation_ref 135170 // <dependency>
+	  b parent class_ref 155778 // datetime
+      end
+
+      classrelation 135298 // <dependency>
+	relation 134914 -_->
+	  stereotype "import"
+	  a public
+	    python "${type}"
+	    classrelation_ref 135298 // <dependency>
+	  b parent class_ref 155906 // pymysql
+      end
+
+      classrelation 135426 // <dependency>
+	relation 135042 -_->
+	  stereotype "import"
+	  a public
+	    python "${type}"
+	    classrelation_ref 135426 // <dependency>
+	  b parent class_ref 156034 // threading
+      end
+
+      classrelation 135554 // <dependency>
+	relation 135170 -_->
+	  stereotype "import"
+	  a public
+	    python "${type}"
+	    classrelation_ref 135554 // <dependency>
+	  b parent class_ref 156162 // sqlite3
+      end
     end
 
     state 128002 "MatrixDriverStateDiagram"
@@ -1782,22 +1899,12 @@ initalised"
       end
     end
 
-    sequencediagram 147842 "MonitoringSystemSequenceDiagram"
-      sequencediagramsettings end
-      overlapping_bars size A4
-    end
-
     classinstance 128002 "DataCollection"
       type class_ref 128258 // DataCollection
       attributes
         end
       relations
         end
-    end
-
-    sequencediagram 147970 "MonitoringSystemStartup"
-      sequencediagramsettings end
-      overlapping_bars size A4
     end
 
     classinstance 128130 ""
@@ -1822,11 +1929,6 @@ initalised"
         end
       relations
         end
-    end
-
-    sequencediagram 148098 "MonitoringSystemShutdown"
-      sequencediagramsettings end
-      overlapping_bars size A4
     end
 
     classinstance 128514 ""
@@ -1867,11 +1969,6 @@ initalised"
         end
       relations
         end
-    end
-
-    sequencediagram 134541 "MonitoringSystemSensorData"
-      sequencediagramsettings write_horizontally yes end
-      overlapping_bars size A3-Landscape
     end
 
     classinstance 134541 ""
@@ -1927,59 +2024,401 @@ ${docstring}${members}
       relations
         end
     end
+
   end
 
-  deploymentview 128002 "MonitoringSystemDeployView"
-    //deployment diagram settings
-    deploymentdiagramsettings
+  classview 134530 "DMS_ClassView_Remote"
+    
+    classdiagramsettings member_max_width 0 end
+    
+    classcompositediagramsettings end
+    
+    collaborationdiagramsettings end
+    
+    objectdiagramsettings end
+    
+    objectcompositediagramsettings end
+    
+    sequencediagramsettings end
+    
+    statediagramsettings
      end
-    artifact 128002 "DBAgent"
-      stereotype "source"
-      python_src "${comment}
-${import}
-${definition}"
-      associated_elems
-	class_ref 128514 // DBAgent
-      end
+    
+    
+    activitydiagramsettings
+     end
+    associated_deployment_view deploymentview_ref 134530 // DMS_DeploymentView
+    classdiagram 167810 "DatabaseConfig"
+      classdiagramsettings hide_attributes no show_members_full_definition yes show_members_visibility yes member_max_width 0 end
+      size A4
     end
 
-    artifact 128130 "WiFiAgent"
-      stereotype "source"
-      python_src "${comment}
-${import}
-${definition}"
-      associated_elems
+    class 155650 "DatabaseConfig"
+      visibility package 
+      cpp_decl ""
+      java_decl ""
+      php_decl ""
+      python_2_2 python_decl "class ${name}${inherit}:
+${docstring}${members}
+"
+      idl_decl ""
+      explicit_switch_type ""
+      mysql_decl ""
+      
+      operation 173826 "getColumns"
+	public explicit_return_type "mysqli_result"
+	nparams 0
+	
+	
+	
+	python_def "${@}${static}${abstract}def ${name}${(}${)}:
+${docstring}${body}
+"
+	
+      end
+
+      operation 173954 "getColumnNamesForSelectInput"
+	public explicit_return_type ""
+	nparams 0
+	
+	
+	
+	python_def "${@}${static}${abstract}def ${name}${(}${)}:
+${docstring}${body}
+"
+	
+      end
+
+      operation 174082 "getFiltersForSelectInput"
+	public explicit_return_type ""
+	nparams 0
+	
+	
+	
+	python_def "${@}${static}${abstract}def ${name}${(}${)}:
+${docstring}${body}
+"
+	
+      end
+
+      operation 174210 "increaseRange"
+	public explicit_return_type "int"
+	nparams 0
+	
+	
+	
+	python_def "${@}${static}${abstract}def ${name}${(}${)}:
+${docstring}${body}
+"
+	
+      end
+
+      operation 174338 "decreaseRange"
+	public explicit_return_type "int"
+	nparams 0
+	
+	
+	
+	python_def "${@}${static}${abstract}def ${name}${(}${)}:
+${docstring}${body}
+"
+	
+      end
+
+      operation 174466 "queryByFilter"
+	public explicit_return_type ""
+	nparams 3
+	  param in name "filterName" explicit_type "string"
+	multiplicity "1"
+	  param in name "filterOrder" explicit_type "string"
+	multiplicity "1"
+	  param in name "startVal" explicit_type "int"
+	multiplicity "1"
+	
+	
+	
+	python_def "${@}${static}${abstract}def ${name}${(}${p0}${v0}, ${p1}${v1}, ${p2}${v2}${)}:
+${docstring}${body}
+"
+	
+      end
+
+      operation 174594 "executeDefaultQuery"
+	public explicit_return_type ""
+	nparams 0
+	
+	
+	
+	python_def "${@}${static}${abstract}def ${name}${(}${)}:
+${docstring}${body}
+"
+	
+      end
+
+      operation 174722 "executeQueryAndTabulate"
+	public explicit_return_type ""
+	nparams 1
+	  param in name "sqlQuery" explicit_type "string"
+	multiplicity "1"
+	
+	
+	
+	python_def "${@}${static}${abstract}def ${name}${(}${p0}${v0}${)}:
+${docstring}${body}
+"
+	
+      end
+
+      operation 174850 "executeInspectorQueryAndTabulate"
+	public explicit_return_type ""
+	nparams 1
+	  param in name "registration" explicit_type "string"
+	multiplicity "1"
+	
+	
+	
+	python_def "${@}${static}${abstract}def ${name}${(}${p0}${v0}${)}:
+${docstring}${body}
+"
+	
+      end
+
+      operation 174978 "triggerDatabaseError"
+	public explicit_return_type ""
+	nparams 1
+	  param in name "errorMessage" explicit_type "string"
+	multiplicity "1"
+	
+	
+	
+	python_def "${@}${static}${abstract}def ${name}${(}${p0}${v0}${)}:
+${docstring}${body}
+"
+	
+      end
+
+      operation 175106 "showNoResults"
+	public explicit_return_type ""
+	nparams 0
+	
+	
+	
+	python_def "${@}${static}${abstract}def ${name}${(}${)}:
+${docstring}${body}
+"
+	
       end
     end
+  end
 
-    artifact 128258 "DataCollection"
-      stereotype "source"
-      python_src "${comment}
-${import}
-${definition}"
-      associated_elems
-	class_ref 128258 // DataCollection
-      end
+  classview 134658 "DMS_SequenceView"
+    
+    classdiagramsettings member_max_width 0 end
+    
+    classcompositediagramsettings end
+    
+    collaborationdiagramsettings end
+    
+    objectdiagramsettings end
+    
+    objectcompositediagramsettings end
+    
+    sequencediagramsettings end
+    
+    statediagramsettings
+     end
+    
+    
+    activitydiagramsettings
+     end
+    sequencediagram 147970 "MonitoringSystemStartup"
+      sequencediagramsettings end
+      overlapping_bars size A4
     end
 
-    artifact 128386 "Controller"
-      stereotype "source"
-      python_src "${comment}
-${import}
-${definition}"
-      associated_elems
-	class_ref 128130 // Controller
-      end
+    sequencediagram 134541 "MonitoringSystemSensorData"
+      sequencediagramsettings write_horizontally yes end
+      overlapping_bars size A3-Landscape
     end
 
-    artifact 128514 "MatrixDriver"
-      stereotype "source"
-      python_src "${comment}
-${import}
-${definition}"
-      associated_elems
-	class_ref 128002 // MatrixDriver
-      end
+    sequencediagram 148098 "MonitoringSystemShutdown"
+      sequencediagramsettings end
+      overlapping_bars size A4
+    end
+
+    sequencediagram 168066 "DMS_DBAgent_Sequence"
+      sequencediagramsettings show_class_of_operation yes write_horizontally yes show_stereotype_properties yes end
+      overlapping_bars size A3
+    end
+
+    classinstance 142082 ""
+      type class_ref 128514 // DBAgent
+      attributes
+        end
+      relations
+        end
+    end
+
+    class 156802 "Queue"
+      visibility package 
+      cpp_decl ""
+      java_decl ""
+      php_decl ""
+      python_2_2 python_decl "class ${name}${inherit}:
+${docstring}${members}
+"
+      idl_decl ""
+      explicit_switch_type ""
+      mysql_decl ""
+      
+    end
+
+    classinstance 142210 "DatabaseQueue"
+      type class_ref 156802 // Queue
+      attributes
+        end
+      relations
+        end
+    end
+
+    classinstance 142338 "LocalDB"
+      type class_ref 156162 // sqlite3
+      attributes
+        end
+      relations
+        end
+    end
+
+    classinstance 142466 "RemoteDB"
+      type class_ref 155906 // pymysql
+      attributes
+        end
+      relations
+        end
+    end
+  end
+
+  classview 134786 "DMS_DependencyView"
+    
+    classdiagramsettings member_max_width 0 end
+    
+    classcompositediagramsettings end
+    
+    collaborationdiagramsettings end
+    
+    objectdiagramsettings end
+    
+    objectcompositediagramsettings end
+    
+    sequencediagramsettings end
+    
+    statediagramsettings
+     end
+    
+    
+    activitydiagramsettings
+     end
+    classdiagram 167938 "DMS_DependencyView_Local"
+      classdiagramsettings hide_attributes yes hide_operations yes member_max_width 0 end
+      size A4
+    end
+
+    class 155778 "datetime"
+      visibility package 
+      cpp_decl ""
+      java_decl ""
+      php_decl ""
+      python_2_2 python_decl "class ${name}${inherit}:
+${docstring}${members}
+"
+      idl_decl ""
+      explicit_switch_type ""
+      mysql_decl ""
+      
+    end
+
+    class 155906 "pymysql"
+      visibility package 
+      cpp_decl ""
+      java_decl ""
+      php_decl ""
+      python_2_2 python_decl "class ${name}${inherit}:
+${docstring}${members}
+"
+      idl_decl ""
+      explicit_switch_type ""
+      mysql_decl ""
+      
+    end
+
+    class 156034 "threading"
+      visibility package 
+      cpp_decl ""
+      java_decl ""
+      php_decl ""
+      python_2_2 python_decl "class ${name}${inherit}:
+${docstring}${members}
+"
+      idl_decl ""
+      explicit_switch_type ""
+      mysql_decl ""
+      
+    end
+
+    class 156162 "sqlite3"
+      visibility package 
+      cpp_decl ""
+      java_decl ""
+      php_decl ""
+      python_2_2 python_decl "class ${name}${inherit}:
+${docstring}${members}
+"
+      idl_decl ""
+      explicit_switch_type ""
+      mysql_decl ""
+      
+    end
+
+    class 156290 "sense_emu"
+      visibility package 
+      cpp_decl ""
+      java_decl ""
+      php_decl ""
+      python_2_2 python_decl "class ${name}${inherit}:
+${docstring}${members}
+"
+      idl_decl ""
+      explicit_switch_type ""
+      mysql_decl ""
+      
+    end
+
+    class 156418 "queue"
+      visibility package 
+      cpp_decl ""
+      java_decl ""
+      php_decl ""
+      python_2_2 python_decl "class ${name}${inherit}:
+${docstring}${members}
+"
+      idl_decl ""
+      explicit_switch_type ""
+      mysql_decl ""
+      
+    end
+
+    class 156546 "time"
+      visibility package 
+      cpp_decl ""
+      java_decl ""
+      php_decl ""
+      python_2_2 python_decl "class ${name}${inherit}:
+${docstring}${members}
+"
+      idl_decl ""
+      explicit_switch_type ""
+      mysql_decl ""
+      
     end
   end
 
@@ -2226,6 +2665,13 @@ ${docstring}${members}
       explicit_switch_type ""
       mysql_decl ""
       
+      classrelation 137218 // <generalisation>
+	relation 136834 ---|>
+	  a public
+	    python "${type}"
+	    classrelation_ref 137218 // <generalisation>
+	  b parent class_ref 156674 // Staff
+      end
     end
 
     usecase 136066 "Write Data to Local Database"
@@ -2341,7 +2787,7 @@ ${docstring}${members}
       end
     end
 
-    class 148994 "Vehicle_Maintainence_Crew"
+    class 148994 "Maintainence_Crew"
       visibility package stereotype "actor"
       cpp_decl ""
       java_decl ""
@@ -2353,6 +2799,13 @@ ${docstring}${members}
       explicit_switch_type ""
       mysql_decl ""
       
+      classrelation 137346 // <generalisation>
+	relation 136962 ---|>
+	  a public
+	    python "${type}"
+	    classrelation_ref 137346 // <generalisation>
+	  b parent class_ref 156674 // Staff
+      end
     end
 
     class 149122 "Driver_Manager"
@@ -2367,6 +2820,13 @@ ${docstring}${members}
       explicit_switch_type ""
       mysql_decl ""
       
+      classrelation 137474 // <generalisation>
+	relation 137090 ---|>
+	  a public
+	    python "${type}"
+	    classrelation_ref 137474 // <generalisation>
+	  b parent class_ref 156674 // Staff
+      end
     end
 
     usecase 136578 "Read Information from Remote Database"
@@ -2447,6 +2907,20 @@ ${docstring}${members}
 	  on usecase_ref 136578 // Read Information from Remote Database
       end
     end
+
+    class 156674 "Staff"
+      visibility package stereotype "actor"
+      cpp_decl ""
+      java_decl ""
+      php_decl ""
+      python_2_2 python_decl "class ${name}${inherit}:
+${docstring}${members}
+"
+      idl_decl ""
+      explicit_switch_type ""
+      mysql_decl ""
+      
+    end
   end
 
   deploymentview 134530 "DMS_DeploymentView"
@@ -2463,6 +2937,16 @@ ${docstring}${members}
     end
 
     deploymentnode 128130 "RemoteServer"
+    end
+
+    artifact 135042 "DatabaseConfig"
+      stereotype "source"
+      python_src "${comment}
+${import}
+${definition}"
+      associated_elems
+	class_ref 155650 // DatabaseConfig
+      end
     end
   end
 end
