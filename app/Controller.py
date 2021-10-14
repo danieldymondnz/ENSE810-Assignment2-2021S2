@@ -1,6 +1,5 @@
 from sense_emu import SenseHat
 import threading
-import time
 import queue
 
 from MatrixDriver import MatrixDriver
@@ -53,15 +52,25 @@ class Controller(threading.Thread):
                 self.__dataUseDict = self.dataQueue.get_nowait()
             
                 # display data
-                MatrixDriver._displayGraph(_senseHAT, dataUseDict["TEMPERATURE"], dataUseDict["HUMIDITY"])
-                if dataUseDict["WARN_ACCELERATION"]:
-                    MatrixDriver._displayAccelerationWarning(self, _senseHAT, dataUseDict["ACCELERATION"])
-                if dataUseDict["WARN_HUMIDITY"]:
-                    MatrixDriver._displayRHWarning(self, _senseHAT, dataUseDict["HUMIDITY"])
-                if dataUseDict["WARN_SPEED"]:
-                    MatrixDriver._displaySpeedWarning(self, _senseHAT, dataUseDict["SPEED"])
-                if dataUseDriver["WARN_TEMPERATURE"]:
-                    MatrixDriver._displayTempWarning(self, _senseHAT, dataUseDict["TEMPERATURE"])
+                self._matrixDriver._displayGraph(self._senseHAT, self.dataUseDict["TEMPERATURE"], self.dataUseDict["HUMIDITY"])
+                if self.dataUseDict["WARN_ACCELERATION"]:
+                    self._matrixDriver._displayAccelerationWarning(self, self._senseHAT, self.dataUseDict["ACCELERATION"])
+                if self.dataUseDict["WARN_HUMIDITY"]:
+                    self._matrixDriver._displayRHWarning(self, self._senseHAT, self.dataUseDict["HUMIDITY"])
+                if self.dataUseDict["WARN_SPEED"]:
+                    self._matrixDriver._displaySpeedWarning(self, self._senseHAT, self.dataUseDict["SPEED"])
+                if self.dataUseDriver["WARN_TEMPERATURE"]:
+                    self._matrixDriver._displayTempWarning(self, self._senseHAT, self.dataUseDict["TEMPERATURE"])
+
+
+            self._senseHAT.set_pixels([self.Green, self.Green, self.Green, self.Green, self.Green, self.Green, self.Green, self.Green,
+                    self.Blue, self.Blue, self.Green, self.Green, self.Green, self.Red, self.Red, self.Red,
+                    self.Blue, self.Blue, self.Green, self.Green, self.Green, self.Red, self.Red, self.Red,
+                    self.Blue, self.Blue, self.Green, self.Green, self.Green, self.Red, self.Red, self.Red,
+                    self.Green, self.Green, self.Green, self.Green, self.Green, self.Green, self.Green, self.Green,
+                    self.Blue, self.Blue, self.Green, self.Green, self.Green, self.Green, self.Orange, self.Orange,
+                    self.Blue, self.Blue, self.Green, self.Green, self.Green, self.Green, self.Orange, self.Orange,
+                    self.Blue, self.Blue, self.Green, self.Green, self.Green, self.Green, self.Orange, self.Orange])
 
             # transfer data to DBAgent
             if not(self.__dataUseDict == None):
@@ -77,5 +86,3 @@ class Controller(threading.Thread):
         
     def _flushQueue(self):
         pass
-        
-    
