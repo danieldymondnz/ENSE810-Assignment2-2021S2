@@ -17,6 +17,9 @@ class MatrixDriver(threading.Thread):
         self._senseHAT = senseHAT
         self._currentData = None
         self._matrixQueue = matrixQueue
+
+        # clear display
+        self._senseHAT.clear()
         
         # define colour RGB values
         self.Red = (255,0,0)
@@ -25,43 +28,6 @@ class MatrixDriver(threading.Thread):
         self.Orange = (255,165,0)
         self.Black = (0,0,0)
         self.White = (255,255,255)
-
-        # define Display setups
-        self.noWarning = [self.Black, self.Black, self.Black, self.Black, self.Black, self.Black, self.Black, self.Black,
-                    self.Blue, self.Blue, self.Green, self.Green, self.Green, self.Red, self.Red, self.Red,
-                    self.Blue, self.Blue, self.Green, self.Green, self.Green, self.Red, self.Red, self.Red,
-                    self.Blue, self.Blue, self.Green, self.Green, self.Green, self.Red, self.Red, self.Red,
-                    self.Black, self.Black, self.Black, self.Black, self.Black, self.Black, self.Black, self.Black,
-                    self.Blue, self.Blue, self.Green, self.Green, self.Green, self.Green, self.Orange, self.Orange,
-                    self.Blue, self.Blue, self.Green, self.Green, self.Green, self.Green, self.Orange, self.Orange,
-                    self.Blue, self.Blue, self.Green, self.Green, self.Green, self.Green, self.Orange, self.Orange]
-
-        self.temWarning = [self.Red, self.Red, self.Red, self.Red, self.Red, self.Red, self.Red, self.Red,
-                    self.Blue, self.Blue, self.Green, self.Red, self.Green, self.Red, self.Red, self.Red,
-                    self.Blue, self.Blue, self.Green, self.Red, self.Green, self.Red, self.Red, self.Red,
-                    self.Blue, self.Blue, self.Green, self.Red, self.Green, self.Red, self.Red, self.Red,
-                    self.Black, self.Black, self.Black, self.Black, self.Black, self.Black, self.Black, self.Black,
-                    self.Blue, self.Blue, self.Green, self.Green, self.Green, self.Green, self.Orange, self.Orange,
-                    self.Blue, self.Blue, self.Green, self.Green, self.Green, self.Green, self.Orange, self.Orange,
-                    self.Blue, self.Blue, self.Green, self.Green, self.Green, self.Green, self.Orange, self.Orange]
-
-        self.humWarning = [self.Black, self.Black, self.Black, self.Black, self.Black, self.Black, self.Black, self.Black,
-                    self.Blue, self.Blue, self.Green, self.Green, self.Green, self.Red, self.Red, self.Red,
-                    self.Blue, self.Blue, self.Green, self.Green, self.Green, self.Red, self.Red, self.Red,
-                    self.Blue, self.Blue, self.Green, self.Green, self.Green, self.Red, self.Red, self.Red,
-                    self.Red, self.Red, self.Red, self.Red, self.Red, self.Red, self.Red, self.Red,
-                    self.Blue, self.Blue, self.Green, self.Red, self.Red, self.Green, self.Orange, self.Orange,
-                    self.Blue, self.Blue, self.Green, self.Red, self.Red, self.Green, self.Orange, self.Orange,
-                    self.Blue, self.Blue, self.Green, self.Red, self.Red, self.Green, self.Orange, self.Orange]
-
-        self.bothWarning = [self.Red, self.Red, self.Red, self.Red, self.Red, self.Red, self.Red, self.Red,
-                    self.Blue, self.Blue, self.Green, self.Red, self.Green, self.Red, self.Red, self.Red,
-                    self.Blue, self.Blue, self.Green, self.Red, self.Green, self.Red, self.Red, self.Red,
-                    self.Blue, self.Blue, self.Green, self.Green, self.Green, self.Red, self.Red, self.Red,
-                    self.Red, self.Red, self.Red, self.Red, self.Red, self.Red, self.Red, self.Red,
-                    self.Blue, self.Blue, self.Green, self.Red, self.Red, self.Green, self.Orange, self.Orange,
-                    self.Blue, self.Blue, self.Green, self.Red, self.Red, self.Green, self.Orange, self.Orange,
-                    self.Blue, self.Blue, self.Green, self.Red, self.Red, self.Green, self.Orange, self.Orange]
         
         self.isRunning = True
         
@@ -89,28 +55,51 @@ class MatrixDriver(threading.Thread):
         
     def _displayGraph(self, _senseHAT, temp, relHumidity):
 
-        self._senseHAT.set_pixels(self.noWarning)
+        self._senseHAT.clear()
 
-        if temp < 2 or temp > 6:
-            self._senseHAT.set_pixels(self.temWarning)
-        elif relHumidity < 65 or relHumidity > 85:
-            self._senseHAT.set_pixels(self.humWarning)
-        elif (temp < 2 or temp > 6) and (relHumidity < 65 or relHumidity > 85):
-            self._senseHAT.set_pixels(self.bothWarning)
+        if temp < 2:
+            for i in range (0,8):
+                self._senseHAT.set_pixel(1,i, self.Blue)
+                self._senseHAT.set_pixel(2,i, self.Blue)
+
+        elif temp >= 2 and temp <= 6:
+            h = int(1.5 * temp - 2)
+            for i in range (0,h):
+                 self._senseHAT.set_pixel(1,7-i,self.Green)
+                 self._senseHAT.set_pixel(2,7-i,self.Green)
+
         else:
-            self._senseHAT.set_pixels(self.noWarning)
+            for i in range (0,8):
+                self._senseHAT.set_pixel(1,i, self.Red)
+                self._senseHAT.set_pixel(2,i, self.Red)
+
+        if relHumidity < 65:
+            for i in range (0, 8):
+                self._senseHAT.set_pixel(5,7-i,self.Blue)
+                self._senseHAT.set_pixel(6,7-i,self.Blue) 
+
+        elif relHumidity >= 65 and relHumidity <= 85:
+            y = int(0.3 * relHumidity - 18.5)
+            for i in range (0, y):
+                self._senseHAT.set_pixel(5,7-i,self.Orange)
+                self._senseHAT.set_pixel(6,7-i,self.Orange) 
+
+        else:
+            for i in range (0, 8):
+                self._senseHAT.set_pixel(5,7-i,self.Orange)
+                self._senseHAT.set_pixel(6,7-i,self.Orange)
         
     def _displayAccelerationWarning(self, _senseHAT, acceleration):
-        self._senseHAT.show_message("Max Acceleration Exceeded!", scroll_speed = 0.25, text_colour = self.White, back_colour = self.Red)      
+        self._senseHAT.show_message("Max Acceleration Exceeded!", scroll_speed = 0.01, text_colour = self.White, back_colour = self.Red)      
         
     def _displayRHWarning(self, _senseHAT, relHumidity):
-        self._senseHAT.show_message("Max Humidity Exceeded!", scroll_speed = 0.25, text_colour = self.White, back_colour = self.Red)      
+        self._senseHAT.show_message("Max Humidity Exceeded!", scroll_speed = 0.01, text_colour = self.White, back_colour = self.Red)      
         
     def _displaySpeedWarning(self, _senseHAT, speed):
-        self._senseHAT.show_message("Max Speed Exceeded!", scroll_speed = 0.25, text_colour = self.White, back_colour = self.Red)
+        self._senseHAT.show_message("Max Speed Exceeded!", scroll_speed = 0.01, text_colour = self.White, back_colour = self.Red)
         
     def _displayTempWarning(self, _senseHAT, temp):
-        self._senseHAT.show_message("Max Temperature Exceeded!", scroll_speed = 0.25, text_colour = self.White, back_colour = self.Red)      
+        self._senseHAT.show_message("Max Temperature Exceeded!", scroll_speed = 0.01, text_colour = self.White, back_colour = self.Red)      
         
     def _flushQueue(self):
         # Review the current number of items in the queue
