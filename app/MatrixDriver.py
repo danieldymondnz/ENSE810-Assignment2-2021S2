@@ -18,27 +18,14 @@ class MatrixDriver(threading.Thread):
         self._currentData = None
         
         # define colour RGB values
-        Red = (255,0,0)
-        Green = (0,255,0)
-        Blue = (0,0,255)
-        Orange = (255,165,0)
-        Black = (0,0,0)
-        White = (255,255,255)
-        
-        self.isRunning = True
-        
-    def run(self):
-        while self.isRunning:
-            pass
-        
-    def terminate(self):
-        self.isRunning = False
-        
-    def _displayGraph(self, _senseHAT, temp, relHumidity):
-        #temp_value = 24 * temp / 100
-        #RH_value = 24 * relHumidity / 100
-        #pixels = [(Red if i > temp_value else Green for i in range(0,23)) + (Orange if i > RH_value for i in range(32,63))]
-        #pixels = [self.Red if i > temp_value else self.Green for i in range(64)]
+        self.Red = (255,0,0)
+        self.Green = (0,255,0)
+        self.Blue = (0,0,255)
+        self.Orange = (255,165,0)
+        self.Black = (0,0,0)
+        self.White = (255,255,255)
+
+        # define Display setups
         self.noWarning = [self.Green, self.Green, self.Green, self.Green, self.Green, self.Green, self.Green, self.Green,
                     self.Blue, self.Blue, self.Green, self.Green, self.Green, self.Red, self.Red, self.Red,
                     self.Blue, self.Blue, self.Green, self.Green, self.Green, self.Red, self.Red, self.Red,
@@ -74,6 +61,19 @@ class MatrixDriver(threading.Thread):
                     self.Blue, self.Blue, self.Green, self.Red, self.Red, self.Green, self.Orange, self.Orange,
                     self.Blue, self.Blue, self.Green, self.Red, self.Red, self.Green, self.Orange, self.Orange,
                     self.Blue, self.Blue, self.Green, self.Red, self.Red, self.Green, self.Orange, self.Orange]
+        
+        self.isRunning = True
+        
+    def run(self):
+        while self.isRunning:
+            pass
+        
+    def terminate(self):
+        self.isRunning = False
+        
+    def _displayGraph(self, _senseHAT, temp, relHumidity):
+
+        self._senseHAT.set_pixels(self.noWarning)
 
         if temp < 2 or temp > 6:
             self._senseHAT.set_pixels(self.temWarning)
@@ -83,18 +83,16 @@ class MatrixDriver(threading.Thread):
             self._senseHAT.set_pixels(self.bothWarning)
         else:
             self._senseHAT.set_pixels(self.noWarning)
-
-        #self._senseHAT.set_pixels(pixels)
         
     def _displayAccelerationWarning(self, _senseHAT, acceleration):
-        self._senseHAT.show_message("Max Acceleration Exceeded!", scroll_speed = 0.25, text_colour = W, back_colour = R)      
+        self._senseHAT.show_message("Max Acceleration Exceeded!", scroll_speed = 0.25, text_colour = self.White, back_colour = self.Red)      
         
     def _displayRHWarning(self, _senseHAT, relHumidity):
-        self._senseHAT.show_message("Max Humidity Exceeded!", scroll_speed = 0.25, text_colour = W, back_colour = R)      
+        self._senseHAT.show_message("Max Humidity Exceeded!", scroll_speed = 0.25, text_colour = self.White, back_colour = self.Red)      
         
     def _displaySpeedWarning(self, _senseHAT, speed):
-        self._senseHAT.show_message("Max Speed Exceeded!", scroll_speed = 0.25, text_colour = W, back_colour = R)
+        self._senseHAT.show_message("Max Speed Exceeded!", scroll_speed = 0.25, text_colour = self.White, back_colour = self.Red)
         
     def _displayTempWarning(self, _senseHAT, temp):
-        self._senseHAT.show_message("Max Temperature Exceeded!", scroll_speed = 0.25, text_colour = W, back_colour = R)      
+        self._senseHAT.show_message("Max Temperature Exceeded!", scroll_speed = 0.25, text_colour = self.White, back_colour = self.Red)      
         
