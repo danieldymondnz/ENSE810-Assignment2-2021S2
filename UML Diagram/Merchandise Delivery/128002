@@ -1,6 +1,6 @@
 format 224
 "MonitoringSystem" // MonitoringSystem
-  revision 18
+  revision 19
   modified_by 2 "danie"
   // class settings
   
@@ -140,10 +140,8 @@ ${docstring}${body}
 
       operation 128514 "_displayGraph"
 	protected explicit_return_type ""
-	nparams 4
+	nparams 3
 	  param inout name "self" type class_ref 128002 // MatrixDriver
-	multiplicity "1"
-	  param in name "senseHAT" explicit_type "SenseHat"
 	multiplicity "1"
 	  param in name "temp" explicit_type "float"
 	multiplicity "1"
@@ -152,7 +150,7 @@ ${docstring}${body}
 	
 	
 	
-	python_def "${@}${static}${abstract}def ${name}${(}${p0}${v0}, ${p1}${v1}, ${p2}${v2}, ${p3}${v3}${)}:
+	python_def "${@}${static}${abstract}def ${name}${(}${p0}${v0}, ${p1}${v1}, ${p2}${v2}${)}:
 ${docstring}${body}
 "
 	
@@ -160,17 +158,15 @@ ${docstring}${body}
 
       operation 128642 "_displayTempWarning"
 	protected explicit_return_type ""
-	nparams 3
+	nparams 2
 	  param inout name "self" type class_ref 128002 // MatrixDriver
-	multiplicity "1"
-	  param in name "senseHAT" explicit_type "SenseHat"
 	multiplicity "1"
 	  param in name "temp" explicit_type "float"
 	multiplicity "1"
 	
 	
 	
-	python_def "${@}${static}${abstract}def ${name}${(}${p0}${v0}, ${p1}${v1}, ${p2}${v2}${)}:
+	python_def "${@}${static}${abstract}def ${name}${(}${p0}${v0}, ${p1}${v1}${)}:
 ${docstring}${body}
 "
 	
@@ -178,17 +174,15 @@ ${docstring}${body}
 
       operation 128770 "_displayRHWarning"
 	protected explicit_return_type ""
-	nparams 3
+	nparams 2
 	  param inout name "self" type class_ref 128002 // MatrixDriver
-	multiplicity "1"
-	  param in name "senseHAT" explicit_type "SenseHat"
 	multiplicity "1"
 	  param in name "relHumidity" explicit_type "float"
 	multiplicity "1"
 	
 	
 	
-	python_def "${@}${static}${abstract}def ${name}${(}${p0}${v0}, ${p1}${v1}, ${p2}${v2}${)}:
+	python_def "${@}${static}${abstract}def ${name}${(}${p0}${v0}, ${p1}${v1}${)}:
 ${docstring}${body}
 "
 	
@@ -196,17 +190,15 @@ ${docstring}${body}
 
       operation 128898 "_displaySpeedWarning"
 	protected explicit_return_type ""
-	nparams 3
+	nparams 2
 	  param inout name "self" type class_ref 128002 // MatrixDriver
-	multiplicity "1"
-	  param in name "senseHAT" explicit_type "SenseHat"
 	multiplicity "1"
 	  param in name "speed" explicit_type "float"
 	multiplicity "1"
 	
 	
 	
-	python_def "${@}${static}${abstract}def ${name}${(}${p0}${v0}, ${p1}${v1}, ${p2}${v2}${)}:
+	python_def "${@}${static}${abstract}def ${name}${(}${p0}${v0}, ${p1}${v1}${)}:
 ${docstring}${body}
 "
 	
@@ -214,17 +206,15 @@ ${docstring}${body}
 
       operation 129026 "_displayAccelerationWarning"
 	protected explicit_return_type ""
-	nparams 3
+	nparams 2
 	  param inout name "self" type class_ref 128002 // MatrixDriver
-	multiplicity "1"
-	  param in name "senseHAT" explicit_type "SenseHat"
 	multiplicity "1"
 	  param in name "acceleration" explicit_type "float"
 	multiplicity "1"
 	
 	
 	
-	python_def "${@}${static}${abstract}def ${name}${(}${p0}${v0}, ${p1}${v1}, ${p2}${v2}${)}:
+	python_def "${@}${static}${abstract}def ${name}${(}${p0}${v0}, ${p1}${v1}${)}:
 ${docstring}${body}
 "
 	
@@ -341,6 +331,20 @@ ${docstring}${body}
 	    python "${type}"
 	    classrelation_ref 136706 // <dependency>
 	  b parent class_ref 156034 // threading
+      end
+
+      operation 181634 "_flushQueue"
+	protected explicit_return_type "dict"
+	nparams 1
+	  param inout name "self" type class_ref 128002 // MatrixDriver
+	multiplicity "1"
+	
+	
+	
+	python_def "${@}${static}${abstract}def ${name}${(}${p0}${v0}${)}:
+${docstring}${body}
+"
+	
       end
     end
 
@@ -491,20 +495,6 @@ ${docstring}${body}
 	MysqlColumn
       end
 
-      operation 130562 "_flushQueue"
-	protected explicit_return_type ""
-	nparams 1
-	  param inout name "self" type class_ref 128130 // Controller
-	multiplicity "1"
-	
-	
-	
-	python_def "${@}${static}${abstract}def ${name}${(}${p0}${v0}${)}:
-${docstring}${body}
-"
-	
-      end
-
       attribute 129165 "dbAgent"
 	public type class_ref 128514 // DBAgent
 	multiplicity "1"
@@ -532,7 +522,7 @@ ${docstring}${body}
       end
 
       attribute 129421 "isRunning"
-	private explicit_type "bool"
+	public explicit_type "bool"
 	multiplicity "1"
 	cpp_decl ""
 	java_decl ""
@@ -569,6 +559,18 @@ ${docstring}${body}
 	    python "${type}"
 	    classrelation_ref 136322 // <dependency>
 	  b parent class_ref 156418 // queue
+      end
+
+      attribute 164738 "_matrixQueue"
+	protected explicit_type "Queue<Dictionary>"
+	cpp_decl ""
+	java_decl ""
+	php_decl ""
+	python_decl "${comment}${self}${name} = ${value}
+"
+	idl_decl ""
+	mysql_decl ""
+	MysqlColumn
       end
     end
 
@@ -990,14 +992,6 @@ ${docstring}${body}
 	  b parent class_ref 156546 // time
       end
 
-      classrelation 136578 // <dependency>
-	relation 136194 -_->
-	  stereotype "import"
-	  a public
-	    python "${type}"
-	    classrelation_ref 136578 // <dependency>
-	  b parent class_ref 156418 // queue
-      end
     end
 
     class 128514 "DBAgent"
@@ -2342,7 +2336,7 @@ ${docstring}${members}
     activitydiagramsettings
      end
     classdiagram 167938 "DMS_DependencyView_Local"
-      classdiagramsettings hide_attributes yes hide_operations yes member_max_width 0 end
+      classdiagramsettings draw_all_relations no hide_attributes yes hide_operations yes member_max_width 0 end
       size A4
     end
 
@@ -2635,7 +2629,7 @@ ${docstring}${members}
       end
     end
 
-    usecase 135554 "Collection of Data"
+    usecase 135554 "Collection of Data at 1 sec intervals"
       
       usecasediagramsettings end
       
@@ -2682,11 +2676,11 @@ ${docstring}${members}
       simplerelation 134786
 	-_->
 	  stereotype "include"
-	  on usecase_ref 135810 // Processing Data
+	  on usecase_ref 135810 // Process Data for Warning Flags
       end
     end
 
-    usecase 135810 "Processing Data"
+    usecase 135810 "Process Data for Warning Flags"
       
       usecasediagramsettings end
       
@@ -2710,7 +2704,7 @@ ${docstring}${members}
       simplerelation 134658
 	-_->
 	  stereotype "include"
-	  on usecase_ref 135554 // Collection of Data
+	  on usecase_ref 135554 // Collection of Data at 1 sec intervals
       end
     end
 
@@ -2738,7 +2732,7 @@ ${docstring}${members}
       simplerelation 134914
 	-_->
 	  stereotype "include"
-	  on usecase_ref 135810 // Processing Data
+	  on usecase_ref 135810 // Process Data for Warning Flags
       end
     end
 
@@ -2787,7 +2781,7 @@ ${docstring}${members}
       simplerelation 135042
 	-_->
 	  stereotype "include"
-	  on usecase_ref 135810 // Processing Data
+	  on usecase_ref 135810 // Process Data for Warning Flags
       end
     end
 
@@ -2838,7 +2832,7 @@ ${docstring}${members}
       simplerelation 135170
 	-_->
 	  stereotype "include"
-	  on usecase_ref 135810 // Processing Data
+	  on usecase_ref 135810 // Process Data for Warning Flags
       end
 
       simplerelation 135298
