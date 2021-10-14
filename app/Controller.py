@@ -9,7 +9,7 @@ from DBAgent import DBAgent
 class Controller(threading.Thread):
 
     LOCAL_DB_CONFIG = {
-    "fileLocation": "app/testDB.db"
+    "fileLocation": "app/localDB.db"
     }
     REMOTE_DB_CONFIG = {
         "host": "localhost",

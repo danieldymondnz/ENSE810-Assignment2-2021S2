@@ -338,10 +338,10 @@ class DBAgent(threading.Thread):
         tripId = tripToSync[0][0]
         timeStamp = tripToSync[0][1]
         registration = self._vehicleRegistration
-        tempWrn = tripToSync[0][5]
+        accWrn = tripToSync[0][5]
         huWrn = tripToSync[0][6]
         spWrn = tripToSync[0][7]
-        accWrn = tripToSync[0][8]
+        tempWrn = tripToSync[0][8]
 
         sqlQuery = "INSERT INTO `TRIPS` (`TRIP_ID`, `TRIP_TIMESTAMP`, `REGISTRATION`, `TEMP_WARN`, `HUMIDITY_WARN`, `SPEED_WARN`, `ACCEL_WARN`) VALUES (%s, '%s', '%s', %s, %s, %s, %s)" % (tripId, timeStamp, registration, tempWrn, huWrn, spWrn, accWrn)
         self._writeRemoteDB(sqlQuery)
