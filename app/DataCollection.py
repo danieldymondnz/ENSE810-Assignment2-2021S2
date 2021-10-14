@@ -6,12 +6,8 @@ dictionary
 Kyle Mendonca 2021
 '''
 
-from sense_emu import SenseHat
 import threading
 import time
-import queue
-
-#From Controller import Controller
 
 class DataCollection(threading.Thread):
     
