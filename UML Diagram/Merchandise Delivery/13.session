@@ -1,14 +1,31 @@
-window_sizes 1366 715 377 984 565 104
+window_sizes 1366 715 377 984 669 0
 
 diagrams
   active  classdiagram_ref 128002 // MonitoringSystem
-    984 565 80 A3-Landscape 142 0
+    845 658 59 A3-Landscape 0 0
+  classdiagram_ref 167810 // DatabaseConfig
+    114 86 100 A4 0 0
+  statediagram_ref 134530 // MatrixDriverStateDiagram
+    114 86 100 A3-Landscape 36 56
+  sequencediagram_ref 147970 // MonitoringSystemStartup
+    114 86 100 A4 0 0
+  sequencediagram_ref 134541 // MonitoringSystemSensorData
+    114 86 88 A3-Landscape 20 0
+  sequencediagram_ref 148098 // MonitoringSystemShutdown
+    114 86 100 A4 0 0
+  sequencediagram_ref 168066 // DMS_DBAgent_Sequence
+    114 86 100 A3 1060 0
+  classdiagram_ref 167938 // DMS_DependencyView_Local
+    984 669 100 A4 0 0
+  usecasediagram_ref 154626 // DMS_UseCaseDiagram
+    114 86 100 A3-Landscape 0 0
+  deploymentdiagram_ref 161154 // DMS_DeploymentDiagram
+    114 86 100 A4 0 0
 end
 show_stereotypes
-selected 
-package_ref 128002 // MonitoringSystem
+selected classdiagram_ref 128002 // MonitoringSystem
 open
-  classview_ref 128002 // MonitoringSystem
-  usecaseview_ref 128002 // MonitoringSystemCaseView
+  classview_ref 128002 // DMS_ClassView_Local
+  classview_ref 134786 // DMS_DependencyView
 end
 end
