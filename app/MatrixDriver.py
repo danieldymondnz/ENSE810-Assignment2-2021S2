@@ -6,9 +6,8 @@ Kyle Mendonca 2021
 '''
 import threading
 
-# import Controller
-
 class MatrixDriver(threading.Thread):
+    
     def __init__(self, senseHAT, matrixQueue):
         
         threading.Thread.__init__(self)
