@@ -4,105 +4,94 @@ classinstancecanvas 128013 classinstance_ref 134541 //
   xyz 190.8 82.9 2000 life_line_z 2000
 end
 classinstancecanvas 128130 classinstance_ref 135554 // 
-  xyz 579.4 79.9 2000 life_line_z 2000
+  xyz 579.4 80.3 2000 life_line_z 2000
 end
 classinstancecanvas 128141 classinstance_ref 134669 // 
-  xyz 315.4 78.7 2000 life_line_z 2000
+  xyz 315.6 78.9 2000 life_line_z 2000
 end
 classinstancecanvas 128269 classinstance_ref 134797 // 
-  xyz 41.8 79.3 2000 life_line_z 2000
+  xyz 41.2 78.5 2000 life_line_z 2000
 end
 classinstancecanvas 128397 classinstance_ref 134925 // 
-  xyz 719.3 79.8 2000 life_line_z 2000
+  xyz 718.7 80.2 2000 life_line_z 2000
 end
 textcanvas 130946 "isOnline"
-  xyzwh 678.2 583 2000 108 22
+  xyzwh 578 606.2 2000 216 16
 textcanvas 131202 "!isOnline
 "
-  xyzwh 676.6 640.4 2035 67 22
+  xyzwh 577.6 663 2035 175 16
 fragment 133506 "alt"
-  form "isOnline" xyzwh 644.4 578.6 2005 269 108
+  form "isOnline" xyzwh 543.6 602.4 2005 379 94
   separator 5000
 end
 fragment 133634 "alt"
-  xyzwh 644 522 2000 269 47
+  xyzwh 542.8 548.4 2000 379 48
 end
 textcanvas 133762 "_remote
 Connection
 Changed"
-  xyzwh 675 525 2005 60 43
+  xyzwh 572.4 551.8 2005 60 43
 fragment 134157 "sd Iteration"
   refer sequencediagram_ref 134541 // MonitoringSystemSensorData
-  xyzwh 30.2 29.6 1995 896 672
+  xyzwh 24 33 1995 919 688
 end
 fragment 134285 "sd Iteration"
-  xyzwh 47.8 117.2 2005 133 93
+  xyzwh 47.4 117.8 2005 133 93
 end
+fragment 135298 "alt"
+  xyzwh 542.4 493.8 2010 219 49
+end
+textcanvas 135426 "[size > 0]"
+  xyzwh 570.4 500.4 2015 44 14
+note 135554 "DBAgent details in DMS_DBAget_Sequence Diagram"
+  xyzwh 363.8 558.2 2000 149 61
 durationcanvas 128258 classinstance_ref 128397 // :DBAgent
-  xyzwh 742 432 2010 11 252
+  xyzwh 741 431 2000 11 260
   overlappingdurationcanvas 129538
-    xyzwh 748 529.6 2020 11 25
+    xyzwh 747 561.2 2020 11 25
   end
   overlappingdurationcanvas 132482
-    xyzwh 748 592.2 2020 11 25
+    xyzwh 747 611.4 2020 11 31
   end
   overlappingdurationcanvas 133250
-    xyzwh 748 642.2 2020 11 25
-  end
-end
-durationcanvas 128386 classinstance_ref 128130 // :DatabaseQueue
-  xyzwh 620 415 2010 11 105
-  overlappingdurationcanvas 128898
-    xyzwh 626 485.6 2020 11 26
-  end
-  overlappingdurationcanvas 131842
-    xyzwh 626 430.8 2020 11 27
+    xyzwh 747 660.8 2020 11 25
   end
 end
 durationcanvas 131981 classinstance_ref 128013 // :Controller
-  xyzwh 215 244 2010 11 228
+  xyzwh 215 243.4 2010 11 228
 end
 durationcanvas 132109 classinstance_ref 128269 // :DataCollection
   xyzwh 77 141 2010 11 180
   overlappingdurationcanvas 132365
-    xyzwh 83 149 2020 11 25
+    xyzwh 83 149.4 2020 11 25
   end
   overlappingdurationcanvas 132621
-    xyzwh 83 176 2020 11 25
+    xyzwh 83 176.2 2020 11 25
   end
 end
 durationcanvas 133005 classinstance_ref 128141 // :MatrixDriver
-  xyzwh 346 359 2010 11 68
+  xyzwh 347 358.4 2010 11 68
   overlappingdurationcanvas 133261
-    xyzwh 352 365 2020 11 25
+    xyzwh 353 365.8 2020 11 25
   end
   overlappingdurationcanvas 133517
-    xyzwh 352 388 2020 11 25
+    xyzwh 353 388 2020 11 25
   end
 end
-msg 128514 synchronous
-  from durationcanvas_ref 128258
-  to durationcanvas_ref 128386
-  yz 455 2015 explicitmsg "size()"
-  show_full_operations_definition default show_class_of_operation default drawing_language default show_context_mode default
-  label_xy 673 443
-msg 129026 synchronous
-  from durationcanvas_ref 128258
-  to durationcanvas_ref 128898
-  yz 486 2025 explicitmsg "get()"
-  show_full_operations_definition default show_class_of_operation default drawing_language default show_context_mode default
-  label_xy 678 472
+durationcanvas 134274 classinstance_ref 128130 // :DatabaseQueue
+  xyzwh 620 431.2 2010 11 25
+end
+durationcanvas 134530 classinstance_ref 128130 // :DatabaseQueue
+  xyzwh 620 463.4 2000 11 27
+end
+durationcanvas 134914 classinstance_ref 128130 // :DatabaseQueue
+  xyzwh 620 505 2000 11 32
+end
 reflexivemsg 129666 synchronous
   to durationcanvas_ref 129538
-  yz 529 2025 msg operation_ref 167298 // "_actionConnectionChange(inout self : DBAgent [1])"
+  yz 561 2025 msg operation_ref 167298 // "_actionConnectionChange(inout self : DBAgent [1])"
   show_full_operations_definition default show_class_of_operation default drawing_language default show_context_mode default
-  label_xy 779 528
-msg 131970 synchronous
-  from durationcanvas_ref 131981
-  to durationcanvas_ref 131842
-  yz 430 2025 explicitmsg "put()"
-  show_full_operations_definition default show_class_of_operation default drawing_language default show_context_mode default
-  label_xy 278 419
+  label_xy 779 560
 msg 132237 synchronous
   from durationcanvas_ref 131981
   to durationcanvas_ref 132109
@@ -116,9 +105,9 @@ reflexivemsg 132493 synchronous
   label_xy 89 135
 reflexivemsg 132610 synchronous
   to durationcanvas_ref 132482
-  yz 592 2025 msg operation_ref 160258 // "_bufferTripData(inout self : DBAgent [1])"
+  yz 611 2025 msg operation_ref 160258 // "_bufferTripData(inout self : DBAgent [1])"
   show_full_operations_definition default show_class_of_operation default drawing_language default show_context_mode default
-  label_xy 787 588
+  label_xy 787 610
 reflexivemsg 132749 synchronous
   to durationcanvas_ref 132621
   yz 176 2025 explicitmsg "genFlags()"
@@ -138,9 +127,9 @@ msg 133133 synchronous
   label_xy 248 348
 reflexivemsg 133378 synchronous
   to durationcanvas_ref 133250
-  yz 642 2025 msg operation_ref 158722 // "_writeDictToLocalDB(inout self : DBAgent [1], in dictToWrite : dict [1])"
+  yz 660 2025 msg operation_ref 158722 // "_writeDictToLocalDB(inout self : DBAgent [1], in dictToWrite : dict [1])"
   show_full_operations_definition default show_class_of_operation default drawing_language default show_context_mode default
-  label_xy 787 641
+  label_xy 787 659
 reflexivemsg 133389 synchronous
   to durationcanvas_ref 133261
   yz 365 2025 explicitmsg "updateGraph()"
@@ -156,4 +145,34 @@ msg 133773 return
   to durationcanvas_ref 131981
   yz 408 2025 unspecifiedmsg
   show_full_operations_definition default show_class_of_operation default drawing_language default show_context_mode default
+msg 134402 synchronous
+  from durationcanvas_ref 131981
+  to durationcanvas_ref 134274
+  yz 431 2015 explicitmsg "put()"
+  show_full_operations_definition default show_class_of_operation default drawing_language default show_context_mode default
+  label_xy 588 418
+msg 134658 synchronous
+  from durationcanvas_ref 128258
+  to durationcanvas_ref 134530
+  yz 463 2015 explicitmsg "size()"
+  show_full_operations_definition default show_class_of_operation default drawing_language default show_context_mode default
+  label_xy 639 454
+msg 134786 return
+  from durationcanvas_ref 134530
+  to durationcanvas_ref 128258
+  yz 479 3005 explicitmsg "size:int"
+  show_full_operations_definition default show_class_of_operation default drawing_language default show_context_mode default
+  label_xy 636 472
+msg 135042 synchronous
+  from durationcanvas_ref 128258
+  to durationcanvas_ref 134914
+  yz 505 2015 explicitmsg "get_nowait()"
+  show_full_operations_definition default show_class_of_operation default drawing_language default show_context_mode default
+  label_xy 636 495
+msg 135170 return
+  from durationcanvas_ref 134914
+  to durationcanvas_ref 128258
+  yz 523 2020 explicitmsg "dictToWrite:dict"
+  show_full_operations_definition default show_class_of_operation default drawing_language default show_context_mode default
+  label_xy 634 514
 end
