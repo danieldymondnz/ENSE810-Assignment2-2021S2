@@ -1,6 +1,6 @@
 format 224
 "MonitoringSystem" // MonitoringSystem
-  revision 17
+  revision 18
   modified_by 2 "danie"
   // class settings
   
@@ -1843,7 +1843,6 @@ ${docstring}${members}
       relations
         end
     end
-
   end
 
   classview 134530 "DMS_ClassView_Remote"
@@ -2594,6 +2593,12 @@ ${docstring}${members}
 	  stereotype "include"
 	  on usecase_ref 136706 // Read Trip Table from Database
       end
+
+      simplerelation 142722
+	-_->
+	  stereotype "include"
+	  on usecase_ref 136450 // User Authentication
+      end
     end
 
     usecase 135298 "View Logged Data"
@@ -2621,6 +2626,12 @@ ${docstring}${members}
 	-_->
 	  stereotype "include"
 	  on usecase_ref 136834 // Read Trip_Data Table from Database
+      end
+
+      simplerelation 142594
+	-_->
+	  stereotype "include"
+	  on usecase_ref 136450 // User Authentication
       end
     end
 
