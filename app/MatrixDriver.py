@@ -10,12 +10,13 @@ import threading
 # import Controller
 
 class MatrixDriver(threading.Thread):
-    def __init__(self, senseHAT):
+    def __init__(self, senseHAT, matrixQueue):
         
         threading.Thread.__init__(self)
         
-        self._senseHAT = SenseHat()
+        self._senseHAT = senseHAT
         self._currentData = None
+        self._matrixQueue = matrixQueue
         
         # define colour RGB values
         self.Red = (255,0,0)
@@ -26,11 +27,11 @@ class MatrixDriver(threading.Thread):
         self.White = (255,255,255)
 
         # define Display setups
-        self.noWarning = [self.Green, self.Green, self.Green, self.Green, self.Green, self.Green, self.Green, self.Green,
+        self.noWarning = [self.Black, self.Black, self.Black, self.Black, self.Black, self.Black, self.Black, self.Black,
                     self.Blue, self.Blue, self.Green, self.Green, self.Green, self.Red, self.Red, self.Red,
                     self.Blue, self.Blue, self.Green, self.Green, self.Green, self.Red, self.Red, self.Red,
                     self.Blue, self.Blue, self.Green, self.Green, self.Green, self.Red, self.Red, self.Red,
-                    self.Green, self.Green, self.Green, self.Green, self.Green, self.Green, self.Green, self.Green,
+                    self.Black, self.Black, self.Black, self.Black, self.Black, self.Black, self.Black, self.Black,
                     self.Blue, self.Blue, self.Green, self.Green, self.Green, self.Green, self.Orange, self.Orange,
                     self.Blue, self.Blue, self.Green, self.Green, self.Green, self.Green, self.Orange, self.Orange,
                     self.Blue, self.Blue, self.Green, self.Green, self.Green, self.Green, self.Orange, self.Orange]
@@ -39,12 +40,12 @@ class MatrixDriver(threading.Thread):
                     self.Blue, self.Blue, self.Green, self.Red, self.Green, self.Red, self.Red, self.Red,
                     self.Blue, self.Blue, self.Green, self.Red, self.Green, self.Red, self.Red, self.Red,
                     self.Blue, self.Blue, self.Green, self.Red, self.Green, self.Red, self.Red, self.Red,
-                    self.Green, self.Green, self.Green, self.Green, self.Green, self.Green, self.Green, self.Green,
+                    self.Black, self.Black, self.Black, self.Black, self.Black, self.Black, self.Black, self.Black,
                     self.Blue, self.Blue, self.Green, self.Green, self.Green, self.Green, self.Orange, self.Orange,
                     self.Blue, self.Blue, self.Green, self.Green, self.Green, self.Green, self.Orange, self.Orange,
                     self.Blue, self.Blue, self.Green, self.Green, self.Green, self.Green, self.Orange, self.Orange]
 
-        self.humWarning = [self.Green, self.Green, self.Green, self.Green, self.Green, self.Green, self.Green, self.Green,
+        self.humWarning = [self.Black, self.Black, self.Black, self.Black, self.Black, self.Black, self.Black, self.Black,
                     self.Blue, self.Blue, self.Green, self.Green, self.Green, self.Red, self.Red, self.Red,
                     self.Blue, self.Blue, self.Green, self.Green, self.Green, self.Red, self.Red, self.Red,
                     self.Blue, self.Blue, self.Green, self.Green, self.Green, self.Red, self.Red, self.Red,
@@ -66,7 +67,22 @@ class MatrixDriver(threading.Thread):
         
     def run(self):
         while self.isRunning:
-            pass
+
+            self.__dataUseDict = self._flushQueue()
+            if self.__dataUseDict == None:
+                continue
+
+             # display data
+            self._displayGraph(self._senseHAT, self.__dataUseDict["TEMPERATURE"], self.__dataUseDict["HUMIDITY"])
+            if self.__dataUseDict["WARN_ACCELERATION"]:
+                self._displayAccelerationWarning(self._senseHAT, self.__dataUseDict["ACCELERATION"])
+            if self.__dataUseDict["WARN_HUMIDITY"]:
+                self._displayRHWarning(self._senseHAT, self.__dataUseDict["HUMIDITY"])
+            if self.__dataUseDict["WARN_SPEED"]:
+                self._displaySpeedWarning( self._senseHAT, self.__dataUseDict["SPEED"])
+            if self.__dataUseDict["WARN_TEMPERATURE"]:
+                self._displayTempWarning(self._senseHAT, self.__dataUseDict["TEMPERATURE"])
+
         
     def terminate(self):
         self.isRunning = False
@@ -96,3 +112,18 @@ class MatrixDriver(threading.Thread):
     def _displayTempWarning(self, _senseHAT, temp):
         self._senseHAT.show_message("Max Temperature Exceeded!", scroll_speed = 0.25, text_colour = self.White, back_colour = self.Red)      
         
+    def _flushQueue(self):
+        # Review the current number of items in the queue
+        queueSize = self._matrixQueue.qsize()
+
+        # If no items exist, reuturn null
+        if (queueSize == 0):
+            return None
+
+        elif (queueSize == 1):
+            return self._matrixQueue.get_nowait()
+            
+        else:
+            while(self._matrixQueue.qsize() > 1):
+                self._matrixQueue.get_nowait()
+            return self._matrixQueue.get_nowait()

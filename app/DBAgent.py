@@ -13,7 +13,7 @@ import sqlite3 as localDB
 class DBAgent(threading.Thread):
 
     # Set these flags for debugging in console
-    ENABLE_VERBOSE = True
+    ENABLE_VERBOSE = False
 
     # Constructor for this object
     def __init__(self, dataQueue, registration, localDBConfig, remoteDBConfig):
@@ -214,7 +214,6 @@ class DBAgent(threading.Thread):
     def _queryLocalTripDataRecord(self, tripID):
 
         sqlQuery = "SELECT * FROM TRIP_DATA WHERE TRIP_ID = %s AND REMOTE_SYNCED=0 ORDER BY UID ASC LIMIT 1" % tripID
-        print(sqlQuery)
         row = self._readLocalDB(sqlQuery)
 
         # Parse data and return

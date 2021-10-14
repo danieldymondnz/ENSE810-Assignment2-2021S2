@@ -6,5 +6,5 @@ controller.start()
 
 time.sleep(5)
 controller.dbAgent.setRemoteOnline()
-time.sleep(20)
+time.sleep(5)
 controller.terminate()

@@ -19,10 +19,10 @@ class DataCollection(threading.Thread):
         
         threading.Thread.__init__(self)
 
-        self.__DCDataQueue = queue.Queue()
+        self.__DCDataQueue = dataQueue
         self.__dataDict = {}
         
-        self._senseHAT = SenseHat()
+        self._senseHAT = senseHAT
         self.__accelData = [0, 0, 0]
         self.__accel = 0
         self.__humidity = 0

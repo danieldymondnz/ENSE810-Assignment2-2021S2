@@ -25,10 +25,11 @@ class Controller(threading.Thread):
         
         
         self.dataQueue = queue.Queue()
+        self.matrixQueue = queue.Queue()
         self.flushQueue = queue.Queue()
         self._senseHAT = SenseHat()
 
-        self._matrixDriver = MatrixDriver(self._senseHAT)
+        self._matrixDriver = MatrixDriver(self._senseHAT, self.matrixQueue)
         self._dataCollection = DataCollection(self._senseHAT, self.dataQueue)
         
         # Setup the Database Agent
@@ -49,31 +50,14 @@ class Controller(threading.Thread):
         while self.isRunning:
             # collect data
             if self.dataQueue.qsize() > 0:
+                print("Pulled Data")
                 self.__dataUseDict = self.dataQueue.get_nowait()
-            
-                # display data
-                self._matrixDriver._displayGraph(self._senseHAT, self.dataUseDict["TEMPERATURE"], self.dataUseDict["HUMIDITY"])
-                if self.dataUseDict["WARN_ACCELERATION"]:
-                    self._matrixDriver._displayAccelerationWarning(self, self._senseHAT, self.dataUseDict["ACCELERATION"])
-                if self.dataUseDict["WARN_HUMIDITY"]:
-                    self._matrixDriver._displayRHWarning(self, self._senseHAT, self.dataUseDict["HUMIDITY"])
-                if self.dataUseDict["WARN_SPEED"]:
-                    self._matrixDriver._displaySpeedWarning(self, self._senseHAT, self.dataUseDict["SPEED"])
-                if self.dataUseDriver["WARN_TEMPERATURE"]:
-                    self._matrixDriver._displayTempWarning(self, self._senseHAT, self.dataUseDict["TEMPERATURE"])
 
-
-            self._senseHAT.set_pixels([self.Green, self.Green, self.Green, self.Green, self.Green, self.Green, self.Green, self.Green,
-                    self.Blue, self.Blue, self.Green, self.Green, self.Green, self.Red, self.Red, self.Red,
-                    self.Blue, self.Blue, self.Green, self.Green, self.Green, self.Red, self.Red, self.Red,
-                    self.Blue, self.Blue, self.Green, self.Green, self.Green, self.Red, self.Red, self.Red,
-                    self.Green, self.Green, self.Green, self.Green, self.Green, self.Green, self.Green, self.Green,
-                    self.Blue, self.Blue, self.Green, self.Green, self.Green, self.Green, self.Orange, self.Orange,
-                    self.Blue, self.Blue, self.Green, self.Green, self.Green, self.Green, self.Orange, self.Orange,
-                    self.Blue, self.Blue, self.Green, self.Green, self.Green, self.Green, self.Orange, self.Orange])
-
-            # transfer data to DBAgent
-            if not(self.__dataUseDict == None):
+                # transfer data to MatrixDriver
+                self.matrixQueue.put(self.__dataUseDict)
+               
+                #transfer data to DBAgent
+                print("DB Agent Push")
                 self.dbDataQueue.put(self.__dataUseDict)
 
         # When Thread is being disposed, terminate other Threads
