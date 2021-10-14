@@ -23,10 +23,8 @@ class Controller(threading.Thread):
         
         threading.Thread.__init__(self)
         
-        
         self.dataQueue = queue.Queue()
         self.matrixQueue = queue.Queue()
-        self.flushQueue = queue.Queue()
         self._senseHAT = SenseHat()
 
         self._matrixDriver = MatrixDriver(self._senseHAT, self.matrixQueue)
@@ -68,5 +66,3 @@ class Controller(threading.Thread):
     def terminate(self):
         self.isRunning = False
         
-    def _flushQueue(self):
-        pass
