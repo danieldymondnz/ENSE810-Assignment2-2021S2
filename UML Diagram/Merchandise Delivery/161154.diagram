@@ -1,37 +1,37 @@
 format 224
 
 deploymentnodecanvas 128002 deploymentnode_ref 128002 // Embedded System
-  xyzwh 38 89 0 146 262
+  xyzwh 38 88.8 0 146 262
 end
 deploymentnodecanvas 128642 deploymentnode_ref 128130 // RemoteServer
-  xyzwh 386 156 0 145 103
+  xyzwh 386.6 156.4 0 145 103
 end
 textcanvas 128770 "MySQL Database
 Apache Web Server
 Local Network Access
 "
-  xyzwh 389 270 2000 110 56
+  xyzwh 388.6 270.4 2000 110 56
 textcanvas 129282 "Sense Hat
 SQLite Database"
-  xyzwh 44 364 2000 81 28
+  xyzwh 44.8 364.4 2000 96 31
 artifactcanvas 129410 artifact_ref 135042 // DatabaseConfig
-  xyz 397 196 2000
+  xyz 397 196.2 2000
 end
 textcanvas 129666 "1..n"
-  xyzwh 195 213 2000 22 18
+  xyzwh 195 213.2 2000 22 18
 textcanvas 129794 "1"
-  xyzwh 367 217 2000 16 20
+  xyzwh 366.8 217.2 2000 16 20
 artifactcanvas 129922 artifact_ref 128386 // Controller
-  xyz 48 131 2000
+  xyz 48.2 131.2 2000
 end
 artifactcanvas 130050 artifact_ref 128258 // DataCollection
-  xyz 48 183 2006
+  xyz 48.2 183.6 2006
 end
 artifactcanvas 130178 artifact_ref 128514 // MatrixDriver
-  xyz 47 234 2000
+  xyz 47 234.8 2000
 end
 artifactcanvas 130306 artifact_ref 128002 // DBAgent
-  xyz 48 285 2000
+  xyz 48.2 285 2000
 end
 line 128898 ---- decenter_begin 451
   from ref 128002 z 2001 label "internal network over wireless" max_width 255 xyz 211 184 2001 to ref 128642
