@@ -1,6 +1,9 @@
 from Controller import Controller
 import time
 
+# Starts Application, Runs for 10 Secs in Offline Mode, 
+# then 20s in Online Mode. Created to demonstrate functionality.
+
 # Create controller and start processing data
 controller = Controller()
 controller.start()
