@@ -35,7 +35,7 @@ fragment 134157 "sd Iteration"
   refer sequencediagram_ref 134541 // MonitoringSystemSensorData
   xyzwh 24 33 1995 919 688
 end
-fragment 134285 "sd Iteration"
+fragment 134285 "sd Loop"
   xyzwh 47.4 117.8 2005 133 93
 end
 fragment 135298 "alt"

@@ -1,14 +1,15 @@
 window_sizes 1366 715 377 984 565 104
 
 diagrams
-  active  classdiagram_ref 128002 // MonitoringSystem
+  classdiagram_ref 128002 // MonitoringSystem
     984 565 80 A3-Landscape 142 0
+  active  sequencediagram_ref 134541 // MonitoringSystemSensorData
+    984 565 100 A3-Landscape 0 0
 end
 show_stereotypes
-selected 
-package_ref 128002 // MonitoringSystem
+selected sequencediagram_ref 134541 // MonitoringSystemSensorData
 open
-  classview_ref 128002 // MonitoringSystem
-  usecaseview_ref 128002 // MonitoringSystemCaseView
+  classview_ref 128002 // DMS_ClassView_Local
+  classview_ref 134658 // DMS_SequenceView
 end
 end
